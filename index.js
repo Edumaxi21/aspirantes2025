@@ -1,10 +1,9 @@
 // carga de drive
 document.addEventListener("DOMContentLoaded", () => {
     const content = document.querySelector(".bg-gray-800");
-    if (content) { // Verificar si el elemento existe
+    if (content) {
         content.style.opacity = "0";
         content.style.transform = "translateY(20px)";
-
         setTimeout(() => {
             content.style.transition = "opacity 0.7s ease-out, transform 0.7s ease-out";
             content.style.opacity = "1";
@@ -13,17 +12,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Función para barajar un array (Fisher-Yates shuffle)
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]]; // Intercambio de elementos
+            [array[i], array[j]] = [array[j], array[i]];
         }
     }
 
-    // Definición de los módulos de estudio
     const modules = [
         { id: 1, name: "Clase 1 (Marco Histórico)", infoElementId: "info-clase-1" },
         { id: 2, name: "Clase 2 (Organización Bomberil)", infoElementId: "info-clase-2" },
@@ -37,130 +33,68 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 11, name: "Clase 11 (Psicología de la Emergencia)", infoElementId: "info-clase-11" }
     ];
 
-    // Banco de todas las preguntas (con preguntas previamente modificadas)
     const allQuestions = [
         // Clase 1: Marco Histórico
-        { classId: 1, question: "¿Cuál es el año fundacional que marca el inicio de la trayectoria de los Cuerpos de Bomberos Voluntarios en Argentina?", answer: "1884", type: "input", tip:"Referido al establecimiento formal." },
-        { classId: 1, question: "Identifique al principal promotor y figura clave en la creación del primer Cuerpo de Bomberos Voluntarios de Argentina.", answer: "Tomás Liberti", type: "input" },
-        { classId: 1, question: "Precise la fecha exacta que conmemora la constitución del primer Cuerpo de Bomberos Voluntarios en territorio argentino.", answer: "2 de junio de 1884", type: "input", tip:"Día, mes y año." },
-        { classId: 1, question: "¿Bajo qué denominación original en idioma italiano se estableció el primer Cuerpo de Bomberos Voluntarios en el barrio de La Boca?", answer: "Societa di Pompieri Italiani Volontari di La Boca", type: "input" },
-        { classId: 1, question: "Describa el suceso crítico ocurrido en diciembre de 1883 que actuó como catalizador para la organización bomberil en La Boca.", answer: "Un incendio", type: "input", tip:"Tipo de evento." },
-        { classId: 1, question: "¿En qué fecha se concretó la fundación de la Asociación de Bomberos Voluntarios de Malvinas Argentinas?", answer: "3 de marzo de 1984", type: "input" },
-        { classId: 1, question: "Mencione la nominación oficial del Cuartel Central perteneciente a los Bomberos Voluntarios de Malvinas Argentinas.", answer: "Juan Espina", type: "input" },
-        { classId: 1, question: "Indique la dirección postal del Cuartel Central de BV Malvinas Argentinas.", answer: "Dr Baroni 2684", type: "input" },
-        { classId: 1, question: "¿Cuál es el número telefónico de emergencias del Cuartel Central de BV Malvinas Argentinas?", answer: "46602222", type: "input" },
-        { classId: 1, question: "¿Quién ejerció como Primer Presidente del Honorable Consejo Directivo de BV Malvinas Argentinas?", answer: "Mendez Bernardo", type: "input" },
-        { classId: 1, question: "¿Quién fue designado como Primer Jefe del Cuerpo Activo de BV Malvinas Argentinas?", answer: "Garcia Jose", type: "input" },
-        { classId: 1, question: "Según la documentación de la Clase 1, ¿qué Oficial ostenta actualmente la Jefatura del Cuerpo Activo de BV Malvinas Argentinas?", answer: "Oficial Herrera Andrés", type: "input", tip:"Grado y apellido." },
-        { classId: 1, question: "¿En qué fecha se produjo la inauguración formal del Destacamento N° 1, situado en Grand Bourg?", answer: "23 de Febrero de 1993", type: "input" },
-        { classId: 1, question: "Especifique el nombre con el cual se identifica al Destacamento N° 1 de Grand Bourg.", answer: "Dionicio García", type: "input" },
-        { classId: 1, question: "Proporcione la dirección exacta donde se localiza el Destacamento N° 1 de Grand Bourg.", answer: "Paso de los Andes 951", type: "input" },
-        { classId: 1, question: "Señale el número telefónico asignado al Destacamento N° 1 de Grand Bourg.", answer: "02320481777", type: "input" },
-        { classId: 1, question: "Conforme al material de la Clase 1, ¿qué Oficial se encuentra actualmente a cargo del Destacamento N° 1?", answer: "Oficial Paz", type: "input", tip:"Grado y apellido." },
+        { classId: 1, question: "¿Cuál es el año fundacional que marca el inicio de la trayectoria de los Cuerpos de Bomberos Voluntarios en Argentina?", answer: { keywords: ["1884"], match: "all" }, displayAnswer: "1884", type: "input", tip:"Referido al establecimiento formal." },
+        { classId: 1, question: "Identifique al principal promotor y figura clave en la creación del primer Cuerpo de Bomberos Voluntarios de Argentina.", answer: { keywords: ["tomas", "liberti"], match: "all" }, displayAnswer: "Tomás Liberti", type: "input" },
+        { classId: 1, question: "Precise la fecha exacta que conmemora la constitución del primer Cuerpo de Bomberos Voluntarios en territorio argentino.", answer: { keywords: ["2", "junio", "1884"], match: "all" }, displayAnswer: "2 de junio de 1884", type: "input", tip:"Día, mes y año." },
+        { classId: 1, question: "¿Bajo qué denominación original en idioma italiano se estableció el primer Cuerpo de Bomberos Voluntarios en el barrio de La Boca?", answer: "Societa di Pompieri Italiani Volontari di La Boca", displayAnswer: "Societa di Pompieri Italiani Volontari di La Boca", type: "input" },
+        { classId: 1, question: "Describa el suceso crítico ocurrido en diciembre de 1883 que actuó como catalizador para la organización bomberil en La Boca.", answer: { keywords: ["incendio"], match: "all" }, displayAnswer: "Un incendio", type: "input", tip:"Tipo de evento." },
+        { classId: 1, question: "¿En qué fecha se concretó la fundación de la Asociación de Bomberos Voluntarios de Malvinas Argentinas?", answer: { keywords: ["3", "marzo", "1984"], match: "all" }, displayAnswer: "3 de marzo de 1984", type: "input" },
+        { classId: 1, question: "Mencione la nominación oficial del Cuartel Central perteneciente a los Bomberos Voluntarios de Malvinas Argentinas.", answer: { keywords: ["juan", "espina"], match: "all" }, displayAnswer: "Juan Espina", type: "input" },
+        { classId: 1, question: "Indique la dirección postal del Cuartel Central de BV Malvinas Argentinas.", answer: "Dr Baroni 2684", displayAnswer: "Dr Baroni 2684", type: "input" },
+        { classId: 1, question: "¿Cuál es el número telefónico de emergencias del Cuartel Central de BV Malvinas Argentinas?", answer: "46602222", displayAnswer: "4660-2222", type: "input" },
+        { classId: 1, question: "¿Quién ejerció como Primer Presidente del Honorable Consejo Directivo de BV Malvinas Argentinas?", answer: { keywords: ["mendez", "bernardo"], match: "all" }, displayAnswer: "Mendez Bernardo", type: "input" },
+        { classId: 1, question: "¿Quién fue designado como Primer Jefe del Cuerpo Activo de BV Malvinas Argentinas?", answer: { keywords: ["garcia", "jose"], match: "all" }, displayAnswer: "Garcia Jose", type: "input" },
+        { classId: 1, question: "Según la documentación de la Clase 1, ¿qué Oficial ostenta actualmente la Jefatura del Cuerpo Activo de BV Malvinas Argentinas?", answer: { keywords: ["herrera", "andres"], match: "all" }, displayAnswer: "Oficial Herrera Andrés", type: "input", tip:"Grado y apellido." }, // "oficial" es stopword
 
         // Clase 2: Organización Bomberil
-        { classId: 2, question: "¿Cuál es la denominación formal y completa de la institución de Bomberos Voluntarios del partido de Malvinas Argentinas?", answer: "Asociación de Bomberos Voluntarios de Malvinas Argentinas", type: "input" },
-        { classId: 2, question: "Defina la naturaleza jurídica de la Asociación de Bomberos Voluntarios.", answer: "Asociación civil sin fines de lucro y de bien público", type: "input", tip:"Características legales y sociales." },
-        { classId: 2, question: "Indique el número de Identificación Numérica de Organismos de BV (INOBV) correspondiente a BV Malvinas Argentinas.", answer: "166", type: "input" },
-        { classId: 2, question: "Enumere las dos categorías principales en las que se clasifican los socios de la institución.", answer: "Activos y Protectores", type: "input" },
-        { classId: 2, question: "Según el estatuto social, ¿cuál es el órgano que representa la máxima autoridad en una asociación de bomberos?", answer: "La asamblea de los socios", type: "input" },
-        { classId: 2, question: "Identifique las dos estructuras de autoridad fundamentales dentro de la Asociación Civil de bomberos.", answer: "El Consejo Directivo y el Cuerpo Activo", type: "input" },
-        { classId: 2, question: "¿Qué órgano institucional posee la facultad de designar al Jefe de Cuerpo?", answer: "El Consejo Directivo", type: "input" },
-        { classId: 2, question: "Describa la configuración estructural que caracteriza la organización jerárquica del Cuerpo Activo.", answer: "Piramidal", type: "input", tip:"Forma de la jerarquía." },
-        { classId: 2, question: "¿Quién ostenta la máxima jerarquía y responsabilidad de mando dentro del Cuerpo Activo?", answer: "Jefe de Cuerpo", type: "input" },
-        { classId: 2, question: "Explique cómo se segmentan las actividades generales de un Cuerpo de Bomberos para su funcionamiento.", answer: "Orden Interno y Servicios", type: "input", tip:"Dos grandes áreas de operación." },
-        { classId: 2, question: "Mencione las cuatro secciones ejecutivas primordiales que operan bajo la supervisión directa del Segundo Jefe de Cuerpo.", answer: "Ayudantía, Materiales y Equipos, Automotores, Capacitación", type: "input" },
-        { classId: 2, question: "¿Cuál es el grado de mayor escalafón entre los Oficiales Superiores?", answer: "Comandante General", type: "input" },
-        { classId: 2, question: "¿Cuál es el grado inicial o de menor rango en la categoría de Suboficiales Subalternos?", answer: "Cabo", type: "input" },
-        { classId: 2, question: "Enumere tres factores actitudinales y de compromiso que constituyen obligaciones fundamentales para los Bomberos de tropa.", answer: "Amor al servicio, capacitación permanente y obediencia", type: "input" },
-        { classId: 2, question: "¿Qué legislación provincial (número y denominación si es posible) establece el marco regulatorio para las asociaciones de Bomberos Voluntarios en la Provincia de Buenos Aires?", answer: "Ley 10917", type: "input" },
-        { classId: 2, question: "¿Qué documento fundamental detalla las normativas y estructura organizativa de una asociación civil de bomberos?", answer: "El Estatuto", type: "input" },
-        { classId: 2, question: "Dentro de la Ayudantía, ¿qué departamento específico se encarga de la administración y custodia de los Legajos Personales?", answer: "Departamento de Personal", type: "input" },
-        { classId: 2, question: "¿Qué sección es responsable del mantenimiento y operatividad de las Autobombas y vehículos especializados de rescate?", answer: "Sección Automotores", type: "input" },
-        { classId: 2, question: "Defina el concepto de 'Orden Interno' en el contexto de las operaciones de un cuartel de bomberos.", answer: "Actividades de la puerta para adentro", type: "input", tip:"Ámbito de las tareas." },
-        { classId: 2, question: "¿Quién es la única figura con autoridad para imponer sanciones disciplinarias por faltas cometidas dentro del Cuerpo Activo?", answer: "El Jefe de Cuerpo", type: "input" },
+        // ***** ESTA ES LA PREGUNTA DE TU IMAGEN, AHORA CON KEYWORDS *****
+        {
+            classId: 2,
+            question: "¿Cuál es la denominación formal y completa de la institución de Bomberos Voluntarios del partido de Malvinas Argentinas?",
+            answer: {
+                keywords: ["asociacion", "bomberos", "voluntarios", "malvinas", "argentinas"], // Keywords normalizadas
+                match: "all"
+            },
+            displayAnswer: "Asociación de Bomberos Voluntarios de Malvinas Argentinas", // Respuesta bonita
+            type: "input"
+        },
+        { classId: 2, question: "Defina la naturaleza jurídica de la Asociación de Bomberos Voluntarios.", answer: { keywords: ["asociacion", "civil", "fines", "lucro", "bien", "publico"], match: "all" }, displayAnswer: "Asociación civil sin fines de lucro y de bien público", type: "input", tip:"Características legales y sociales." },
+        { classId: 2, question: "Indique el número de Identificación Numérica de Organismos de BV (INOBV) correspondiente a BV Malvinas Argentinas.", answer: { keywords: ["166"], match: "all" }, displayAnswer: "166", type: "input" },
+        { classId: 2, question: "Enumere las dos categorías principales en las que se clasifican los socios de la institución.", answer: { keywords: ["activos", "protectores"], match: "all" }, displayAnswer: "Activos y Protectores", type: "input" },
+        { classId: 2, question: "Según el estatuto social, ¿cuál es el órgano que representa la máxima autoridad en una asociación de bomberos?", answer: { keywords: ["asamblea", "socios"], match: "all" }, displayAnswer: "La asamblea de los socios", type: "input" },
+        { classId: 2, question: "Identifique las dos estructuras de autoridad fundamentales dentro de la Asociación Civil de bomberos.", answer: { keywords: ["consejo", "directivo", "cuerpo", "activo"], match: "all" }, displayAnswer: "El Consejo Directivo y el Cuerpo Activo", type: "input" },
+        { classId: 2, question: "¿Qué órgano institucional posee la facultad de designar al Jefe de Cuerpo?", answer: { keywords: ["consejo", "directivo"], match: "all" }, displayAnswer: "El Consejo Directivo", type: "input" },
+        { classId: 2, question: "Describa la configuración estructural que caracteriza la organización jerárquica del Cuerpo Activo.", answer: { keywords: ["piramidal"], match: "all" }, displayAnswer: "Piramidal", type: "input", tip:"Forma de la jerarquía." },
+        { classId: 2, question: "¿Quién ostenta la máxima jerarquía y responsabilidad de mando dentro del Cuerpo Activo?", answer: { keywords: ["jefe", "cuerpo"], match: "all"}, displayAnswer: "Jefe de Cuerpo", type: "input"},
+        { classId: 2, question: "Explique cómo se segmentan las actividades generales de un Cuerpo de Bomberos para su funcionamiento.", answer: { keywords: ["orden", "interno", "servicios"], match: "all"}, displayAnswer: "Orden Interno y Servicios", type: "input", tip:"Dos grandes áreas de operación." },
+        { classId: 2, question: "Mencione las cuatro secciones ejecutivas primordiales que operan bajo la supervisión directa del Segundo Jefe de Cuerpo.", answer: { keywords: ["ayudantia", "materiales", "equipos", "automotores", "capacitacion"], match: "all"}, displayAnswer: "Ayudantía, Materiales y Equipos, Automotores, Capacitación", type: "input" },
+        { classId: 2, question: "¿Cuál es el grado de mayor escalafón entre los Oficiales Superiores?", answer: { keywords: ["comandante", "general"], match: "all"}, displayAnswer: "Comandante General", type: "input" },
+        { classId: 2, question: "¿Cuál es el grado inicial o de menor rango en la categoría de Suboficiales Subalternos?", answer: { keywords: ["cabo"], match: "all"}, displayAnswer: "Cabo", type: "input" },
+        { classId: 2, question: "Enumere tres factores actitudinales y de compromiso que constituyen obligaciones fundamentales para los Bomberos de tropa.", answer: { keywords: ["amor", "servicio", "capacitacion", "permanente", "obediencia"], match: "all"}, displayAnswer: "Amor al servicio, capacitación permanente y obediencia", type: "input" },
+        { classId: 2, question: "¿Qué legislación provincial (número y denominación si es posible) establece el marco regulatorio para las asociaciones de Bomberos Voluntarios en la Provincia de Buenos Aires?", answer: { keywords: ["ley", "10917"], match: "all"}, displayAnswer: "Ley 10.917", type: "input" },
 
         // Clase 3: Leyes y Decretos
-        { classId: 3, question: "¿Qué número identifica a la Ley Nacional que establece el marco de organización y la misión de los bomberos voluntarios en la República Argentina?", answer: "25054", tip:"Ley 25.054", type: "input" },
-        { classId: 3, question: "Indique el año en que fue promulgada la Ley Nacional 25.054.", answer: "1998", type: "input" },
-        { classId: 3, question: "Mencione un propósito fundamental de la Ley Nacional 25.054, además del reconocimiento como servicio público.", answer: "Establecer un subsidio nacional", tip: "Puede ser también brindar apoyo económico para equipamiento o capacitación.", type: "input" },
-        { classId: 3, question: "Conforme a la Ley 25.054, ¿qué tipo de consideración especial se otorga a los bomberos voluntarios en los planes de vivienda implementados por el Estado?", answer: "Puntaje especial", type: "input" },
-        { classId: 3, question: "Bajo la Ley 25.054, ¿cuál es el estatus de los bomberos voluntarios en relación con sus empleadores cuando son convocados a emergencias?", answer: "Movilizados y carga pública para empleadores", tip:"Considerados movilizados o una carga pública.", type: "input" },
-        { classId: 3, question: "Detalle una exención impositiva significativa de la que gozan los bomberos voluntarios según la Ley 25.054.", answer: "Impuestos nacionales, derechos y tasas aduaneras", tip: "La exención de impuestos nacionales es clave.", type: "input" },
-        { classId: 3, question: "¿Qué característica distintiva poseen los fondos y bienes pertenecientes a las asociaciones de bomberos voluntarios, según la Ley 25.054, frente a posibles embargos?", answer: "Inembargables e inejecutables", type: "input" },
-        { classId: 3, question: "Según la Ley 25.054, ¿qué entidad gubernamental es responsable de administrar el fondo del subsidio nacional destinado a los bomberos?", answer: "Dirección Nacional de Defensa Civil", type: "input" },
-        { classId: 3, question: "¿Qué legislación nacional (identificada por su número) concede beneficios a las Sociedades de Bomberos Voluntarios, eximiéndolas de gravámenes nacionales?", answer: "23139", tip:"Ley 23.139", type: "input" },
-        { classId: 3, question: "Especifique el año de sanción de la Ley Nacional 23.139.", answer: "1984", type: "input" },
-        { classId: 3, question: "¿Cuál es el número de la Ley Provincial que rige la organización y funcionamiento de los bomberos voluntarios en la jurisdicción de Buenos Aires?", answer: "10917", tip:"Ley 10.917", type: "input" },
-        { classId: 3, question: "Determine el año en que fue sancionada la Ley Provincial 10.917.", answer: "1990", type: "input" },
-        { classId: 3, question: "De acuerdo con la Ley 10.917, ¿bajo qué figura jurídica y con qué fines deben constituirse las asociaciones de bomberos voluntarios?", answer: "Personas jurídicas de bien público sin fines de lucro", type: "input" },
-        { classId: 3, question: "Conforme a la Ley 10.917, ¿quién es la autoridad provincial encargada de autorizar el funcionamiento de las asociaciones de bomberos en Buenos Aires?", answer: "Coordinador General de Defensa Civil de la Provincia", type: "input" },
-        { classId: 3, question: "Describa una función primordial asignada a los bomberos voluntarios por la Ley Provincial 10.917.", answer: "Prevención, extinción e investigación de incendios", tip: "O rescate y salvamento de personas/bienes, o desarrollar acciones educativas para la comunidad.", type: "input" },
+        { classId: 3, question: "¿Qué número identifica a la Ley Nacional que establece el marco de organización y la misión de los bomberos voluntarios en la República Argentina?", answer: { keywords: ["ley", "25054"], match: "all" }, displayAnswer: "Ley 25.054", tip:"Ley 25.054", type: "input" },
+        { classId: 3, question: "Indique el año en que fue promulgada la Ley Nacional 25.054.", answer: { keywords: ["1998"], match: "all" }, displayAnswer: "1998", type: "input" },
+        { classId: 3, question: "Mencione un propósito fundamental de la Ley Nacional 25.054, además del reconocimiento como servicio público.", answer: { keywords: ["subsidio", "nacional"], match: "all" }, displayAnswer: "Establecer un subsidio nacional", tip: "Puede ser también brindar apoyo económico para equipamiento o capacitación.", type: "input" },
+        { classId: 3, question: "Conforme a la Ley 25.054, ¿qué tipo de consideración especial se otorga a los bomberos voluntarios en los planes de vivienda implementados por el Estado?", answer: { keywords: ["puntaje", "especial"], match: "all" }, displayAnswer: "Puntaje especial", type: "input" },
 
-        // Clase 5: Guardia, Instrucción, Servicios
-        { classId: 5, question: "¿Cuál es la finalidad primordial del establecimiento de 'La Guardia' en un cuartel de bomberos?", answer: "Contar con personal para aprestamiento inmediato 24/7", tip: "La respuesta debe enfatizar la disponibilidad constante y la respuesta rápida.", type: "input" },
-        { classId: 5, question: "Defina el concepto de 'La Instrucción' en el ámbito del Cuerpo Activo de bomberos.", answer: "Día y hora preestablecida para capacitación y entrenamiento", tip: "Incluye tanto formación teórica como ejercicios prácticos.", type: "input" },
-        { classId: 5, question: "¿Qué artículo específico de la Ley Provincial 10.917 confiere el carácter de servicio público a las actividades desarrolladas por los Bomberos Voluntarios?", answer: "Artículo 3", type: "input" },
-        { classId: 5, question: "Mencione una de las misiones fundamentales encomendadas al Cuerpo Activo, según lo estipulado en el Artículo 23 de la Ley 10.917.", answer: "Prevención y extinción de incendios", tip: "Otras opciones: rescate, conservación de equipos, educación comunitaria, intervención general en su misión.", type: "input" },
-        { classId: 5, question: "Considerando la prontitud o urgencia, ¿cómo se clasifican inicialmente los servicios que presta un cuerpo de bomberos?", answer: "Servicios de Emergencia y Servicios Autorizados", type: "input" },
-        { classId: 5, question: "Proporcione un ejemplo de un servicio catalogado como 'Servicio de Emergencia'.", answer: "Incendios en General", tip: "O Forestales, Auxilios diversos, Desastres naturales o antrópicos, MATPEL, Colaboración interinstitucional en emergencias.", type: "input" },
-        { classId: 5, question: "Cite un tipo de servicio que se encuentre dentro de la categoría de 'Servicio Autorizado'.", answer: "Especiales", tip: "O Guardias preventivas, servicios de Comando, servicios Técnicos, participación en Ceremonial.", type: "input" },
-        { classId: 5, question: "En el escenario de un siniestro, ¿quién asume el rol de 'Jefe de Servicio' y dirige las operaciones?", answer: "El de mayor jerarquía presente en el lugar", type: "input" },
-        { classId: 5, question: "¿Cómo se denomina al bombero de mayor rango que se desplaza en una unidad operativa hacia un servicio?", answer: "Jefe de Dotación", type: "input" },
-        { classId: 5, question: "Si se movilizan dos o más unidades a un siniestro, ¿qué designación recibe el bombero de mayor jerarquía que coordina el conjunto de recursos?", answer: "Jefe de Fuerzas", type: "input" },
-        { classId: 5, question: "¿Qué código numérico se utiliza para la clasificación de un servicio de 'Auxilio'?", answer: "02", type: "input" },
-        { classId: 5, question: "La realización de tareas como colocación de drizas o desagotes, que no son de carácter obligatorio, ¿a qué tipo de servicio corresponden?", answer: "Especiales", tip: "Identificado con el código 03.", type: "input" },
-        { classId: 5, question: "¿En qué circunstancias se activa un servicio de 'Colaboración', identificado con el código 05?", answer: "Fuera de la jurisdicción propia, a requerimiento de un Cuerpo vecino", type: "input", tip:"Cuando un cuerpo vecino se ve superado." },
-        { classId: 5, question: "Explique qué tipo de actividades engloba un servicio de 'Comando' (código 07).", answer: "Representación de la institución ante el Poder Público, Federaciones, etc.", type: "input" },
-        { classId: 5, question: "La verificación de planos de instalaciones contra incendios o la inspección de hidrantes, ¿dentro de qué categoría de servicio se encuadra?", answer: "Técnico", tip: "Correspondiente al código 08.", type: "input" },
+        // Clase 5
+        { classId: 5, question: "¿Cuál es la finalidad primordial del establecimiento de 'La Guardia' en un cuartel de bomberos?", answer: { keywords: ["personal", "aprestamiento", "inmediato"], match: "all" }, displayAnswer: "Contar con personal para aprestamiento inmediato 24/7", tip: "Disponibilidad constante y respuesta rápida.", type: "input" }, // "24/7" puede ser problemático para keywords, simplificado
+        { classId: 5, question: "Enumere una de las misiones fundamentales encomendadas al Cuerpo Activo, según lo estipulado en el Artículo 23 de la Ley 10.917.", answer: { keywords: ["prevencion", "extincion", "incendios"], match: "all" }, displayAnswer: "Prevención y extinción de incendios", tip: "O rescate, conservación de equipos, etc.", type: "input" },
 
-        // Clase 6: Aptitud, Estados, Ética, Órdenes
-        { classId: 6, question: "Defina con precisión el término 'Aptitud' en el contexto de la preparación y desempeño bomberil.", answer: "Capacidad y disposición para el buen ejercicio de la profesión", tip: "Implica idoneidad, habilidad y preparación.", type: "input" },
-        { classId: 6, question: "Enumere una de las cuatro cualidades fundamentales que integran la aptitud bomberil.", answer: "Capaz", tip: "O Idóneo, Hábil, Dispuesto.", type: "input" },
-        { classId: 6, question: "Explique qué implica para un bombero ser considerado 'Idóneo' en su función.", answer: "Tener conocimiento teórico-práctico para actuar con eficacia", type: "input" },
-        { classId: 6, question: "Describa los medios o acciones a través de los cuales un aspirante desarrolla y consolida la aptitud necesaria para ser Bombero.", answer: "Estudiando, capacitándose, compañerismo, cumpliendo obligaciones, superación", type: "input", tip:"Proceso continuo de formación y compromiso." },
-        { classId: 6, question: "Según la definición de la Organización Mundial de la Salud (OMS) de 1946, ¿cómo se conceptualiza la 'salud'?", answer: "Estado de completo bienestar físico, mental, espiritual, emocional y social", type: "input", tip:"No meramente ausencia de enfermedad." },
-        { classId: 6, question: "Argumente si un estado físico sobresaliente es suficiente para el desempeño bomberil en ausencia de un adecuado equilibrio psíquico.", answer: "No", type: "input", tip:"Justificar brevemente." },
-        { classId: 6, question: "¿Cuál debe ser la conducta de un bombero si se percibe psíquicamente indispuesto o no apto para afrontar una tarea específica?", answer: "Reconocerlo y no realizarla bajo presión o en condiciones inconvenientes", tip: "La comunicación y solicitud de apoyo también son válidas.", type: "input" },
-        { classId: 6, question: "Además de salvar vidas y bienes, ¿cuál es la obligación primordial del bombero en el ejercicio de su función, relacionada con su propia integridad?", answer: "Guardar por su propia vida y seguridad", type: "input" },
-        { classId: 6, question: "Explique a qué conjunto de principios y valores se refiere la 'Ética Bomberil'.", answer: "Normas y principios morales que guían el comportamiento de los bomberos", type: "input" },
-        { classId: 6, question: "Mencione un principio fundamental que sustenta la Ética Bomberil.", answer: "Ser buena persona antes de ser bombero", tip: "O respetar la verdad, mantener una conducta ética intachable, respetar la jerarquía, la pulcritud, etc.", type: "input" },
-        { classId: 6, question: "En el contexto jerárquico bomberil, ¿qué se entiende por una 'Orden'?", answer: "Modo de expresión con que un superior indica a un subalterno la ejecución de un mandato", type: "input" },
-        { classId: 6, question: "Clasifique las órdenes según el destinatario al que van dirigidas.", answer: "Individuales Colectivas", type: "input" }, // Respuesta ajustada para que el orden no importe tanto con la nueva normalización
-        { classId: 6, question: "Distinga los tipos de órdenes según su modalidad de transmisión o expresión.", answer: "Verbales Escritas", type: "input" }, // Respuesta ajustada
-        { classId: 6, question: "Defina qué caracteriza a una orden de tipo 'Global'.", answer: "Mandato para poner en marcha un plan de trabajo o rol preestablecido", type: "input" },
-        { classId: 6, question: "¿Qué consecuencias disciplinarias puede acarrear la desobediencia o el incumplimiento de una orden legítima?", answer: "Una falta de disciplina que debe ser sancionada", type: "input" },
-        { classId: 6, question: "¿Quién es la única autoridad facultada para sancionar las 'Faltas' contempladas en el Reglamento del Régimen Disciplinario?", answer: "El Jefe de Cuerpo", type: "input" },
-        { classId: 6, question: "En el ámbito de la conducción de personal, ¿qué significa 'Mandar' para un superior bomberil?", answer: "Ejercer la autoridad para educar, instruir, gobernar y conducir al personal", type: "input" },
-        { classId: 6, question: "Determine si la responsabilidad inherente al ejercicio del mando puede ser delegada o transferida.", answer: "No", type: "input" },
-        { classId: 6, question: "Al ingresar al Cuerpo Activo, ¿cuántas horas de guardia mensuales se compromete a cumplir como obligación un integrante?", answer: "24 horas", type: "input" },
-        { classId: 6, question: "En un sistema organizado por Grupos de Guardia, ¿quién asume la responsabilidad y coordinación de cada uno de dichos grupos?", answer: "Un Oficial de Servicio", type: "input" },
-
-        // Clase 7: Parte de Servicios
-        { classId: 7, question: "¿Qué es y cuál es la función principal del documento denominado 'Parte de Servicio'?", answer: "Una planilla que documenta cronológicamente lo acontecido en un servicio", type: "input", tip:"Registro formal de una intervención." },
-        { classId: 7, question: "¿Quién es el responsable de la confección y llenado del Parte de Servicio una vez que la intervención ha concluido?", answer: "El personal a cargo de la dotación", type: "input" },
-        { classId: 7, question: "Mencione un dato esencial que obligatoriamente debe registrarse en un Parte de Servicio.", answer: "Horarios", tip: "O personal interviniente, móviles utilizados, descripción de víctimas, datos del solicitante, estado de situación, disposiciones adoptadas, desarrollo cronológico.", type: "input" },
-        { classId: 7, question: "Explique la relevancia de los datos consignados en el Parte de Servicio para diferentes ámbitos o propósitos.", answer: "Legales, administrativos y de seguros", tip: "También para fines estadísticos y de gestión.", type: "input" },
-        { classId: 7, question: "¿Es la elaboración del Parte de Servicio una tarea opcional o un requisito mandatorio tras cada intervención?", answer: "Sí", type: "input", tip:"Responda Sí o No a la obligatoriedad." },
-        { classId: 7, question: "Además de la optimización de recursos internos, ¿con qué otro propósito se utiliza la información recopilada de los servicios a nivel de federaciones y el Consejo Nacional?", answer: "Para representar a los bomberos ante los poderes públicos", type: "input" },
-        { classId: 7, question: "¿Qué roles dentro del cuartel (además del encargado de dotación) suelen suministrar información crucial para la correcta confección del Parte de Servicio?", answer: "El furriel y el cuartelero", type: "input" },
-        { classId: 7, question: "El Parte de Servicio incluye una planilla para registrar al personal. ¿A qué universo de personal se refiere este listado?", answer: "De todo el cuerpo activo", type: "input" },
-        { classId: 7, question: "Indique si es Verdadero o Falso: Las instituciones bomberiles pueden generar documentos complementarios al Parte tipo para registrar aspectos específicos de los servicios.", answer: "Verdadero", type: "input" },
-        { classId: 7, question: "Conforme a lo expuesto en la Clase 7, ¿cuántos grupos principales existen para la clasificación de los servicios prestados?", answer: "Once", tip: "Codificados del 01 al 11.", type: "input" },
+        // Clase 6
+        { classId: 6, question: "Defina con precisión el término 'Aptitud' en el contexto de la preparación y desempeño bomberil.", answer: { keywords: ["capacidad", "disposicion", "ejercicio", "profesion"], match: "all" }, displayAnswer: "Capacidad y disposición para el buen ejercicio de la profesión", tip: "Implica idoneidad, habilidad y preparación.", type: "input" },
+        { classId: 6, question: "En el contexto jerárquico bomberil, ¿qué se entiende por una 'Orden'?", answer: { keywords: ["modo", "expresion", "superior", "indica", "subalterno", "ejecucion", "mandato"], match: "all" }, displayAnswer: "Modo de expresión con que un superior indica a un subalterno la ejecución de un mandato", type: "input" },
 
         // Clase 9 (Input)
-        { classId: 9, question: "Argumente la trascendencia de un sistema de comunicaciones eficiente para el éxito de las operaciones bomberiles.", answer: "Vital para el buen logro de los servicios", type: "input", tip:"Relacionar comunicación con efectividad." },
-        { classId: 9, question: "Enumere las dos categorías fundamentales en las que se clasifican los sistemas de comunicaciones.", answer: "Alámbricas e Inalámbricas", type: "input" },
-        { classId: 9, question: "¿Qué tipo de infraestructura o medio físico caracteriza a las comunicaciones alámbricas?", answer: "Medio sólido", type: "input", tip:"Ej. cables, fibra óptica." },
-        { classId: 9, question: "En contraposición a las alámbricas, ¿qué fenómeno físico emplean las comunicaciones inalámbricas para la transmisión de información?", answer: "Ondas radioeléctricas", type: "input" },
-        { classId: 9, question: "Identifique el organismo de carácter internacional encargado de la asignación y regulación de las bandas de frecuencias radioeléctricas.", answer: "UIT", type: "input", tip:"Sigla de la Unión Internacional de Telecomunicaciones." },
-        { classId: 9, question: "En Argentina, ¿cuál es la entidad nacional con potestad para regular y controlar el uso de las frecuencias del espectro radioeléctrico?", answer: "ENACOM", type: "input", tip:"Sigla del Ente Nacional de Comunicaciones." },
-        { classId: 9, question: "¿En qué unidad fundamental del Sistema Internacional se expresa la medida de la frecuencia?", answer: "Hertzio", type: "input", tip:"Símbolo Hz." },
-        { classId: 9, question: "Mencione un componente esencial que integra una 'Estación Radioeléctrica' típica.", answer: "Transceptor", type: "input", tip:"Otros: Antena, fuente de energía, etc." },
-        { classId: 9, question: "Dentro del código Q utilizado en radiocomunicaciones, ¿cuál es el significado preciso de la señal 'QAP'?", answer: "Quedo en escucha", type: "input", tip:"Indica estar atento y a la espera." },
-        { classId: 9, question: "En el lenguaje de códigos radiales, ¿qué se comunica al transmitir 'QSL'?", answer: "Comprendido", type: "input", tip:"Confirmación de recepción y entendimiento." },
+        { classId: 9, question: "Dentro del código Q utilizado en radiocomunicaciones, ¿cuál es el significado preciso de la señal 'QAP'?", answer: { keywords: ["quedo", "escucha"], match: "all" }, displayAnswer: "Quedo en escucha", type: "input", tip:"Indica estar atento y a la espera." },
+        { classId: 9, question: "En el lenguaje de códigos radiales, ¿qué se comunica al transmitir 'QSL'?", answer: { keywords: ["comprendido"], match: "all" }, displayAnswer: "Comprendido", type: "input", tip:"Confirmación de recepción y entendimiento." },
 
-        // Clase 99: Códigos - Opción Múltiple
+        // Clase 99: Códigos - Opción Múltiple (estas no cambian su estructura de respuesta)
+        // ... (Se mantienen como estaban, ya que son de opción múltiple)
         { classId: 99, type: 'multiple-choice', question: "Código Q: ¿Cuál es la interpretación correcta de 'QAP' en una comunicación radial?", options: ["Mantenerse a la espera y atento a nuevas directivas", "Solicitar la ubicación exacta del incidente", "Reportar fallas en el equipamiento de comunicación", "Confirmar la recepción de un mensaje previo"], answer: "Mantenerse a la espera y atento a nuevas directivas" },
         { classId: 99, type: 'multiple-choice', question: "Código Q: ¿Qué significa la expresión 'QSL'?", options: ["Proceder a anular el mensaje transmitido con anterioridad", "Mensaje recibido y entendido en su totalidad", "Transmitir la información de manera más pausada y clara", "¿Podría identificar la estación que está llamando?"], answer: "Mensaje recibido y entendido en su totalidad" },
         { classId: 99, type: 'multiple-choice', question: "Código Q: La señal 'QTH' se utiliza para inquirir o declarar:", options: ["La hora oficial para la coordinación de maniobras", "La necesidad de establecer un puente de comunicación con otra estación", "La localización geográfica desde donde se origina la transmisión", "La imposibilidad de continuar con el tráfico radial por estar ocupado"], answer: "La localización geográfica desde donde se origina la transmisión" },
@@ -177,64 +111,27 @@ document.addEventListener('DOMContentLoaded', () => {
         { classId: 99, type: 'multiple-choice', question: "Código Q: La señal 'QRV' transmite la idea de:", options: ["¿Posee alguna información o mensaje para mi estación?", "Estar listo, preparado y en disposición para actuar o recibir", "Experimentar dificultades para decodificar la transmisión actual", "Interrumpir temporalmente la transmisión en curso"], answer: "Estar listo, preparado y en disposición para actuar o recibir" },
         { classId: 99, type: 'multiple-choice', question: "Código Q: Para interrogar sobre la identidad de la estación que está transmitiendo ('¿Quién llama?'), se emplea:", options: ["QRA (¿Cuál es el nombre de su estación?)", "QRZ (¿Quién me llama?)", "QSO (¿Puede comunicarse con...?)", "QRU (¿Tiene algo para mí?)"], answer: "QRZ (¿Quién me llama?)" },
 
+
         // Clase 10: Seguridad del Bombero
-        { classId: 10, question: "Identifique un riesgo profesional inherente a la actividad bomberil que pueda resultar en traumatismos severos o atrapamientos.", answer: "Colapsos de estructuras", type: "input" },
-        { classId: 10, question: "Defina el término 'Accidente' desde la perspectiva de la seguridad laboral y sus implicancias.", answer: "Acontecimiento no deseado que interrumpe tareas causando lesiones o daños", type: "input" },
-        { classId: 10, question: "Explique la distinción conceptual fundamental entre 'Peligro' y 'Riesgo' en el análisis de la seguridad.", answer: "Peligro es la fuente de daño, Riesgo es la probabilidad por la gravedad", type: "input", tip:"Peligro es potencial, Riesgo es probabilidad y consecuencia." },
-        { classId: 10, question: "Proporcione una definición precisa de 'Enfermedad Profesional' en el contexto de la salud ocupacional del bombero.", answer: "Enfermedad contraída por exposición a factores de riesgo laborales", type: "input" },
-        { classId: 10, question: "Distinga las dos categorías principales bajo las cuales se clasifican las causas que originan los accidentes laborales.", answer: "Causas Básicas y Causas Inmediatas", type: "input" },
-        { classId: 10, question: "Ilustre con un ejemplo una 'Causa Inmediata' que podría desencadenar un accidente en el entorno bomberil.", answer: "Ausencia de EPP", tip: "O una condición insegura en el lugar, o un acto inseguro del personal.", type: "input" },
-        { classId: 10, question: "Mencione una lesión física característica que suelen padecer los bomberos como consecuencia de su labor.", answer: "Traumatismos", tip: "O esguinces, heridas cortantes/punzantes, asfixia por inhalación de humo, quemaduras, etc.", type: "input" },
-        { classId: 10, question: "Nombre una enfermedad profesional prevalente entre el personal de bomberos, vinculada a la exposición crónica o eventos críticos.", answer: "Accidentes cardiovasculares", tip: "O estrés postraumático, afecciones músculo-esqueléticas crónicas, diversos tipos de cáncer, etc.", type: "input" },
-        { classId: 10, question: "¿Cuál es el objetivo primordial del Equipo de Protección Personal (EPP) en la mitigación de riesgos laborales?", answer: "Reducir y proteger de los accidentes", tip: "No los evita por completo, pero minimiza las consecuencias lesivas.", type: "input" },
-        { classId: 10, question: "Enumere un componente indispensable del Equipo de Protección Personal (EPP) diseñado para la intervención en incendios estructurales.", answer: "Casco", tip: "O monjita/cogulla, chaquetón estructural, pantalón estructural, guantes de incendio, botas de incendio, ERA, dispositivo PASS.", type: "input" },
-        { classId: 10, question: "¿Cuántas capas de materiales especializados componen típicamente el chaquetón y el pantalón estructural de un bombero?", answer: "Tres" , tip: "Capa exterior (resistencia mecánica/térmica), barrera de humedad, barrera térmica interna.", type: "input" },
-        { classId: 10, question: "¿Qué normativa de la NFPA (National Fire Protection Association) establece los estándares para la fabricación y rendimiento de los Equipos de Protección Estructural para bomberos?", answer: "NFPA 1971", type: "input" },
-        { classId: 10, question: "Según la norma NFPA 1851, ¿cuál es la primera acción fundamental en el proceso de descontaminación de los equipos estructurales post-intervención?", answer: "Descontaminación Primaria", tip: "También conocida como Reducción de Exposición Preliminar (REP) en el lugar del incidente.", type: "input" },
-        { classId: 10, question: "Describa la función principal de un dispositivo PASS (Personal Alert Safety System).", answer: "Sistema de seguridad de alerta personal que suena si el bombero está inmóvil", type: "input" },
-        { classId: 10, question: "Conforme a la NFPA 1500, si no se utiliza la máscara facial del ERA, ¿qué elementos de protección ocular adicionales deben emplearse obligatoriamente?", answer: "Antiparras y protector facial", type: "input" },
-        { classId: 10, question: "Cite una condición ambiental o táctica donde el uso del Equipo de Respiración Autónoma (ERA) es absolutamente crítico.", answer: "Deficiencia de Oxígeno", tip: "O presencia de temperaturas elevadas, humo denso, gases tóxicos o atmósferas desconocidas.", type: "input" },
-        { classId: 10, question: "¿Cuál es la variante de ERA más comúnmente utilizada por los cuerpos de bomberos, en la cual el aire exhalado se libera directamente al ambiente?", answer: "ERA de Circuito Abierto", type: "input" },
-        { classId: 10, question: "Mencione un componente estructural principal de un Equipo de Respiración Autónoma (ERA) de circuito abierto.", answer: "Máscara", tip: "O Arnés portante, Cilindro de aire comprimido, Válvula de demanda.", type: "input" },
-        { classId: 10, question: "Explique la función vital que desempeña la válvula de demanda en un Equipo de Respiración Autónoma (ERA).", answer: "Suministrar aire según necesidades y mantener presión positiva en máscara", type: "input" },
-        { classId: 10, question: "¿Cuál es la presión mínima aproximada (en psi) que debería registrar un cilindro de ERA antes de ser considerado apto para su uso en una emergencia?", answer: "2000 psi", tip: "Algunos protocolos indican 2200 psi o el 90% de su capacidad nominal.", type: "input" },
+        { classId: 10, question: "Identifique un riesgo profesional inherente a la actividad bomberil que pueda resultar en traumatismos severos o atrapamientos.", answer: { keywords: ["colapsos", "estructuras"], match: "all" }, displayAnswer: "Colapsos de estructuras", type: "input" },
+        { classId: 10, question: "Explique la distinción conceptual fundamental entre 'Peligro' y 'Riesgo' en el análisis de la seguridad.", answer: { keywords: ["peligro", "fuente", "daño", "riesgo", "probabilidad", "gravedad"], match: "all" }, displayAnswer: "Peligro es la fuente de daño, Riesgo es la probabilidad por la gravedad", type: "input", tip:"Peligro es potencial, Riesgo es probabilidad y consecuencia." },
 
         // Clase 11: Psicología de la Emergencia
-        { classId: 11, type: "input", question: "¿Cuál es el propósito fundamental de la psicología como disciplina científica?", answer: "Analizar los procesos mentales y del comportamiento humano", tip: "En interacción con su entorno." },
-        { classId: 11, type: 'multiple-choice', question: "La Psicología de la Emergencia investiga las transformaciones y respuestas psicosociales de individuos y colectivos en qué fases temporales de un evento crítico?", options: ["Exclusivamente durante la materialización de una emergencia", "Únicamente en el período posterior a la finalización de una emergencia", "En las etapas previas, durante el desarrollo y con posterioridad a una emergencia", "Principalmente en la fase de preparación y prevención de emergencias"], answer: "En las etapas previas, durante el desarrollo y con posterioridad a una emergencia" },
-        { classId: 11, type: "input", question: "Precise el año en que se estableció formalmente el Departamento de Psicología de la Emergencia dentro de la Academia Nacional de Bomberos Voluntarios de Argentina.", answer: "2008" },
-        { classId: 11, type: "input", question: "Según la conceptualización de Hans Selye, ¿cómo se define el 'estrés' en términos de reacción del organismo?", answer: "Reacción física, mental y emocional ante circunstancias que perturban el equilibrio normal", tip:"Respuesta adaptativa del organismo." },
-        { classId: 11, type: 'multiple-choice', question: "Identifique un ejemplo de estresor ocupacional directamente vinculado a la naturaleza del HECHO o incidente en sí mismo:", options: ["Tensiones o disputas dentro de la jerarquía institucional", "La intervención en sucesos que involucran el fallecimiento de menores", "Una excesiva asignación de responsabilidades o tareas simultáneas", "La injerencia o fiscalización de los medios de comunicación masiva"], answer: "La intervención en sucesos que involucran el fallecimiento de menores" },
-        { classId: 11, type: "input", question: "¿Con qué denominación se conoce a la respuesta adaptativa y automática del organismo durante una intervención, caracterizada por un incremento en la activación fisiológica y cognitiva?", answer: "Estrés Operativo", tip:"También llamado estrés agudo situacional." },
-        { classId: 11, type: 'multiple-choice', question: "El fenómeno de 'anestesia emocional' experimentado durante el estrés operativo se asocia principalmente con la liberación de:", options: ["Adrenalina", "Cortisol", "Endorfinas", "Serotonina"], answer: "Endorfinas" },
-        { classId: 11, type: "input", question: "Enumere una de las manifestaciones psicológicas específicas que pueden presentarse en el período posterior a una intervención de alto impacto.", answer: "Hiperexitación", tip: "Otras son: Rememoración intrusiva de eventos (flashbacks), Conductas de evitación." },
-        { classId: 11, type: "input", question: "¿Cuál es el lapso estimado durante el cual las reacciones psicológicas en primeros respondientes se consideran normales antes de aconsejar una consulta con un profesional de la salud mental?", answer: "Hasta 1 mes", tip:"Aproximadamente 4 semanas." },
-        { classId: 11, type: 'multiple-choice', question: "¿Cuál es uno de los propósitos fundamentales de la práctica regular de ejercicios de respiración consciente en el manejo del estrés?", options: ["Incrementar la capacidad de fuerza física de manera inmediata", "Potenciar de forma temporal la agudeza de los órganos sensoriales", "Restablecer la calma en estados de agitación y regularizar el ritmo cardíaco", "Facilitar la aparición de recuerdos intrusivos para su procesamiento"], answer: "Restablecer la calma en estados de agitación y regularizar el ritmo cardíaco" },
-        { classId: 11, type: "input", question: "Dentro del plan integral para el manejo del estrés, ¿cuántas horas de sueño reparador se sugieren como mínimo?", answer: "8 horas" },
-        { classId: 11, type: "input", question: "Explique brevemente en qué consiste la técnica psicológica conocida como 'Defusing'.", answer: "Técnica psicológica de desmovilización y descompresión emocional", tip:"Aplicada a intervinientes post-incidente." },
-        { classId: 11, type: 'multiple-choice', question: "¿En qué momento se recomienda aplicar la técnica de Defusing para optimizar su efectividad?", options: ["Una semana después de la intervención, para permitir la decantación emocional", "Únicamente si los intervinientes manifiestan síntomas agudos de estrés", "Lo más pronto posible tras la intervención, idealmente en las primeras 24 horas", "De forma rutinaria una vez al mes, independientemente de los servicios"], answer: "Lo más pronto posible tras la intervención, idealmente en las primeras 24 horas" },
-        { classId: 11, type: "input", question: "Mencione una de las cinco 'C' que caracterizan y fundamentan un eficaz trabajo en equipo.", answer: "Complementariedad", tip: "Otras son: Coordinación, Comunicación, Confianza, Compromiso." },
-        { classId: 11, type: 'multiple-choice', question: "En la dinámica de roles dentro de un equipo, ¿cuál se distingue por verbalizar o denunciar el sentir o acontecer del grupo, actuando como un representante implícito?", options: ["Líder carismático", "Chivo Emisario o expiatorio", "Portavoz o emergente", "Saboteador o resistente al cambio"], answer: "Portavoz o emergente" },
-        { classId: 11, type: "input", question: "El rol del 'Referente' dentro de un equipo se basa en una lógica de tres acciones: CONOCER - ? - HACERSE CONOCIDO. Indique la acción faltante.", answer: "COMPARTIR" },
-        { classId: 11, type: 'multiple-choice', question: "Durante la fase de adaptación al estrés agudo, ¿qué modificación experimenta típicamente la sensibilidad física general?", options: ["Se incrementa de manera notable, agudizando las percepciones", "Tiende a disminuir, generando una suerte de 'anestesia' temporal", "Generalmente no se ve alterada de forma significativa", "Se vuelve fluctuante, con picos de hiper e hiposensibilidad"], answer: "Tiende a disminuir, generando una suerte de 'anestesia' temporal" },
-        { classId: 11, type: "input", question: "¿Cómo se denomina la corriente o enfoque dentro de la psicología que se dedica al estudio de la cognición, es decir, los procesos de adquisición y procesamiento del conocimiento?", answer: "Psicología cognitiva", tip: "También conocida como Cognitivismo." },
-        { classId: 11, type: 'multiple-choice', question: "La técnica del Defusing tiene como uno de sus fines principales facilitar la reconciliación entre la dimensión emocional y la dimensión...:", options: ["Fisiológica", "Espiritual o trascendente", "Racional o cognitiva", "Social o interpersonal"], answer: "Racional o cognitiva" },
-        { classId: 11, type: "input", question: "En contraposición a la cohesión y sinergia de un 'equipo', ¿qué tipo de perspectiva o visión suele predominar en un 'grupo'?", answer: "Individualista", tip:"Donde priman los objetivos personales." }
+        { classId: 11, type: "input", question: "¿Cuál es el propósito fundamental de la psicología como disciplina científica?", answer: { keywords: ["analizar", "procesos", "mentales", "comportamiento", "humano"], match: "all" }, displayAnswer: "Analizar los procesos mentales y del comportamiento humano", tip: "En interacción con su entorno." },
+        { classId: 11, type: "input", question: "Según la conceptualización de Hans Selye, ¿cómo se define el 'estrés' en términos de reacción del organismo?", answer: { keywords: ["reaccion", "fisica", "mental", "emocional", "circunstancias", "perturban", "equilibrio"], match: "all" }, displayAnswer: "Reacción física, mental y emocional ante circunstancias que perturban el equilibrio normal", tip:"Respuesta adaptativa del organismo." }
     ];
 
-    // Variables globales del juego
+
     let currentPlayQuestions = [];
     let currentQuestionIndex = 0;
     let score = 0;
     const MAX_QUESTIONS_PER_GAME = 10;
     let currentSelectedClassId = modules.length > 0 ? modules[0].id : null;
 
-    // Claves para LocalStorage
     const THEME_KEY = 'bomberosAppTheme';
     const TOTAL_CORRECT_KEY = 'bomberosTotalCorrect';
     const COMPLETED_MODULES_KEY = 'bomberosCompletedModules';
 
-    // Elementos del DOM
     const splashScreenEl = document.getElementById('splash-screen');
     const enterAppButtonEl = document.getElementById('enter-app-button');
     const mainContainerEl = document.querySelector('.main-container');
@@ -265,9 +162,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const restartButtonEl = document.getElementById('restart-button');
     const scoreDisplayEl = document.getElementById('score');
 
-    // Aplica el tema (claro/oscuro)
     function applyTheme(theme) {
-        if (themeSwitchEl && themeLabelEl) { // Verificar si los elementos existen
+        if (themeSwitchEl && themeLabelEl) {
             if (theme === 'dark') {
                 document.body.classList.add('dark-mode');
                 themeSwitchEl.checked = true;
@@ -279,7 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-    // Event listener para el cambio de tema
     if (themeSwitchEl) {
         themeSwitchEl.addEventListener('change', () => {
             const newTheme = themeSwitchEl.checked ? 'dark' : 'light';
@@ -288,33 +183,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Variables para estadísticas
     let totalCorrectAnswers = 0;
     let completedModules = new Set();
 
-    // Carga estadísticas desde LocalStorage
     function loadStats() {
         totalCorrectAnswers = parseInt(localStorage.getItem(TOTAL_CORRECT_KEY)) || 0;
         const completedModulesArray = JSON.parse(localStorage.getItem(COMPLETED_MODULES_KEY)) || [];
         completedModules = new Set(completedModulesArray);
         updateStatsDisplay();
     }
-    // Actualiza la visualización de estadísticas
     function updateStatsDisplay() {
-        if (totalCorrectAnswersStatEl && modulesCompletedStatEl) { // Verificar elementos
+        if (totalCorrectAnswersStatEl && modulesCompletedStatEl) {
             totalCorrectAnswersStatEl.textContent = totalCorrectAnswers;
             modulesCompletedStatEl.textContent = completedModules.size;
         }
     }
-    // Incrementa el contador de respuestas correctas totales
     function incrementTotalCorrect() {
         totalCorrectAnswers++;
         localStorage.setItem(TOTAL_CORRECT_KEY, totalCorrectAnswers);
         updateStatsDisplay();
     }
-    // Marca un módulo como completado
     function markModuleCompleted(moduleId) {
-        if (!completedModules.has(moduleId)) {
+        if (moduleId !== null && !completedModules.has(moduleId)) {
             completedModules.add(moduleId);
             localStorage.setItem(COMPLETED_MODULES_KEY, JSON.stringify(Array.from(completedModules)));
             updateStatsDisplay();
@@ -322,10 +212,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Rellena el dropdown de selección de módulos
     function populateModuleDropdown() {
-        if (!classOptionsEl || !classSelectorButtonEl) return; // Verificar elementos
-
+        if (!classOptionsEl || !classSelectorButtonEl) return;
         classOptionsEl.innerHTML = '';
         modules.forEach(module => {
             const link = document.createElement('a');
@@ -347,8 +235,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Actualiza la visualización de la información del módulo seleccionado
     function updateInfoDisplay(selectedClassId) {
+        if (selectedClassId === null) return;
         modules.forEach(module => {
             const infoEl = document.getElementById(module.infoElementId);
             if (infoEl) {
@@ -366,22 +254,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Muestra la interfaz principal
     function showMainUI() {
-        if (!mainContainerEl || !statsSectionEl || !infoSectionContainerEl || !startEvaluationButtonEl || !gameAreaEl || !scoreAreaEl || !resultsAreaEl) return; // Verificar
-
+        if (!mainContainerEl || !statsSectionEl || !infoSectionContainerEl || !startEvaluationButtonEl || !gameAreaEl || !scoreAreaEl || !resultsAreaEl) return;
         mainContainerEl.style.display = 'block';
         statsSectionEl.style.display = 'block';
         updateInfoDisplay(currentSelectedClassId);
         infoSectionContainerEl.style.display = 'block';
         startEvaluationButtonEl.style.display = 'inline-block';
-
         gameAreaEl.style.display = 'none';
         scoreAreaEl.style.display = 'none';
         resultsAreaEl.style.display = 'none';
     }
 
-    // Event listener para el botón de ingresar a la app
     if (enterAppButtonEl && splashScreenEl) {
         enterAppButtonEl.addEventListener('click', () => {
             splashScreenEl.style.display = 'none';
@@ -389,14 +273,12 @@ document.addEventListener('DOMContentLoaded', () => {
             populateModuleDropdown();
             showMainUI();
         });
-    } else if (!splashScreenEl && mainContainerEl) { // Si no hay splash, cargar UI principal
+    } else if (!splashScreenEl && mainContainerEl) {
          loadStats();
          populateModuleDropdown();
          showMainUI();
     }
 
-
-    // Event listeners para el dropdown de selección de módulos
     if (classSelectorButtonEl && classOptionsEl) {
         classSelectorButtonEl.addEventListener('click', (event) => {
             event.stopPropagation();
@@ -424,19 +306,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Prepara e inicia las preguntas para la evaluación
     function prepareAndStartGameQuestions() {
+        if (currentSelectedClassId === null) {
+            if(questionTextEl) questionTextEl.textContent = "Por favor, seleccione un módulo primero.";
+            return;
+        }
         let questionsForSelectedClass = allQuestions.filter(q => q.classId === currentSelectedClassId);
-
         if (typeof shuffleArray === "function") {
             shuffleArray(questionsForSelectedClass);
         }
-
         currentPlayQuestions = questionsForSelectedClass.slice(0, MAX_QUESTIONS_PER_GAME);
         currentQuestionIndex = 0;
         score = 0;
         if(scoreDisplayEl) scoreDisplayEl.textContent = score;
-
         if (currentPlayQuestions.length > 0) {
             loadQuestion();
         } else {
@@ -448,7 +330,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Event listener para el botón de comenzar evaluación
     if (startEvaluationButtonEl && infoSectionContainerEl && statsSectionEl && gameAreaEl && scoreAreaEl) {
         startEvaluationButtonEl.addEventListener('click', () => {
             startEvaluationButtonEl.style.display = 'none';
@@ -459,40 +340,33 @@ document.addEventListener('DOMContentLoaded', () => {
             prepareAndStartGameQuestions();
         });
     }
-    // Event listener para el botón de volver al menú desde el juego
     if (backToMenuButtonEl) {
         backToMenuButtonEl.addEventListener('click', showMainUI);
     }
 
-    // Carga la pregunta actual en la interfaz del juego
     function loadQuestion() {
         if (!questionNumberEl || !questionTextEl || !feedbackTextEl || !correctAnswerTextEl || !feedbackAreaEl || !nextButtonEl || !multipleChoiceOptionsEl || !answerInputEl || !submitButtonEl) return;
-
         if (currentQuestionIndex < currentPlayQuestions.length && currentPlayQuestions[currentQuestionIndex]) {
             const currentQuestion = currentPlayQuestions[currentQuestionIndex];
             questionNumberEl.textContent = `Pregunta ${currentQuestionIndex + 1} de ${currentPlayQuestions.length}`;
             questionTextEl.textContent = currentQuestion.question;
-
             feedbackTextEl.textContent = '';
             correctAnswerTextEl.textContent = '';
             feedbackAreaEl.className = '';
             nextButtonEl.style.display = 'none';
             multipleChoiceOptionsEl.innerHTML = '';
-
             if (currentQuestion.type === 'multiple-choice' && currentQuestion.options) {
                 answerInputEl.style.display = 'none';
                 submitButtonEl.style.display = 'none';
                 multipleChoiceOptionsEl.style.display = 'flex';
-
                 currentQuestion.options.forEach(optionText => {
                     const optionButton = document.createElement('button');
                     optionButton.className = 'option-button';
                     optionButton.textContent = optionText;
-                    optionButton.addEventListener('click', () => handleMultipleChoiceAnswer(optionButton, optionText, currentQuestion.answer));
+                    optionButton.addEventListener('click', () => handleMultipleChoiceAnswer(optionButton, optionText, currentQuestion.answer)); // Answer for MC is still a string
                     multipleChoiceOptionsEl.appendChild(optionButton);
                 });
-
-            } else {
+            } else { // Input type
                 answerInputEl.style.display = 'block';
                 submitButtonEl.style.display = 'inline-block';
                 multipleChoiceOptionsEl.style.display = 'none';
@@ -505,47 +379,80 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- FUNCIÓN normalizeAnswer MEJORADA ---
-    function normalizeAnswer(answerString) {
+    // --- NORMALIZACIÓN Y MANEJO DE RESPUESTAS ---
+
+    // Fallback: Normaliza y ordena palabras (para respuestas string)
+    function normalizeAndSortWords(answerString) {
         if (typeof answerString !== 'string' || answerString.trim() === '') {
             return '';
         }
-
-        const basicNormalized = answerString
-            .toLowerCase()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "");
-
-        const words = basicNormalized
-            .split(/\s+/)
+        const basicNormalized = answerString.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const words = basicNormalized.split(/\s+/)
             .map(word => word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ""))
             .filter(word => word.length > 0);
-
         words.sort();
         return words.join('');
     }
-    // --- FIN FUNCIÓN normalizeAnswer MEJORADA ---
+
+    // Extrae y normaliza keywords de una cadena (para la respuesta del usuario)
+    function getNormalizedKeywordsFromString(text) {
+        if (typeof text !== 'string' || text.trim() === '') {
+            return [];
+        }
+        const basicNormalized = text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const stopWords = new Set([
+            "y", "e", "o", "u", "a", "ante", "bajo", "cabe", "con", "contra", "de", "desde",
+            "en", "entre", "hacia", "hasta", "para", "por", "segun", "sin", "so", "sobre", "tras",
+            "el", "la", "lo", "los", "las", "un", "una", "unos", "unas", "que", "qué", "cual", "cuál",
+            "del", "al", "como", "cómo", "fue", "es", "son", "del", "al",
+            "su", "sus", "mi", "mis", "tu", "tus", "mas", "más", "si", "sí", "no", "pero", "aunque",
+            "tambien", "también", "muy", "mucho", "poco", "todo", "ya", "casi", "dentro", "fuera",
+            "primer", "primero", "segundo", "tercero", "mil" // "mil" puede ser problemático con "1884" vs "884"
+            // "oficial" podría ser stopword si no es clave distintiva en algunas respuestas.
+        ]);
+        const words = basicNormalized.split(/\s+/)
+            .map(word => word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")) // Limpiar puntuación de la palabra
+            .filter(word => word.length > 0 && !stopWords.has(word)); // Filtrar vacías y stopwords
+        return [...new Set(words)].sort(); // Devuelve keywords únicas y ordenadas
+    }
 
 
-    // Maneja el envío de respuestas para preguntas de tipo input
     function handleSubmit() {
         if (!answerInputEl || answerInputEl.disabled) return;
-        const userAnswer = answerInputEl.value;
+        const userAnswerRaw = answerInputEl.value;
 
         if (currentQuestionIndex >= currentPlayQuestions.length || !currentPlayQuestions[currentQuestionIndex]) {
             return;
         }
         const currentQuestion = currentPlayQuestions[currentQuestionIndex];
-        const correctAnswer = currentQuestion.answer;
+        let isCorrect = false;
+
+        const userKeywords = getNormalizedKeywordsFromString(userAnswerRaw);
+
+        if (typeof currentQuestion.answer === 'object' && currentQuestion.answer.keywords) {
+            const definedKeywords = currentQuestion.answer.keywords.map(kw =>
+                kw.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Asegurar que las keywords definidas estén normalizadas
+            ).sort();
+            const matchType = currentQuestion.answer.match || "all";
+
+            if (matchType === "all") {
+                isCorrect = definedKeywords.every(dkw => userKeywords.includes(dkw));
+                // Opcional: para ser más estricto y que el usuario no ponga MUCHAS palabras extra:
+                // if (isCorrect && userKeywords.length > definedKeywords.length + 2) { // Ejemplo: permitir hasta 2 palabras extra no definidas
+                //     isCorrect = false; // Considerar incorrecto si hay demasiadas palabras extra
+                // }
+            }
+        } else if (typeof currentQuestion.answer === 'string') {
+            const normUserAnswerSorted = normalizeAndSortWords(userAnswerRaw);
+            const normCorrectAnswerSorted = normalizeAndSortWords(currentQuestion.answer);
+            isCorrect = normUserAnswerSorted && normCorrectAnswerSorted && normUserAnswerSorted === normCorrectAnswerSorted;
+        }
 
         answerInputEl.disabled = true;
         if(submitButtonEl) submitButtonEl.style.display = 'none';
         if(nextButtonEl) nextButtonEl.style.display = 'inline-block';
 
-        const normUserAnswer = normalizeAnswer(userAnswer);
-        const normCorrectAnswer = normalizeAnswer(correctAnswer); // Aplicar la misma normalización a la respuesta correcta
-
-        if (normUserAnswer && normUserAnswer === normCorrectAnswer) {
+        if (isCorrect) {
             score++;
             incrementTotalCorrect();
             if(feedbackTextEl) feedbackTextEl.textContent = '¡Correcto!';
@@ -554,22 +461,21 @@ document.addEventListener('DOMContentLoaded', () => {
             if(feedbackTextEl) feedbackTextEl.textContent = 'Incorrecto.';
             if(feedbackAreaEl) feedbackAreaEl.className = 'incorrect';
             if(correctAnswerTextEl) {
-                correctAnswerTextEl.textContent = `La respuesta correcta es: ${correctAnswer}`;
+                const displayAnswer = currentQuestion.displayAnswer ||
+                                    (typeof currentQuestion.answer === 'string' ? currentQuestion.answer :
+                                    (currentQuestion.answer && currentQuestion.answer.keywords ? currentQuestion.answer.keywords.join(', ') : "No disponible"));
+                correctAnswerTextEl.textContent = `La respuesta correcta es: ${displayAnswer}`;
                 if (currentQuestion.tip) { correctAnswerTextEl.textContent += ` (${currentQuestion.tip})`; }
             }
         }
         if(scoreDisplayEl) scoreDisplayEl.textContent = score;
     }
 
-    // Maneja el envío de respuestas para preguntas de opción múltiple
-    function handleMultipleChoiceAnswer(selectedButton, selectedOptionText, correctAnswerText) {
+    function handleMultipleChoiceAnswer(selectedButton, selectedOptionText, correctAnswerText) { // correctAnswerText aquí es string
         if (!multipleChoiceOptionsEl || !nextButtonEl || !feedbackTextEl || !feedbackAreaEl || !correctAnswerTextEl || !scoreDisplayEl) return;
-
         const optionButtons = multipleChoiceOptionsEl.querySelectorAll('.option-button');
         optionButtons.forEach(btn => btn.disabled = true);
-
         nextButtonEl.style.display = 'inline-block';
-
         if (selectedOptionText === correctAnswerText) {
             score++;
             incrementTotalCorrect();
@@ -590,11 +496,9 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreDisplayEl.textContent = score;
     }
 
-    // Event listener para el botón de enviar (preguntas input)
     if (submitButtonEl) {
         submitButtonEl.addEventListener('click', handleSubmit);
     }
-    // Event listener para la tecla Enter en el campo de input
     if (answerInputEl) {
         answerInputEl.addEventListener('keypress', (event) => {
             if (event.key === 'Enter' && !answerInputEl.disabled) {
@@ -607,7 +511,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    // Event listener para el botón de siguiente pregunta
     if (nextButtonEl) {
         nextButtonEl.addEventListener('click', () => {
             currentQuestionIndex++;
@@ -615,46 +518,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Muestra la pantalla de resultados finales
     function showResults() {
         if(!gameAreaEl || !scoreAreaEl || !resultsAreaEl || !finalScoreEl || !totalQuestionsPlayedEl) return;
-
         gameAreaEl.style.display = 'none';
         scoreAreaEl.style.display = 'none';
         resultsAreaEl.style.display = 'block';
         finalScoreEl.textContent = score;
         totalQuestionsPlayedEl.textContent = currentPlayQuestions.length;
-        markModuleCompleted(currentSelectedClassId);
+        if (currentSelectedClassId !== null) { // Asegurarse que currentSelectedClassId no sea null
+            markModuleCompleted(currentSelectedClassId);
+        }
     }
 
-    // Event listener para el botón de reiniciar (volver al menú principal)
     if (restartButtonEl) {
         restartButtonEl.addEventListener('click', showMainUI);
     }
 
-    // Carga el tema guardado o usa el tema claro por defecto
     const storedTheme = localStorage.getItem(THEME_KEY) || 'light';
     applyTheme(storedTheme);
 
-    // Inicialización al cargar la página
-    if (modules.length > 0 && mainContainerEl) { // Solo proceder si hay módulos y el contenedor principal existe
-        currentSelectedClassId = modules[0].id;
-        populateModuleDropdown(); // Populate dropdown first
-        const defaultModule = modules.find(m => m.id === currentSelectedClassId);
-        if (defaultModule && classSelectorButtonEl && classSelectorButtonEl.firstChild) {
-           classSelectorButtonEl.firstChild.textContent = defaultModule.name.replace(' ✔️', '') + " ";
-        }
-        updateInfoDisplay(currentSelectedClassId); // Then update info display
-        // No llamar a showMainUI() aquí si el splash screen está activo.
-        // La lógica del botón "enterAppButtonEl" o la ausencia de splash se encarga de mostrarlo.
-    } else if (mainContainerEl && (!splashScreenEl || splashScreenEl.style.display === 'none')) {
-        // Si no hay splash o ya está oculto, y no hay módulos, aún intentar mostrar UI principal (vacía o con mensaje)
+    if (modules.length > 0 && mainContainerEl) {
+        currentSelectedClassId = modules[0].id; // Asegurar que currentSelectedClassId se inicialice
+        populateModuleDropdown();
+        updateInfoDisplay(currentSelectedClassId); // Llamar después de inicializar currentSelectedClassId
+         // No llamar a showMainUI() aquí si el splash screen está activo.
+    } else if (mainContainerEl && (!splashScreenEl || (splashScreenEl && splashScreenEl.style.display === 'none'))) {
         showMainUI();
     }
-
 });
 
-// Lista de frases motivadoras
 const phrases = [
     "Servir es un honor, proteger es nuestra misión. ❤️",
     "La perseverancia es el camino hacia el éxito.",
@@ -663,7 +555,6 @@ const phrases = [
     "El esfuerzo de hoy será la recompensa de mañana."
 ];
 
-// Función para mostrar una frase aleatoria
 function showRandomPhrase() {
     const phraseElement = document.getElementById("motivational-phrase");
     if (phraseElement) {
@@ -672,7 +563,6 @@ function showRandomPhrase() {
     }
 }
 
-// Función para actualizar el reloj en tiempo real
 function updateClock() {
     const dateTimeElement = document.getElementById("date-time");
     if (dateTimeElement) {
@@ -685,10 +575,8 @@ function updateClock() {
     }
 }
 
-// Ejecutar funciones al cargar la página
 window.onload = function() {
     showRandomPhrase();
     updateClock();
     setInterval(updateClock, 1000);
-    // La lógica de inicialización principal (splash, stats, UI) ya está en DOMContentLoaded
 };
