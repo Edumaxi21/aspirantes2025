@@ -1,14 +1,16 @@
 // carga de drive
 document.addEventListener("DOMContentLoaded", () => {
     const content = document.querySelector(".bg-gray-800");
-    content.style.opacity = "0";
-    content.style.transform = "translateY(20px)";
+    if (content) { // Verificar si el elemento existe
+        content.style.opacity = "0";
+        content.style.transform = "translateY(20px)";
 
-    setTimeout(() => {
-        content.style.transition = "opacity 0.7s ease-out, transform 0.7s ease-out";
-        content.style.opacity = "1";
-        content.style.transform = "translateY(0)";
-    }, 500);
+        setTimeout(() => {
+            content.style.transition = "opacity 0.7s ease-out, transform 0.7s ease-out";
+            content.style.opacity = "1";
+            content.style.transform = "translateY(0)";
+        }, 500);
+    }
 });
 
 
@@ -32,10 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 9, name: "Clase 9 (Comunicaciones - Input)", infoElementId: "info-clase-9" },
         { id: 99, name: "Clase 9 (Códigos - Opción Múltiple)", infoElementId: "info-clase-99" },
         { id: 10, name: "Clase 10 (Seguridad del Bombero)", infoElementId: "info-clase-10" },
-        { id: 11, name: "Clase 11 (Psicología de la Emergencia)", infoElementId: "info-clase-11" } // Nuevo módulo
+        { id: 11, name: "Clase 11 (Psicología de la Emergencia)", infoElementId: "info-clase-11" }
     ];
 
-    // Banco de todas las preguntas MODIFICADO
+    // Banco de todas las preguntas (con preguntas previamente modificadas)
     const allQuestions = [
         // Clase 1: Marco Histórico
         { classId: 1, question: "¿Cuál es el año fundacional que marca el inicio de la trayectoria de los Cuerpos de Bomberos Voluntarios en Argentina?", answer: "1884", type: "input", tip:"Referido al establecimiento formal." },
@@ -124,8 +126,8 @@ document.addEventListener('DOMContentLoaded', () => {
         { classId: 6, question: "Explique a qué conjunto de principios y valores se refiere la 'Ética Bomberil'.", answer: "Normas y principios morales que guían el comportamiento de los bomberos", type: "input" },
         { classId: 6, question: "Mencione un principio fundamental que sustenta la Ética Bomberil.", answer: "Ser buena persona antes de ser bombero", tip: "O respetar la verdad, mantener una conducta ética intachable, respetar la jerarquía, la pulcritud, etc.", type: "input" },
         { classId: 6, question: "En el contexto jerárquico bomberil, ¿qué se entiende por una 'Orden'?", answer: "Modo de expresión con que un superior indica a un subalterno la ejecución de un mandato", type: "input" },
-        { classId: 6, question: "Clasifique las órdenes según el destinatario al que van dirigidas.", answer: "Individuales", tip: "O Colectivas.", type: "input" },
-        { classId: 6, question: "Distinga los tipos de órdenes según su modalidad de transmisión o expresión.", answer: "Verbales", tip: "O Escritas.", type: "input" },
+        { classId: 6, question: "Clasifique las órdenes según el destinatario al que van dirigidas.", answer: "Individuales Colectivas", type: "input" }, // Respuesta ajustada para que el orden no importe tanto con la nueva normalización
+        { classId: 6, question: "Distinga los tipos de órdenes según su modalidad de transmisión o expresión.", answer: "Verbales Escritas", type: "input" }, // Respuesta ajustada
         { classId: 6, question: "Defina qué caracteriza a una orden de tipo 'Global'.", answer: "Mandato para poner en marcha un plan de trabajo o rol preestablecido", type: "input" },
         { classId: 6, question: "¿Qué consecuencias disciplinarias puede acarrear la desobediencia o el incumplimiento de una orden legítima?", answer: "Una falta de disciplina que debe ser sancionada", type: "input" },
         { classId: 6, question: "¿Quién es la única autoridad facultada para sancionar las 'Faltas' contempladas en el Reglamento del Régimen Disciplinario?", answer: "El Jefe de Cuerpo", type: "input" },
@@ -158,16 +160,14 @@ document.addEventListener('DOMContentLoaded', () => {
         { classId: 9, question: "Dentro del código Q utilizado en radiocomunicaciones, ¿cuál es el significado preciso de la señal 'QAP'?", answer: "Quedo en escucha", type: "input", tip:"Indica estar atento y a la espera." },
         { classId: 9, question: "En el lenguaje de códigos radiales, ¿qué se comunica al transmitir 'QSL'?", answer: "Comprendido", type: "input", tip:"Confirmación de recepción y entendimiento." },
 
-        // Clase 99: Códigos - Opción Múltiple (mejoradas)
+        // Clase 99: Códigos - Opción Múltiple
         { classId: 99, type: 'multiple-choice', question: "Código Q: ¿Cuál es la interpretación correcta de 'QAP' en una comunicación radial?", options: ["Mantenerse a la espera y atento a nuevas directivas", "Solicitar la ubicación exacta del incidente", "Reportar fallas en el equipamiento de comunicación", "Confirmar la recepción de un mensaje previo"], answer: "Mantenerse a la espera y atento a nuevas directivas" },
         { classId: 99, type: 'multiple-choice', question: "Código Q: ¿Qué significa la expresión 'QSL'?", options: ["Proceder a anular el mensaje transmitido con anterioridad", "Mensaje recibido y entendido en su totalidad", "Transmitir la información de manera más pausada y clara", "¿Podría identificar la estación que está llamando?"], answer: "Mensaje recibido y entendido en su totalidad" },
         { classId: 99, type: 'multiple-choice', question: "Código Q: La señal 'QTH' se utiliza para inquirir o declarar:", options: ["La hora oficial para la coordinación de maniobras", "La necesidad de establecer un puente de comunicación con otra estación", "La localización geográfica desde donde se origina la transmisión", "La imposibilidad de continuar con el tráfico radial por estar ocupado"], answer: "La localización geográfica desde donde se origina la transmisión" },
-        { classId: 99, type: 'multiple-choice', question: "Código Q: Para indicar la presencia de interferencia debida a perturbaciones atmosféricas, se emplea:", options: ["QRN (Estática o ruido natural)", "QRJ (Señales débiles o inaudibles)", "QRM (Interferencia de otras estaciones)", "QAZ (Riesgo de tormenta eléctrica)"], answer: "QRM (Interferencia de otras estaciones)" }, // Nota: El PDF original podría tener QRM para atmosféricos, pero QRN es más específico para ruido natural/atmosférico y QRM para interferencia humana/otras estaciones. Se ajusta a una distinción más técnica. Si el material dice QRM para atmosféricos, se debe mantener esa respuesta. Asumiré por ahora la distinción técnica. Si el material de estudio es absoluto, la respuesta original "QRM" sería la correcta según ese material. La pregunta se modifica para ser más precisa con "QRM" para otras estaciones.
-        // Para mantener la respuesta original del PDF (QRM para ruidos atmosféricos):
-        // { classId: 99, type: 'multiple-choice', question: "Código Q: Si se experimentan interferencias por ruidos de origen atmosférico, ¿qué código se utiliza para reportarlo?", options: ["QRN", "QRJ", "QRM", "QAZ"], answer: "QRM" },
+        { classId: 99, type: 'multiple-choice', question: "Código Q: Para indicar la presencia de interferencia debida a otras estaciones o fuentes humanas, se emplea:", options: ["QRN (Estática o ruido natural)", "QRJ (Señales débiles o inaudibles)", "QRM (Interferencia de otras estaciones)", "QAZ (Riesgo de tormenta eléctrica)"], answer: "QRM (Interferencia de otras estaciones)" },
         { classId: 99, type: 'multiple-choice', question: "Código Q: ¿Qué código se utiliza para solicitar la cancelación o anulación de un mensaje transmitido previamente?", options: ["QSY (Cambiar a otra frecuencia)", "QTA (Anular mensaje)", "QRX (Esperar un momento)", "QTC (Tengo un mensaje para usted)"], answer: "QTA (Anular mensaje)" },
         { classId: 99, type: 'multiple-choice', question: "Alfabeto Fonético Internacional: La letra 'B' se pronuncia:", options: ["Beta", "Bravo", "Boston", "Buque"], answer: "Bravo" },
-        { classId: 99, type: 'multiple-choice', question: "Alfabeto Fonético Internacional: ¿Cómo se vocaliza la letra 'M'?", options: ["Metro", "Moon", "Mike", "Metro"], answer: "Mike" }, // Corregido "Mamá" a "Metro" para hacerlo un distractor más plausible fonéticamente.
+        { classId: 99, type: 'multiple-choice', question: "Alfabeto Fonético Internacional: ¿Cómo se vocaliza la letra 'M'?", options: ["Metro", "Moon", "Mike", "Mamá"], answer: "Mike" },
         { classId: 99, type: 'multiple-choice', question: "Alfabeto Fonético Internacional: La letra 'S' se transmite como:", options: ["Sigma", "Sierra", "Sugar", "Santiago"], answer: "Sierra" },
         { classId: 99, type: 'multiple-choice', question: "Alfabeto Fonético Internacional: Para deletrear la letra 'V', se utiliza:", options: ["Víbora", "Violeta", "Victor", "Venus"], answer: "Victor" },
         { classId: 99, type: 'multiple-choice', question: "Alfabeto Fonético Internacional: ¿Cuál es la palabra código para la letra 'Z'?", options: ["Zeta", "Zebra", "Zero", "Zulu"], answer: "Zulu" },
@@ -226,8 +226,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPlayQuestions = [];
     let currentQuestionIndex = 0;
     let score = 0;
-    const MAX_QUESTIONS_PER_GAME = 10; // Máximo de preguntas por evaluación
-    let currentSelectedClassId = modules[0].id;
+    const MAX_QUESTIONS_PER_GAME = 10;
+    let currentSelectedClassId = modules.length > 0 ? modules[0].id : null;
 
     // Claves para LocalStorage
     const THEME_KEY = 'bomberosAppTheme';
@@ -267,22 +267,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Aplica el tema (claro/oscuro)
     function applyTheme(theme) {
-        if (theme === 'dark') {
-            document.body.classList.add('dark-mode');
-            themeSwitchEl.checked = true;
-            themeLabelEl.textContent = "Modo Claro";
-        } else {
-            document.body.classList.remove('dark-mode');
-            themeSwitchEl.checked = false;
-            themeLabelEl.textContent = "Modo Oscuro";
+        if (themeSwitchEl && themeLabelEl) { // Verificar si los elementos existen
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeSwitchEl.checked = true;
+                themeLabelEl.textContent = "Modo Claro";
+            } else {
+                document.body.classList.remove('dark-mode');
+                themeSwitchEl.checked = false;
+                themeLabelEl.textContent = "Modo Oscuro";
+            }
         }
     }
     // Event listener para el cambio de tema
-    themeSwitchEl.addEventListener('change', () => {
-        const newTheme = themeSwitchEl.checked ? 'dark' : 'light';
-        localStorage.setItem(THEME_KEY, newTheme);
-        applyTheme(newTheme);
-    });
+    if (themeSwitchEl) {
+        themeSwitchEl.addEventListener('change', () => {
+            const newTheme = themeSwitchEl.checked ? 'dark' : 'light';
+            localStorage.setItem(THEME_KEY, newTheme);
+            applyTheme(newTheme);
+        });
+    }
 
     // Variables para estadísticas
     let totalCorrectAnswers = 0;
@@ -297,8 +301,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     // Actualiza la visualización de estadísticas
     function updateStatsDisplay() {
-        totalCorrectAnswersStatEl.textContent = totalCorrectAnswers;
-        modulesCompletedStatEl.textContent = completedModules.size;
+        if (totalCorrectAnswersStatEl && modulesCompletedStatEl) { // Verificar elementos
+            totalCorrectAnswersStatEl.textContent = totalCorrectAnswers;
+            modulesCompletedStatEl.textContent = completedModules.size;
+        }
     }
     // Incrementa el contador de respuestas correctas totales
     function incrementTotalCorrect() {
@@ -312,12 +318,14 @@ document.addEventListener('DOMContentLoaded', () => {
             completedModules.add(moduleId);
             localStorage.setItem(COMPLETED_MODULES_KEY, JSON.stringify(Array.from(completedModules)));
             updateStatsDisplay();
-            populateModuleDropdown(); // Actualiza el dropdown para mostrar el checkmark
+            populateModuleDropdown();
         }
     }
 
     // Rellena el dropdown de selección de módulos
     function populateModuleDropdown() {
+        if (!classOptionsEl || !classSelectorButtonEl) return; // Verificar elementos
+
         classOptionsEl.innerHTML = '';
         modules.forEach(module => {
             const link = document.createElement('a');
@@ -333,8 +341,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             classOptionsEl.appendChild(link);
         });
-        const defaultModule = modules.find(m => m.id === currentSelectedClassId) || modules[0];
-        if (defaultModule) {
+        const defaultModule = modules.find(m => m.id === currentSelectedClassId) || (modules.length > 0 ? modules[0] : null);
+        if (defaultModule && classSelectorButtonEl.firstChild) {
             classSelectorButtonEl.firstChild.textContent = defaultModule.name.replace(' ✔️', '') + " ";
         }
     }
@@ -348,7 +356,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 infoEl.open = (module.id === selectedClassId);
             }
         });
-        // Manejo específico para la info de la clase 99 y 11 si están seleccionadas
         ['info-clase-99', 'info-clase-11'].forEach(infoId => {
             const specificInfoEl = document.getElementById(infoId);
             const specificModule = modules.find(m => m.infoElementId === infoId);
@@ -359,8 +366,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Muestra la interfaz principal (selección de módulo, estadísticas, info)
+    // Muestra la interfaz principal
     function showMainUI() {
+        if (!mainContainerEl || !statsSectionEl || !infoSectionContainerEl || !startEvaluationButtonEl || !gameAreaEl || !scoreAreaEl || !resultsAreaEl) return; // Verificar
+
         mainContainerEl.style.display = 'block';
         statsSectionEl.style.display = 'block';
         updateInfoDisplay(currentSelectedClassId);
@@ -372,37 +381,48 @@ document.addEventListener('DOMContentLoaded', () => {
         resultsAreaEl.style.display = 'none';
     }
 
-    // Event listener para el botón de ingresar a la app (después del splash)
-    enterAppButtonEl.addEventListener('click', () => {
-        splashScreenEl.style.display = 'none';
-        loadStats();
-        populateModuleDropdown();
-        showMainUI();
-    });
+    // Event listener para el botón de ingresar a la app
+    if (enterAppButtonEl && splashScreenEl) {
+        enterAppButtonEl.addEventListener('click', () => {
+            splashScreenEl.style.display = 'none';
+            loadStats();
+            populateModuleDropdown();
+            showMainUI();
+        });
+    } else if (!splashScreenEl && mainContainerEl) { // Si no hay splash, cargar UI principal
+         loadStats();
+         populateModuleDropdown();
+         showMainUI();
+    }
+
 
     // Event listeners para el dropdown de selección de módulos
-    classSelectorButtonEl.addEventListener('click', (event) => {
-        event.stopPropagation();
-        classOptionsEl.style.display = classOptionsEl.style.display === 'none' ? 'block' : 'none';
-    });
-    document.addEventListener('click', (event) => { // Cierra el dropdown si se hace clic fuera
-        if (!classSelectorButtonEl.contains(event.target) && !classOptionsEl.contains(event.target)) {
-            classOptionsEl.style.display = 'none';
-        }
-    });
-    classOptionsEl.addEventListener('click', (event) => { // Maneja la selección de un módulo
-        let targetLink = event.target;
-        if (targetLink.tagName !== 'A') {
-            targetLink = targetLink.closest('a');
-        }
-        if (targetLink && targetLink.tagName === 'A') {
-            event.preventDefault();
-            currentSelectedClassId = parseInt(targetLink.dataset.classid);
-            classSelectorButtonEl.firstChild.textContent = targetLink.dataset.classname.replace(' ✔️', '') + " ";
-            classOptionsEl.style.display = 'none';
-            showMainUI();
-        }
-    });
+    if (classSelectorButtonEl && classOptionsEl) {
+        classSelectorButtonEl.addEventListener('click', (event) => {
+            event.stopPropagation();
+            classOptionsEl.style.display = classOptionsEl.style.display === 'none' ? 'block' : 'none';
+        });
+        document.addEventListener('click', (event) => {
+            if (!classSelectorButtonEl.contains(event.target) && !classOptionsEl.contains(event.target)) {
+                classOptionsEl.style.display = 'none';
+            }
+        });
+        classOptionsEl.addEventListener('click', (event) => {
+            let targetLink = event.target;
+            if (targetLink.tagName !== 'A') {
+                targetLink = targetLink.closest('a');
+            }
+            if (targetLink && targetLink.tagName === 'A') {
+                event.preventDefault();
+                currentSelectedClassId = parseInt(targetLink.dataset.classid);
+                if (classSelectorButtonEl.firstChild) {
+                    classSelectorButtonEl.firstChild.textContent = targetLink.dataset.classname.replace(' ✔️', '') + " ";
+                }
+                classOptionsEl.style.display = 'none';
+                showMainUI();
+            }
+        });
+    }
 
     // Prepara e inicia las preguntas para la evaluación
     function prepareAndStartGameQuestions() {
@@ -413,56 +433,57 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         currentPlayQuestions = questionsForSelectedClass.slice(0, MAX_QUESTIONS_PER_GAME);
-
         currentQuestionIndex = 0;
         score = 0;
-        scoreDisplayEl.textContent = score;
+        if(scoreDisplayEl) scoreDisplayEl.textContent = score;
 
         if (currentPlayQuestions.length > 0) {
             loadQuestion();
-        } else { // Si no hay preguntas para el módulo
-            questionTextEl.textContent = "No hay preguntas disponibles para este módulo.";
-            questionNumberEl.textContent = "";
-            answerInputEl.style.display = 'none';
-            submitButtonEl.style.display = 'none';
-            multipleChoiceOptionsEl.style.display = 'none';
+        } else {
+            if(questionTextEl) questionTextEl.textContent = "No hay preguntas disponibles para este módulo.";
+            if(questionNumberEl) questionNumberEl.textContent = "";
+            if(answerInputEl) answerInputEl.style.display = 'none';
+            if(submitButtonEl) submitButtonEl.style.display = 'none';
+            if(multipleChoiceOptionsEl) multipleChoiceOptionsEl.style.display = 'none';
         }
     }
 
     // Event listener para el botón de comenzar evaluación
-    startEvaluationButtonEl.addEventListener('click', () => {
-        startEvaluationButtonEl.style.display = 'none';
-        infoSectionContainerEl.style.display = 'none';
-        statsSectionEl.style.display = 'none';
-
-        gameAreaEl.style.display = 'block';
-        scoreAreaEl.style.display = 'block';
-        prepareAndStartGameQuestions();
-    });
+    if (startEvaluationButtonEl && infoSectionContainerEl && statsSectionEl && gameAreaEl && scoreAreaEl) {
+        startEvaluationButtonEl.addEventListener('click', () => {
+            startEvaluationButtonEl.style.display = 'none';
+            infoSectionContainerEl.style.display = 'none';
+            statsSectionEl.style.display = 'none';
+            gameAreaEl.style.display = 'block';
+            scoreAreaEl.style.display = 'block';
+            prepareAndStartGameQuestions();
+        });
+    }
     // Event listener para el botón de volver al menú desde el juego
-    backToMenuButtonEl.addEventListener('click', showMainUI);
+    if (backToMenuButtonEl) {
+        backToMenuButtonEl.addEventListener('click', showMainUI);
+    }
 
     // Carga la pregunta actual en la interfaz del juego
     function loadQuestion() {
+        if (!questionNumberEl || !questionTextEl || !feedbackTextEl || !correctAnswerTextEl || !feedbackAreaEl || !nextButtonEl || !multipleChoiceOptionsEl || !answerInputEl || !submitButtonEl) return;
+
         if (currentQuestionIndex < currentPlayQuestions.length && currentPlayQuestions[currentQuestionIndex]) {
             const currentQuestion = currentPlayQuestions[currentQuestionIndex];
             questionNumberEl.textContent = `Pregunta ${currentQuestionIndex + 1} de ${currentPlayQuestions.length}`;
             questionTextEl.textContent = currentQuestion.question;
 
-            // Resetea el área de feedback y botones
             feedbackTextEl.textContent = '';
             correctAnswerTextEl.textContent = '';
             feedbackAreaEl.className = '';
             nextButtonEl.style.display = 'none';
-            multipleChoiceOptionsEl.innerHTML = ''; // Limpiar opciones anteriores
+            multipleChoiceOptionsEl.innerHTML = '';
 
-            // Determina el tipo de pregunta y configura la interfaz
             if (currentQuestion.type === 'multiple-choice' && currentQuestion.options) {
                 answerInputEl.style.display = 'none';
-                submitButtonEl.style.display = 'none'; // Ocultar para multiple choice
-                multipleChoiceOptionsEl.style.display = 'flex'; // Asegurar que sea flex
+                submitButtonEl.style.display = 'none';
+                multipleChoiceOptionsEl.style.display = 'flex';
 
-                // Crea botones para cada opción de respuesta
                 currentQuestion.options.forEach(optionText => {
                     const optionButton = document.createElement('button');
                     optionButton.className = 'option-button';
@@ -471,30 +492,44 @@ document.addEventListener('DOMContentLoaded', () => {
                     multipleChoiceOptionsEl.appendChild(optionButton);
                 });
 
-            } else { // Pregunta de tipo input (o por defecto si no se especifica tipo)
+            } else {
                 answerInputEl.style.display = 'block';
-                submitButtonEl.style.display = 'inline-block'; // Mostrar para input
+                submitButtonEl.style.display = 'inline-block';
                 multipleChoiceOptionsEl.style.display = 'none';
                 answerInputEl.value = '';
                 answerInputEl.disabled = false;
                 answerInputEl.focus();
             }
-        } else { // Si no hay más preguntas, muestra los resultados
+        } else {
             showResults();
         }
     }
 
-    // Normaliza una respuesta (quita acentos, espacios, convierte a minúsculas, etc.)
-    function normalizeAnswer(answer) {
-        if (typeof answer !== 'string') return '';
-        return answer.trim().toLowerCase()
-                             .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-                             .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()\s]/g,"");
+    // --- FUNCIÓN normalizeAnswer MEJORADA ---
+    function normalizeAnswer(answerString) {
+        if (typeof answerString !== 'string' || answerString.trim() === '') {
+            return '';
+        }
+
+        const basicNormalized = answerString
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+
+        const words = basicNormalized
+            .split(/\s+/)
+            .map(word => word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ""))
+            .filter(word => word.length > 0);
+
+        words.sort();
+        return words.join('');
     }
+    // --- FIN FUNCIÓN normalizeAnswer MEJORADA ---
+
 
     // Maneja el envío de respuestas para preguntas de tipo input
     function handleSubmit() {
-        if (answerInputEl.disabled) return;
+        if (!answerInputEl || answerInputEl.disabled) return;
         const userAnswer = answerInputEl.value;
 
         if (currentQuestionIndex >= currentPlayQuestions.length || !currentPlayQuestions[currentQuestionIndex]) {
@@ -504,45 +539,48 @@ document.addEventListener('DOMContentLoaded', () => {
         const correctAnswer = currentQuestion.answer;
 
         answerInputEl.disabled = true;
-        submitButtonEl.style.display = 'none';
-        nextButtonEl.style.display = 'inline-block';
+        if(submitButtonEl) submitButtonEl.style.display = 'none';
+        if(nextButtonEl) nextButtonEl.style.display = 'inline-block';
 
         const normUserAnswer = normalizeAnswer(userAnswer);
-        const normCorrectAnswer = normalizeAnswer(correctAnswer);
+        const normCorrectAnswer = normalizeAnswer(correctAnswer); // Aplicar la misma normalización a la respuesta correcta
 
-        // Compara la respuesta normalizada del usuario con la correcta
         if (normUserAnswer && normUserAnswer === normCorrectAnswer) {
             score++;
             incrementTotalCorrect();
-            feedbackTextEl.textContent = '¡Correcto!'; feedbackAreaEl.className = 'correct';
+            if(feedbackTextEl) feedbackTextEl.textContent = '¡Correcto!';
+            if(feedbackAreaEl) feedbackAreaEl.className = 'correct';
         } else {
-            feedbackTextEl.textContent = 'Incorrecto.'; feedbackAreaEl.className = 'incorrect';
-            correctAnswerTextEl.textContent = `La respuesta correcta es: ${correctAnswer}`;
-            if (currentQuestion.tip) { correctAnswerTextEl.textContent += ` (${currentQuestion.tip})`; }
+            if(feedbackTextEl) feedbackTextEl.textContent = 'Incorrecto.';
+            if(feedbackAreaEl) feedbackAreaEl.className = 'incorrect';
+            if(correctAnswerTextEl) {
+                correctAnswerTextEl.textContent = `La respuesta correcta es: ${correctAnswer}`;
+                if (currentQuestion.tip) { correctAnswerTextEl.textContent += ` (${currentQuestion.tip})`; }
+            }
         }
-        scoreDisplayEl.textContent = score;
+        if(scoreDisplayEl) scoreDisplayEl.textContent = score;
     }
 
     // Maneja el envío de respuestas para preguntas de opción múltiple
     function handleMultipleChoiceAnswer(selectedButton, selectedOptionText, correctAnswerText) {
+        if (!multipleChoiceOptionsEl || !nextButtonEl || !feedbackTextEl || !feedbackAreaEl || !correctAnswerTextEl || !scoreDisplayEl) return;
+
         const optionButtons = multipleChoiceOptionsEl.querySelectorAll('.option-button');
-        optionButtons.forEach(btn => btn.disabled = true); // Deshabilita todos los botones de opción
+        optionButtons.forEach(btn => btn.disabled = true);
 
-        nextButtonEl.style.display = 'inline-block'; // Muestra el botón de siguiente
+        nextButtonEl.style.display = 'inline-block';
 
-        // Compara la opción seleccionada con la respuesta correcta
         if (selectedOptionText === correctAnswerText) {
             score++;
             incrementTotalCorrect();
             feedbackTextEl.textContent = '¡Correcto!';
             feedbackAreaEl.className = 'correct';
-            selectedButton.classList.add('correct-option'); // Marca la opción seleccionada como correcta
+            selectedButton.classList.add('correct-option');
         } else {
             feedbackTextEl.textContent = 'Incorrecto.';
             feedbackAreaEl.className = 'incorrect';
             correctAnswerTextEl.textContent = `La respuesta correcta es: ${correctAnswerText}`;
-            selectedButton.classList.add('incorrect-option-selected'); // Marca la opción seleccionada como incorrecta
-            // Resalta la opción que era correcta
+            selectedButton.classList.add('incorrect-option-selected');
             optionButtons.forEach(btn => {
                 if (btn.textContent === correctAnswerText) {
                     btn.classList.add('correct-option');
@@ -553,25 +591,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Event listener para el botón de enviar (preguntas input)
-    submitButtonEl.addEventListener('click', handleSubmit);
+    if (submitButtonEl) {
+        submitButtonEl.addEventListener('click', handleSubmit);
+    }
     // Event listener para la tecla Enter en el campo de input
-    answerInputEl.addEventListener('keypress', (event) => {
-        if (event.key === 'Enter' && !answerInputEl.disabled) {
-            const currentQuestion = currentPlayQuestions[currentQuestionIndex];
-            // Asegura que handleSubmit solo se llame para preguntas tipo input
-            if (currentQuestion && (currentQuestion.type === 'input' || !currentQuestion.type)) {
-                 handleSubmit();
+    if (answerInputEl) {
+        answerInputEl.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter' && !answerInputEl.disabled) {
+                if (currentQuestionIndex < currentPlayQuestions.length && currentPlayQuestions[currentQuestionIndex]) {
+                    const currentQuestion = currentPlayQuestions[currentQuestionIndex];
+                    if (currentQuestion && (currentQuestion.type === 'input' || !currentQuestion.type)) {
+                         handleSubmit();
+                    }
+                }
             }
-        }
-    });
+        });
+    }
     // Event listener para el botón de siguiente pregunta
-    nextButtonEl.addEventListener('click', () => {
-        currentQuestionIndex++;
-        loadQuestion();
-    });
+    if (nextButtonEl) {
+        nextButtonEl.addEventListener('click', () => {
+            currentQuestionIndex++;
+            loadQuestion();
+        });
+    }
 
     // Muestra la pantalla de resultados finales
     function showResults() {
+        if(!gameAreaEl || !scoreAreaEl || !resultsAreaEl || !finalScoreEl || !totalQuestionsPlayedEl) return;
+
         gameAreaEl.style.display = 'none';
         scoreAreaEl.style.display = 'none';
         resultsAreaEl.style.display = 'block';
@@ -579,23 +626,32 @@ document.addEventListener('DOMContentLoaded', () => {
         totalQuestionsPlayedEl.textContent = currentPlayQuestions.length;
         markModuleCompleted(currentSelectedClassId);
     }
+
     // Event listener para el botón de reiniciar (volver al menú principal)
-    restartButtonEl.addEventListener('click', showMainUI);
+    if (restartButtonEl) {
+        restartButtonEl.addEventListener('click', showMainUI);
+    }
 
     // Carga el tema guardado o usa el tema claro por defecto
     const storedTheme = localStorage.getItem(THEME_KEY) || 'light';
     applyTheme(storedTheme);
 
     // Inicialización al cargar la página
-    populateModuleDropdown();
-    if (modules.length > 0) {
-         currentSelectedClassId = modules[0].id;
-         const defaultModule = modules.find(m => m.id === currentSelectedClassId);
-         if (defaultModule) {
-            classSelectorButtonEl.firstChild.textContent = defaultModule.name.replace(' ✔️', '') + " ";
-         }
-         updateInfoDisplay(currentSelectedClassId);
+    if (modules.length > 0 && mainContainerEl) { // Solo proceder si hay módulos y el contenedor principal existe
+        currentSelectedClassId = modules[0].id;
+        populateModuleDropdown(); // Populate dropdown first
+        const defaultModule = modules.find(m => m.id === currentSelectedClassId);
+        if (defaultModule && classSelectorButtonEl && classSelectorButtonEl.firstChild) {
+           classSelectorButtonEl.firstChild.textContent = defaultModule.name.replace(' ✔️', '') + " ";
+        }
+        updateInfoDisplay(currentSelectedClassId); // Then update info display
+        // No llamar a showMainUI() aquí si el splash screen está activo.
+        // La lógica del botón "enterAppButtonEl" o la ausencia de splash se encarga de mostrarlo.
+    } else if (mainContainerEl && (!splashScreenEl || splashScreenEl.style.display === 'none')) {
+        // Si no hay splash o ya está oculto, y no hay módulos, aún intentar mostrar UI principal (vacía o con mensaje)
+        showMainUI();
     }
+
 });
 
 // Lista de frases motivadoras
@@ -610,7 +666,7 @@ const phrases = [
 // Función para mostrar una frase aleatoria
 function showRandomPhrase() {
     const phraseElement = document.getElementById("motivational-phrase");
-    if (phraseElement) { // Verificar si el elemento existe
+    if (phraseElement) {
         const randomIndex = Math.floor(Math.random() * phrases.length);
         phraseElement.textContent = phrases[randomIndex];
     }
@@ -619,7 +675,7 @@ function showRandomPhrase() {
 // Función para actualizar el reloj en tiempo real
 function updateClock() {
     const dateTimeElement = document.getElementById("date-time");
-    if (dateTimeElement) { // Verificar si el elemento existe
+    if (dateTimeElement) {
         const now = new Date();
         const formattedTime = now.toLocaleString("es-AR", {
             weekday: "long", year: "numeric", month: "long", day: "numeric",
@@ -633,23 +689,6 @@ function updateClock() {
 window.onload = function() {
     showRandomPhrase();
     updateClock();
-    setInterval(updateClock, 1000); // Actualiza el reloj cada segundo
-
-    // Asegurarse de que el splash screen y el botón de entrada existan antes de añadir listeners
-    const splashScreenEl = document.getElementById('splash-screen');
-    const enterAppButtonEl = document.getElementById('enter-app-button');
-
-    if (splashScreenEl && enterAppButtonEl) {
-        // El listener para el botón de entrada ya está en el DOMContentLoaded,
-        // pero si hay lógica específica del splash que deba correr aquí, se añade.
-    } else {
-        // Si el splash no existe, quizás quieras mostrar directamente el contenido principal
-        // o manejar de otra forma. Por ahora, la lógica principal está en DOMContentLoaded.
-        const mainContainerEl = document.querySelector('.main-container');
-        if (mainContainerEl && (!splashScreenEl || splashScreenEl.style.display === 'none')) { // Si no hay splash o ya está oculto
-            loadStats();
-            populateModuleDropdown();
-            showMainUI();
-        }
-    }
+    setInterval(updateClock, 1000);
+    // La lógica de inicialización principal (splash, stats, UI) ya está en DOMContentLoaded
 };
