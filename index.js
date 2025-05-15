@@ -1,4 +1,4 @@
-// carga de drive
+//carga de drive
 document.addEventListener("DOMContentLoaded", () => {
     const content = document.querySelector(".bg-gray-800");
     if (content) {
@@ -46,20 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
         { classId: 1, question: "¿Cuál es el número telefónico de emergencias del Cuartel Central de BV Malvinas Argentinas?", answer: "46602222", displayAnswer: "4660-2222", type: "input" },
         { classId: 1, question: "¿Quién ejerció como Primer Presidente del Honorable Consejo Directivo de BV Malvinas Argentinas?", answer: { keywords: ["mendez", "bernardo"], match: "all" }, displayAnswer: "Mendez Bernardo", type: "input" },
         { classId: 1, question: "¿Quién fue designado como Primer Jefe del Cuerpo Activo de BV Malvinas Argentinas?", answer: { keywords: ["garcia", "jose"], match: "all" }, displayAnswer: "Garcia Jose", type: "input" },
-        { classId: 1, question: "Según la documentación de la Clase 1, ¿qué Oficial ostenta actualmente la Jefatura del Cuerpo Activo de BV Malvinas Argentinas?", answer: { keywords: ["herrera", "andres"], match: "all" }, displayAnswer: "Oficial Herrera Andrés", type: "input", tip:"Grado y apellido." }, // "oficial" es stopword
+        { classId: 1, question: "Según la documentación de la Clase 1, ¿qué Oficial ostenta actualmente la Jefatura del Cuerpo Activo de BV Malvinas Argentinas?", answer: { keywords: ["herrera", "andres"], match: "all" }, displayAnswer: "Oficial Herrera Andrés", type: "input", tip:"Grado y apellido." },
 
         // Clase 2: Organización Bomberil
-        // ***** ESTA ES LA PREGUNTA DE TU IMAGEN, AHORA CON KEYWORDS *****
-        {
-            classId: 2,
-            question: "¿Cuál es la denominación formal y completa de la institución de Bomberos Voluntarios del partido de Malvinas Argentinas?",
-            answer: {
-                keywords: ["asociacion", "bomberos", "voluntarios", "malvinas", "argentinas"], // Keywords normalizadas
-                match: "all"
-            },
-            displayAnswer: "Asociación de Bomberos Voluntarios de Malvinas Argentinas", // Respuesta bonita
-            type: "input"
-        },
+        { classId: 2, question: "¿Cuál es la denominación formal y completa de la institución de Bomberos Voluntarios del partido de Malvinas Argentinas?", answer: { keywords: ["asociacion", "bomberos", "voluntarios", "malvinas", "argentinas"], match: "all" }, displayAnswer: "Asociación de Bomberos Voluntarios de Malvinas Argentinas", type: "input" },
         { classId: 2, question: "Defina la naturaleza jurídica de la Asociación de Bomberos Voluntarios.", answer: { keywords: ["asociacion", "civil", "fines", "lucro", "bien", "publico"], match: "all" }, displayAnswer: "Asociación civil sin fines de lucro y de bien público", type: "input", tip:"Características legales y sociales." },
         { classId: 2, question: "Indique el número de Identificación Numérica de Organismos de BV (INOBV) correspondiente a BV Malvinas Argentinas.", answer: { keywords: ["166"], match: "all" }, displayAnswer: "166", type: "input" },
         { classId: 2, question: "Enumere las dos categorías principales en las que se clasifican los socios de la institución.", answer: { keywords: ["activos", "protectores"], match: "all" }, displayAnswer: "Activos y Protectores", type: "input" },
@@ -82,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { classId: 3, question: "Conforme a la Ley 25.054, ¿qué tipo de consideración especial se otorga a los bomberos voluntarios en los planes de vivienda implementados por el Estado?", answer: { keywords: ["puntaje", "especial"], match: "all" }, displayAnswer: "Puntaje especial", type: "input" },
 
         // Clase 5
-        { classId: 5, question: "¿Cuál es la finalidad primordial del establecimiento de 'La Guardia' en un cuartel de bomberos?", answer: { keywords: ["personal", "aprestamiento", "inmediato"], match: "all" }, displayAnswer: "Contar con personal para aprestamiento inmediato 24/7", tip: "Disponibilidad constante y respuesta rápida.", type: "input" }, // "24/7" puede ser problemático para keywords, simplificado
+        { classId: 5, question: "¿Cuál es la finalidad primordial del establecimiento de 'La Guardia' en un cuartel de bomberos?", answer: { keywords: ["personal", "aprestamiento", "inmediato"], match: "all" }, displayAnswer: "Contar con personal para aprestamiento inmediato 24/7", tip: "Disponibilidad constante y respuesta rápida.", type: "input" },
         { classId: 5, question: "Enumere una de las misiones fundamentales encomendadas al Cuerpo Activo, según lo estipulado en el Artículo 23 de la Ley 10.917.", answer: { keywords: ["prevencion", "extincion", "incendios"], match: "all" }, displayAnswer: "Prevención y extinción de incendios", tip: "O rescate, conservación de equipos, etc.", type: "input" },
 
         // Clase 6
@@ -93,8 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { classId: 9, question: "Dentro del código Q utilizado en radiocomunicaciones, ¿cuál es el significado preciso de la señal 'QAP'?", answer: { keywords: ["quedo", "escucha"], match: "all" }, displayAnswer: "Quedo en escucha", type: "input", tip:"Indica estar atento y a la espera." },
         { classId: 9, question: "En el lenguaje de códigos radiales, ¿qué se comunica al transmitir 'QSL'?", answer: { keywords: ["comprendido"], match: "all" }, displayAnswer: "Comprendido", type: "input", tip:"Confirmación de recepción y entendimiento." },
 
-        // Clase 99: Códigos - Opción Múltiple (estas no cambian su estructura de respuesta)
-        // ... (Se mantienen como estaban, ya que son de opción múltiple)
+        // Clase 99: Códigos - Opción Múltiple
         { classId: 99, type: 'multiple-choice', question: "Código Q: ¿Cuál es la interpretación correcta de 'QAP' en una comunicación radial?", options: ["Mantenerse a la espera y atento a nuevas directivas", "Solicitar la ubicación exacta del incidente", "Reportar fallas en el equipamiento de comunicación", "Confirmar la recepción de un mensaje previo"], answer: "Mantenerse a la espera y atento a nuevas directivas" },
         { classId: 99, type: 'multiple-choice', question: "Código Q: ¿Qué significa la expresión 'QSL'?", options: ["Proceder a anular el mensaje transmitido con anterioridad", "Mensaje recibido y entendido en su totalidad", "Transmitir la información de manera más pausada y clara", "¿Podría identificar la estación que está llamando?"], answer: "Mensaje recibido y entendido en su totalidad" },
         { classId: 99, type: 'multiple-choice', question: "Código Q: La señal 'QTH' se utiliza para inquirir o declarar:", options: ["La hora oficial para la coordinación de maniobras", "La necesidad de establecer un puente de comunicación con otra estación", "La localización geográfica desde donde se origina la transmisión", "La imposibilidad de continuar con el tráfico radial por estar ocupado"], answer: "La localización geográfica desde donde se origina la transmisión" },
@@ -111,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { classId: 99, type: 'multiple-choice', question: "Código Q: La señal 'QRV' transmite la idea de:", options: ["¿Posee alguna información o mensaje para mi estación?", "Estar listo, preparado y en disposición para actuar o recibir", "Experimentar dificultades para decodificar la transmisión actual", "Interrumpir temporalmente la transmisión en curso"], answer: "Estar listo, preparado y en disposición para actuar o recibir" },
         { classId: 99, type: 'multiple-choice', question: "Código Q: Para interrogar sobre la identidad de la estación que está transmitiendo ('¿Quién llama?'), se emplea:", options: ["QRA (¿Cuál es el nombre de su estación?)", "QRZ (¿Quién me llama?)", "QSO (¿Puede comunicarse con...?)", "QRU (¿Tiene algo para mí?)"], answer: "QRZ (¿Quién me llama?)" },
 
-
         // Clase 10: Seguridad del Bombero
         { classId: 10, question: "Identifique un riesgo profesional inherente a la actividad bomberil que pueda resultar en traumatismos severos o atrapamientos.", answer: { keywords: ["colapsos", "estructuras"], match: "all" }, displayAnswer: "Colapsos de estructuras", type: "input" },
         { classId: 10, question: "Explique la distinción conceptual fundamental entre 'Peligro' y 'Riesgo' en el análisis de la seguridad.", answer: { keywords: ["peligro", "fuente", "daño", "riesgo", "probabilidad", "gravedad"], match: "all" }, displayAnswer: "Peligro es la fuente de daño, Riesgo es la probabilidad por la gravedad", type: "input", tip:"Peligro es potencial, Riesgo es probabilidad y consecuencia." },
@@ -120,7 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { classId: 11, type: "input", question: "¿Cuál es el propósito fundamental de la psicología como disciplina científica?", answer: { keywords: ["analizar", "procesos", "mentales", "comportamiento", "humano"], match: "all" }, displayAnswer: "Analizar los procesos mentales y del comportamiento humano", tip: "En interacción con su entorno." },
         { classId: 11, type: "input", question: "Según la conceptualización de Hans Selye, ¿cómo se define el 'estrés' en términos de reacción del organismo?", answer: { keywords: ["reaccion", "fisica", "mental", "emocional", "circunstancias", "perturban", "equilibrio"], match: "all" }, displayAnswer: "Reacción física, mental y emocional ante circunstancias que perturban el equilibrio normal", tip:"Respuesta adaptativa del organismo." }
     ];
-
 
     let currentPlayQuestions = [];
     let currentQuestionIndex = 0;
@@ -132,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const TOTAL_CORRECT_KEY = 'bomberosTotalCorrect';
     const COMPLETED_MODULES_KEY = 'bomberosCompletedModules';
 
+    // DOM Elements
     const splashScreenEl = document.getElementById('splash-screen');
     const enterAppButtonEl = document.getElementById('enter-app-button');
     const mainContainerEl = document.querySelector('.main-container');
@@ -145,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const infoSectionContainerEl = document.querySelector('.info-section');
     const startEvaluationButtonEl = document.getElementById('start-evaluation-button');
     const gameAreaEl = document.getElementById('game-area');
-    const backToMenuButtonEl = document.getElementById('back-to-menu-button');
+    const backToMenuButtonEl = document.getElementById('back-to-menu-button'); // For evaluation game
     const scoreAreaEl = document.getElementById('score-area');
     const questionNumberEl = document.getElementById('question-number');
     const questionTextEl = document.getElementById('question-text');
@@ -159,8 +147,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsAreaEl = document.getElementById('results-area');
     const finalScoreEl = document.getElementById('final-score');
     const totalQuestionsPlayedEl = document.getElementById('total-questions-played');
-    const restartButtonEl = document.getElementById('restart-button');
+    const restartButtonEl = document.getElementById('restart-button'); // For evaluation game
     const scoreDisplayEl = document.getElementById('score');
+
+    // New Button
+    const backToSplashButtonEl = document.getElementById('backToSplashButton');
+
+    // Iframe toggle buttons and containers
+    const toggleRolesServicioBtn = document.getElementById('toggleRolesServicioBtn');
+    const rolesServicioContainer = document.getElementById('rolesServicioContainer');
+    const togglePracticaCodigosBtn = document.getElementById('togglePracticaCodigosBtn');
+    const practicaCodigosContainer = document.getElementById('practicaCodigosContainer');
+    const toggleClasificadorBtn = document.getElementById('toggleClasificadorBtn');
+    const clasificadorServiciosContainer = document.getElementById('clasificadorServiciosContainer');
+
+    const iframeContainers = [rolesServicioContainer, practicaCodigosContainer, clasificadorServiciosContainer];
+
 
     function applyTheme(theme) {
         if (themeSwitchEl && themeLabelEl) {
@@ -236,56 +238,92 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateInfoDisplay(selectedClassId) {
-        if (selectedClassId === null) return;
+        if (selectedClassId === null && infoSectionContainerEl) {
+            // Hide all info sections if no class is selected or if returning to a neutral main view
+            modules.forEach(module => {
+                const infoEl = document.getElementById(module.infoElementId);
+                if (infoEl) infoEl.style.display = 'none';
+            });
+            return;
+        }
+        if (infoSectionContainerEl){ // Ensure this container is visible if we are showing specific info
+             infoSectionContainerEl.style.display = 'block';
+        }
         modules.forEach(module => {
             const infoEl = document.getElementById(module.infoElementId);
             if (infoEl) {
                 infoEl.style.display = (module.id === selectedClassId) ? 'block' : 'none';
-                infoEl.open = (module.id === selectedClassId);
+                if (module.id === selectedClassId) infoEl.open = true; // Open the selected one
             }
         });
-        ['info-clase-99', 'info-clase-11'].forEach(infoId => {
-            const specificInfoEl = document.getElementById(infoId);
-            const specificModule = modules.find(m => m.infoElementId === infoId);
-            if (specificInfoEl && specificModule) {
-                 specificInfoEl.style.display = (selectedClassId === specificModule.id) ? 'block' : 'none';
-                 specificInfoEl.open = (selectedClassId === specificModule.id);
-            }
+    }
+    
+    // Function to show specific views
+    function showView(viewName, targetIframeContainer = null) {
+        // Hide all primary content sections
+        if (splashScreenEl) splashScreenEl.style.display = 'none';
+        if (mainContainerEl) mainContainerEl.style.display = 'none';
+        iframeContainers.forEach(container => {
+            if (container) container.style.display = 'none';
         });
+         // Also ensure game/evaluation areas are hidden when switching main views
+        if (gameAreaEl) gameAreaEl.style.display = 'none';
+        if (resultsAreaEl) resultsAreaEl.style.display = 'none';
+        if (scoreAreaEl) scoreAreaEl.style.display = 'none';
+
+
+        // Show requested view
+        switch (viewName) {
+            case 'splash':
+                if (splashScreenEl) splashScreenEl.style.display = 'flex'; // Assuming flex for splash
+                if (backToSplashButtonEl) backToSplashButtonEl.style.display = 'none';
+                // Reset iframe toggle button texts
+                if (toggleRolesServicioBtn) toggleRolesServicioBtn.textContent = 'Ver Roles en un Servicio (Mostrar)';
+                if (togglePracticaCodigosBtn) togglePracticaCodigosBtn.textContent = 'Practicar Códigos de Comunicación (Mostrar)';
+                if (toggleClasificadorBtn) toggleClasificadorBtn.textContent = 'Clasificador de Servicios (Mostrar Juego)';
+                break;
+            case 'mainApp':
+                if (mainContainerEl) {
+                    mainContainerEl.style.display = 'block';
+                    // Setup main app view (module selection view)
+                    if (statsSectionEl) statsSectionEl.style.display = 'block';
+                    updateInfoDisplay(currentSelectedClassId); // This also shows infoSectionContainerEl
+                    if (startEvaluationButtonEl) startEvaluationButtonEl.style.display = 'inline-block';
+                    if (gameAreaEl) gameAreaEl.style.display = 'none'; // Ensure game is hidden
+                    if (resultsAreaEl) resultsAreaEl.style.display = 'none'; // Ensure results are hidden
+                }
+                if (backToSplashButtonEl) backToSplashButtonEl.style.display = 'inline-block';
+                break;
+            case 'iframeTool':
+                if (targetIframeContainer) {
+                    targetIframeContainer.style.display = 'block';
+                }
+                if (backToSplashButtonEl) backToSplashButtonEl.style.display = 'inline-block';
+                break;
+        }
     }
 
-    function showMainUI() {
-        if (!mainContainerEl || !statsSectionEl || !infoSectionContainerEl || !startEvaluationButtonEl || !gameAreaEl || !scoreAreaEl || !resultsAreaEl) return;
-        mainContainerEl.style.display = 'block';
-        statsSectionEl.style.display = 'block';
-        updateInfoDisplay(currentSelectedClassId);
-        infoSectionContainerEl.style.display = 'block';
-        startEvaluationButtonEl.style.display = 'inline-block';
-        gameAreaEl.style.display = 'none';
-        scoreAreaEl.style.display = 'none';
-        resultsAreaEl.style.display = 'none';
-    }
 
     if (enterAppButtonEl && splashScreenEl) {
         enterAppButtonEl.addEventListener('click', () => {
-            splashScreenEl.style.display = 'none';
-            loadStats();
-            populateModuleDropdown();
-            showMainUI();
+            loadStats(); // Load stats when entering app
+            populateModuleDropdown(); // Populate dropdown
+            showView('mainApp');
         });
-    } else if (!splashScreenEl && mainContainerEl) {
+    } else if (!splashScreenEl && mainContainerEl) { // Fallback if splash is not present for some reason
          loadStats();
          populateModuleDropdown();
-         showMainUI();
+         showView('mainApp');
     }
+
 
     if (classSelectorButtonEl && classOptionsEl) {
         classSelectorButtonEl.addEventListener('click', (event) => {
             event.stopPropagation();
-            classOptionsEl.style.display = classOptionsEl.style.display === 'none' ? 'block' : 'none';
+            classOptionsEl.style.display = classOptionsEl.style.display === 'none' || classOptionsEl.style.display === '' ? 'block' : 'none';
         });
-        document.addEventListener('click', (event) => {
-            if (!classSelectorButtonEl.contains(event.target) && !classOptionsEl.contains(event.target)) {
+        document.addEventListener('click', (event) => { // Close dropdown if clicking outside
+            if (classOptionsEl.style.display === 'block' && !classSelectorButtonEl.contains(event.target) && !classOptionsEl.contains(event.target)) {
                 classOptionsEl.style.display = 'none';
             }
         });
@@ -297,20 +335,76 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetLink && targetLink.tagName === 'A') {
                 event.preventDefault();
                 currentSelectedClassId = parseInt(targetLink.dataset.classid);
-                if (classSelectorButtonEl.firstChild) {
+                if (classSelectorButtonEl.firstChild) { // Update button text
                     classSelectorButtonEl.firstChild.textContent = targetLink.dataset.classname.replace(' ✔️', '') + " ";
                 }
                 classOptionsEl.style.display = 'none';
-                showMainUI();
+                updateInfoDisplay(currentSelectedClassId); // Update the displayed info based on selection
+                // Ensure the main app view components are correctly shown
+                if(mainContainerEl) mainContainerEl.style.display = 'block';
+                if(statsSectionEl) statsSectionEl.style.display = 'block';
+                if(infoSectionContainerEl) infoSectionContainerEl.style.display = 'block';
+                if(startEvaluationButtonEl) startEvaluationButtonEl.style.display = 'inline-block';
+                if (gameAreaEl) gameAreaEl.style.display = 'none';
+                if (resultsAreaEl) resultsAreaEl.style.display = 'none';
             }
         });
     }
+    
+    // Event listener for "Volver al Inicio" button
+    if (backToSplashButtonEl) {
+        backToSplashButtonEl.addEventListener('click', () => {
+            showView('splash');
+        });
+    }
+
+    // Function to setup iframe toggle buttons
+    function setupIframeToggle(buttonEl, iframeContainerEl, showText, hideText) {
+        if (buttonEl && iframeContainerEl) {
+            buttonEl.addEventListener('click', function() {
+                const isHidden = iframeContainerEl.style.display === 'none' || iframeContainerEl.style.display === '';
+                
+                // Hide all other iframe containers first
+                iframeContainers.forEach(container => {
+                    if (container && container !== iframeContainerEl) {
+                        container.style.display = 'none';
+                        // Reset other buttons' text if needed (optional, can make it complex)
+                        if (container === rolesServicioContainer && toggleRolesServicioBtn) toggleRolesServicioBtn.textContent = 'Ver Roles en un Servicio (Mostrar)';
+                        if (container === practicaCodigosContainer && togglePracticaCodigosBtn) togglePracticaCodigosBtn.textContent = 'Practicar Códigos de Comunicación (Mostrar)';
+                        if (container === clasificadorServiciosContainer && toggleClasificadorBtn) toggleClasificadorBtn.textContent = 'Clasificador de Servicios (Mostrar Juego)';
+                    }
+                });
+
+                if (isHidden) {
+                    showView('iframeTool', iframeContainerEl);
+                    this.textContent = hideText;
+                } else {
+                    // If clicking to hide, go back to splash might be too abrupt.
+                    // Better to just hide the current iframe and the user can click "Volver al Inicio" if they want.
+                    iframeContainerEl.style.display = 'none';
+                    this.textContent = showText;
+                    // If all iframes are hidden, and mainApp is also hidden, then maybe show splash?
+                    // For now, let "Volver al Inicio" handle returning to splash.
+                }
+            });
+        }
+    }
+
+    // Setup iframe toggles
+    setupIframeToggle(toggleRolesServicioBtn, rolesServicioContainer, 'Ver Roles en un Servicio (Mostrar)', 'Ver Roles en un Servicio (Ocultar)');
+    setupIframeToggle(togglePracticaCodigosBtn, practicaCodigosContainer, 'Practicar Códigos de Comunicación (Mostrar)', 'Practicar Códigos de Comunicación (Ocultar)');
+    setupIframeToggle(toggleClasificadorBtn, clasificadorServiciosContainer, 'Clasificador de Servicios (Mostrar Juego)', 'Clasificador de Servicios (Ocultar Juego)');
+
 
     function prepareAndStartGameQuestions() {
         if (currentSelectedClassId === null) {
             if(questionTextEl) questionTextEl.textContent = "Por favor, seleccione un módulo primero.";
             return;
         }
+        // Hide info section when starting evaluation for the selected module
+        if (infoSectionContainerEl) infoSectionContainerEl.style.display = 'none';
+        if (statsSectionEl) statsSectionEl.style.display = 'none'; // Also hide stats
+
         let questionsForSelectedClass = allQuestions.filter(q => q.classId === currentSelectedClassId);
         if (typeof shuffleArray === "function") {
             shuffleArray(questionsForSelectedClass);
@@ -319,7 +413,11 @@ document.addEventListener('DOMContentLoaded', () => {
         currentQuestionIndex = 0;
         score = 0;
         if(scoreDisplayEl) scoreDisplayEl.textContent = score;
+
         if (currentPlayQuestions.length > 0) {
+            if (gameAreaEl) gameAreaEl.style.display = 'block';
+            if (scoreAreaEl) scoreAreaEl.style.display = 'block';
+            if (startEvaluationButtonEl) startEvaluationButtonEl.style.display = 'none'; // Hide start button again
             loadQuestion();
         } else {
             if(questionTextEl) questionTextEl.textContent = "No hay preguntas disponibles para este módulo.";
@@ -327,43 +425,52 @@ document.addEventListener('DOMContentLoaded', () => {
             if(answerInputEl) answerInputEl.style.display = 'none';
             if(submitButtonEl) submitButtonEl.style.display = 'none';
             if(multipleChoiceOptionsEl) multipleChoiceOptionsEl.style.display = 'none';
+            if(startEvaluationButtonEl) startEvaluationButtonEl.style.display = 'inline-block'; // Show start button if no questions
         }
     }
 
-    if (startEvaluationButtonEl && infoSectionContainerEl && statsSectionEl && gameAreaEl && scoreAreaEl) {
+    if (startEvaluationButtonEl && mainContainerEl) { // Check mainContainerEl as it implies the main app view is active
         startEvaluationButtonEl.addEventListener('click', () => {
-            startEvaluationButtonEl.style.display = 'none';
-            infoSectionContainerEl.style.display = 'none';
-            statsSectionEl.style.display = 'none';
-            gameAreaEl.style.display = 'block';
-            scoreAreaEl.style.display = 'block';
+            // Ensure main app sections are hidden, game area shown
+            if (infoSectionContainerEl) infoSectionContainerEl.style.display = 'none';
+            if (statsSectionEl) statsSectionEl.style.display = 'none';
+            if (classSelectorButtonEl) classSelectorButtonEl.parentElement.style.display = 'none'; // Hide dropdown
+
             prepareAndStartGameQuestions();
         });
     }
-    if (backToMenuButtonEl) {
-        backToMenuButtonEl.addEventListener('click', showMainUI);
+    
+    // Back to Menu from Evaluation Game
+    if (backToMenuButtonEl && gameAreaEl && mainContainerEl) {
+        backToMenuButtonEl.addEventListener('click', () => {
+             showView('mainApp'); //This will hide gameArea, show mainContainer and its relevant parts
+             if (classSelectorButtonEl) classSelectorButtonEl.parentElement.style.display = 'block'; // Show dropdown again
+        });
     }
+
 
     function loadQuestion() {
         if (!questionNumberEl || !questionTextEl || !feedbackTextEl || !correctAnswerTextEl || !feedbackAreaEl || !nextButtonEl || !multipleChoiceOptionsEl || !answerInputEl || !submitButtonEl) return;
+        
         if (currentQuestionIndex < currentPlayQuestions.length && currentPlayQuestions[currentQuestionIndex]) {
             const currentQuestion = currentPlayQuestions[currentQuestionIndex];
             questionNumberEl.textContent = `Pregunta ${currentQuestionIndex + 1} de ${currentPlayQuestions.length}`;
             questionTextEl.textContent = currentQuestion.question;
             feedbackTextEl.textContent = '';
             correctAnswerTextEl.textContent = '';
-            feedbackAreaEl.className = '';
+            feedbackAreaEl.className = ''; // Clear feedback style
             nextButtonEl.style.display = 'none';
-            multipleChoiceOptionsEl.innerHTML = '';
+            multipleChoiceOptionsEl.innerHTML = ''; // Clear previous options
+
             if (currentQuestion.type === 'multiple-choice' && currentQuestion.options) {
                 answerInputEl.style.display = 'none';
                 submitButtonEl.style.display = 'none';
-                multipleChoiceOptionsEl.style.display = 'flex';
+                multipleChoiceOptionsEl.style.display = 'flex'; // Assuming flex for layout
                 currentQuestion.options.forEach(optionText => {
                     const optionButton = document.createElement('button');
                     optionButton.className = 'option-button';
                     optionButton.textContent = optionText;
-                    optionButton.addEventListener('click', () => handleMultipleChoiceAnswer(optionButton, optionText, currentQuestion.answer)); // Answer for MC is still a string
+                    optionButton.addEventListener('click', () => handleMultipleChoiceAnswer(optionButton, optionText, currentQuestion.answer));
                     multipleChoiceOptionsEl.appendChild(optionButton);
                 });
             } else { // Input type
@@ -378,23 +485,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showResults();
         }
     }
-
-    // --- NORMALIZACIÓN Y MANEJO DE RESPUESTAS ---
-
-    // Fallback: Normaliza y ordena palabras (para respuestas string)
-    function normalizeAndSortWords(answerString) {
-        if (typeof answerString !== 'string' || answerString.trim() === '') {
-            return '';
-        }
-        const basicNormalized = answerString.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        const words = basicNormalized.split(/\s+/)
-            .map(word => word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ""))
-            .filter(word => word.length > 0);
-        words.sort();
-        return words.join('');
-    }
-
-    // Extrae y normaliza keywords de una cadena (para la respuesta del usuario)
+    
     function getNormalizedKeywordsFromString(text) {
         if (typeof text !== 'string' || text.trim() === '') {
             return [];
@@ -407,13 +498,19 @@ document.addEventListener('DOMContentLoaded', () => {
             "del", "al", "como", "cómo", "fue", "es", "son", "del", "al",
             "su", "sus", "mi", "mis", "tu", "tus", "mas", "más", "si", "sí", "no", "pero", "aunque",
             "tambien", "también", "muy", "mucho", "poco", "todo", "ya", "casi", "dentro", "fuera",
-            "primer", "primero", "segundo", "tercero", "mil" // "mil" puede ser problemático con "1884" vs "884"
-            // "oficial" podría ser stopword si no es clave distintiva en algunas respuestas.
+            "primer", "primero", "segundo", "tercero", "mil"
         ]);
         const words = basicNormalized.split(/\s+/)
-            .map(word => word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")) // Limpiar puntuación de la palabra
-            .filter(word => word.length > 0 && !stopWords.has(word)); // Filtrar vacías y stopwords
-        return [...new Set(words)].sort(); // Devuelve keywords únicas y ordenadas
+            .map(word => word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ""))
+            .filter(word => word.length > 0 && !stopWords.has(word));
+        return [...new Set(words)].sort();
+    }
+    
+    function normalizeAndSortWords(answerString) { // Fallback for string answers
+        if (typeof answerString !== 'string' || answerString.trim() === '') return '';
+        return answerString.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                           .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+                           .split(/\s+/).filter(Boolean).sort().join('');
     }
 
 
@@ -421,28 +518,29 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!answerInputEl || answerInputEl.disabled) return;
         const userAnswerRaw = answerInputEl.value;
 
-        if (currentQuestionIndex >= currentPlayQuestions.length || !currentPlayQuestions[currentQuestionIndex]) {
-            return;
-        }
+        if (currentQuestionIndex >= currentPlayQuestions.length || !currentPlayQuestions[currentQuestionIndex]) return;
+        
         const currentQuestion = currentPlayQuestions[currentQuestionIndex];
         let isCorrect = false;
-
         const userKeywords = getNormalizedKeywordsFromString(userAnswerRaw);
 
         if (typeof currentQuestion.answer === 'object' && currentQuestion.answer.keywords) {
             const definedKeywords = currentQuestion.answer.keywords.map(kw =>
-                kw.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Asegurar que las keywords definidas estén normalizadas
+                kw.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
             ).sort();
             const matchType = currentQuestion.answer.match || "all";
 
             if (matchType === "all") {
-                isCorrect = definedKeywords.every(dkw => userKeywords.includes(dkw));
-                // Opcional: para ser más estricto y que el usuario no ponga MUCHAS palabras extra:
-                // if (isCorrect && userKeywords.length > definedKeywords.length + 2) { // Ejemplo: permitir hasta 2 palabras extra no definidas
-                //     isCorrect = false; // Considerar incorrecto si hay demasiadas palabras extra
-                // }
+                isCorrect = definedKeywords.every(dkw => userKeywords.includes(dkw)) && 
+                            userKeywords.every(ukw => definedKeywords.includes(ukw) || userKeywords.length <= definedKeywords.length + 2); // Allow some flexibility
+                 // More precise check: user must have all keywords and not too many extra if definedKeywords is small
+                if (definedKeywords.length > 0 && userKeywords.length > definedKeywords.length + Math.max(2, Math.floor(definedKeywords.length * 0.5))) {
+                     // If user provides many more words than necessary, even if all keywords are present.
+                     // This is a heuristic, adjust as needed.
+                     // isCorrect = false; // Uncomment to make it stricter for very verbose answers
+                }
             }
-        } else if (typeof currentQuestion.answer === 'string') {
+        } else if (typeof currentQuestion.answer === 'string') { // Fallback for simple string answers
             const normUserAnswerSorted = normalizeAndSortWords(userAnswerRaw);
             const normCorrectAnswerSorted = normalizeAndSortWords(currentQuestion.answer);
             isCorrect = normUserAnswerSorted && normCorrectAnswerSorted && normUserAnswerSorted === normCorrectAnswerSorted;
@@ -464,18 +562,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 const displayAnswer = currentQuestion.displayAnswer ||
                                     (typeof currentQuestion.answer === 'string' ? currentQuestion.answer :
                                     (currentQuestion.answer && currentQuestion.answer.keywords ? currentQuestion.answer.keywords.join(', ') : "No disponible"));
-                correctAnswerTextEl.textContent = `La respuesta correcta es: ${displayAnswer}`;
+                correctAnswerTextEl.textContent = `Respuesta: ${displayAnswer}`;
                 if (currentQuestion.tip) { correctAnswerTextEl.textContent += ` (${currentQuestion.tip})`; }
             }
         }
         if(scoreDisplayEl) scoreDisplayEl.textContent = score;
     }
 
-    function handleMultipleChoiceAnswer(selectedButton, selectedOptionText, correctAnswerText) { // correctAnswerText aquí es string
+    function handleMultipleChoiceAnswer(selectedButton, selectedOptionText, correctAnswerText) {
         if (!multipleChoiceOptionsEl || !nextButtonEl || !feedbackTextEl || !feedbackAreaEl || !correctAnswerTextEl || !scoreDisplayEl) return;
+        
         const optionButtons = multipleChoiceOptionsEl.querySelectorAll('.option-button');
-        optionButtons.forEach(btn => btn.disabled = true);
+        optionButtons.forEach(btn => btn.disabled = true); // Disable all options
+
         nextButtonEl.style.display = 'inline-block';
+
         if (selectedOptionText === correctAnswerText) {
             score++;
             incrementTotalCorrect();
@@ -485,8 +586,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             feedbackTextEl.textContent = 'Incorrecto.';
             feedbackAreaEl.className = 'incorrect';
-            correctAnswerTextEl.textContent = `La respuesta correcta es: ${correctAnswerText}`;
+            correctAnswerTextEl.textContent = `Respuesta correcta: ${correctAnswerText}`;
             selectedButton.classList.add('incorrect-option-selected');
+            // Highlight the correct option
             optionButtons.forEach(btn => {
                 if (btn.textContent === correctAnswerText) {
                     btn.classList.add('correct-option');
@@ -496,13 +598,11 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreDisplayEl.textContent = score;
     }
 
-    if (submitButtonEl) {
-        submitButtonEl.addEventListener('click', handleSubmit);
-    }
+    if (submitButtonEl) submitButtonEl.addEventListener('click', handleSubmit);
     if (answerInputEl) {
         answerInputEl.addEventListener('keypress', (event) => {
             if (event.key === 'Enter' && !answerInputEl.disabled) {
-                if (currentQuestionIndex < currentPlayQuestions.length && currentPlayQuestions[currentQuestionIndex]) {
+                 if (currentQuestionIndex < currentPlayQuestions.length && currentPlayQuestions[currentQuestionIndex]) {
                     const currentQuestion = currentPlayQuestions[currentQuestionIndex];
                     if (currentQuestion && (currentQuestion.type === 'input' || !currentQuestion.type)) {
                          handleSubmit();
@@ -521,31 +621,55 @@ document.addEventListener('DOMContentLoaded', () => {
     function showResults() {
         if(!gameAreaEl || !scoreAreaEl || !resultsAreaEl || !finalScoreEl || !totalQuestionsPlayedEl) return;
         gameAreaEl.style.display = 'none';
-        scoreAreaEl.style.display = 'none';
+        scoreAreaEl.style.display = 'none'; // Hide score during results
         resultsAreaEl.style.display = 'block';
         finalScoreEl.textContent = score;
         totalQuestionsPlayedEl.textContent = currentPlayQuestions.length;
-        if (currentSelectedClassId !== null) { // Asegurarse que currentSelectedClassId no sea null
+        
+        if (currentSelectedClassId !== null) {
             markModuleCompleted(currentSelectedClassId);
         }
+        // Show the main module selection button again
+        if (classSelectorButtonEl) classSelectorButtonEl.parentElement.style.display = 'block';
     }
 
-    if (restartButtonEl) {
-        restartButtonEl.addEventListener('click', showMainUI);
+    // Restart Evaluation (from results screen)
+    if (restartButtonEl && resultsAreaEl && mainContainerEl) {
+        restartButtonEl.addEventListener('click', () => {
+            resultsAreaEl.style.display = 'none'; // Hide results
+            showView('mainApp'); // Go back to module selection view
+            if (classSelectorButtonEl) classSelectorButtonEl.parentElement.style.display = 'block'; // Ensure dropdown is visible
+        });
     }
+    
 
+    // Initial Setup
     const storedTheme = localStorage.getItem(THEME_KEY) || 'light';
     applyTheme(storedTheme);
 
-    if (modules.length > 0 && mainContainerEl) {
-        currentSelectedClassId = modules[0].id; // Asegurar que currentSelectedClassId se inicialice
+    // Initialize view based on whether splash screen should be shown or not.
+    // If splashScreenEl exists, it means it should be shown by default.
+    if (splashScreenEl) {
+        showView('splash'); // Start with splash screen
+        // The 'enterAppButtonEl' listener will then call showView('mainApp')
+    } else { // If no splash screen, directly show main app
+        loadStats();
         populateModuleDropdown();
-        updateInfoDisplay(currentSelectedClassId); // Llamar después de inicializar currentSelectedClassId
-         // No llamar a showMainUI() aquí si el splash screen está activo.
-    } else if (mainContainerEl && (!splashScreenEl || (splashScreenEl && splashScreenEl.style.display === 'none'))) {
-        showMainUI();
+        showView('mainApp');
     }
-});
+    
+    // Ensure currentSelectedClassId is initialized for updateInfoDisplay if showing mainApp directly
+     if (modules.length > 0 && (!splashScreenEl || splashScreenEl.style.display === 'none')) {
+        if(currentSelectedClassId === null) currentSelectedClassId = modules[0].id;
+        populateModuleDropdown(); // Ensure dropdown is populated
+        updateInfoDisplay(currentSelectedClassId); // Display info for the default/current module
+    }
+
+}); // End DOMContentLoaded for main app logic
+
+// Separate DOMContentLoaded for motivational phrases and clock, or move to the end of the one above.
+// For simplicity, keeping them as they were, assuming they run after elements are available.
+// Or, better, ensure they are also within a DOMContentLoaded or window.onload.
 
 const phrases = [
     "Servir es un honor, proteger es nuestra misión. ❤️",
@@ -567,16 +691,25 @@ function updateClock() {
     const dateTimeElement = document.getElementById("date-time");
     if (dateTimeElement) {
         const now = new Date();
-        const formattedTime = now.toLocaleString("es-AR", {
-            weekday: "long", year: "numeric", month: "long", day: "numeric",
-            hour: "2-digit", minute: "2-digit", second: "2-digit"
-        });
-        dateTimeElement.textContent = formattedTime;
+        try {
+            const formattedTime = now.toLocaleString("es-AR", {
+                weekday: "long", year: "numeric", month: "long", day: "numeric",
+                hour: "2-digit", minute: "2-digit", second: "2-digit"
+            });
+            dateTimeElement.textContent = formattedTime;
+        } catch (e) {
+            // Fallback for environments that might not support es-AR fully or options
+            dateTimeElement.textContent = now.toLocaleDateString() + " " + now.toLocaleTimeString();
+            console.warn("toLocaleString with es-AR options failed, using fallback. Error:", e);
+        }
     }
 }
 
-window.onload = function() {
+// Ensure these run after DOM is ready
+window.addEventListener('load', function() { // 'load' ensures everything including images is loaded
     showRandomPhrase();
     updateClock();
     setInterval(updateClock, 1000);
-};
+});
+
+
