@@ -5,31 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Evaluación: Bomberos Voluntarios Argentinos</title>
     <link rel="stylesheet" href="index.css">
-       
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-
+    <button id="backToSplashButton" style="display: none; position: fixed; top: 20px; left: 20px; z-index: 1005; padding: 8px 15px; background-color: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer;">Volver al Inicio</button>
     <script src="index.js"></script>
-                 <div class="bg-gray-800 bg-opacity-60 p-6 rounded-lg mb-8 shadow-lg border border-gray-700 transition-all duration-700 opacity-0 translate-y-5 hover:opacity-100 hover:translate-y-0">
-                    <h3 class="text-xl font-semibold mb-4 text-white flex items-center">
-                        <i class="fas fa-folder-open mr-2 text-blue-400"></i>Clases y Materiales 📁
-                    </h3>
-                    <p class="text-gray-300 mb-5">
-                        Accede a los materiales de estudio y recursos complementarios.
-                    </p>
-                    <a href="https://drive.google.com/drive/folders/1N7rWK6zXRNCNvKKsD5CGdGxJySTVn9aB?usp=sharing" target="_blank" class="button button-blue">
-                        <i class="fab fa-google-drive mr-2"></i>Acceder a Clases en Drive
-                    </a>
-                </div>
-                <p id="motivational-phrase" class="motivational-phrase">" Servir es un honor, proteger es nuestra misión. ❤️ "</p>
-                    <div id="splash-screen">
-        <div id="date-time" class="text-sm text-gray-400">lunes, 12 de mayo de 2025 - 09:19:29 p.&nbsp;m.</div>
+
+    <div class="bg-gray-800 bg-opacity-60 p-6 rounded-lg mb-8 shadow-lg border border-gray-700 transition-all duration-700 opacity-0 translate-y-5 hover:opacity-100 hover:translate-y-0" style="margin-top: 20px; max-width: 800px; width: 90%; margin-left:auto; margin-right:auto;">
+        <h3 class="text-xl font-semibold mb-4 text-white flex items-center">
+            <i class="fas fa-folder-open mr-2 text-blue-400"></i>Clases y Materiales 📁
+        </h3>
+        <p class="text-gray-300 mb-5">
+            Accede a los materiales de estudio y recursos complementarios.
+        </p>
+        <a href="https://drive.google.com/drive/folders/1N7rWK6zXRNCNvKKsD5CGdGxJySTVn9aB?usp=sharing" target="_blank" class="button button-blue">
+            <i class="fab fa-google-drive mr-2"></i>Acceder a Clases en Drive
+        </a>
+    </div>
+    <p id="motivational-phrase" class="motivational-phrase">" Servir es un honor, proteger es nuestra misión. ❤️ "</p>
+
+    <div id="splash-screen">
+        <div id="date-time" class="text-sm text-gray-400">cargando fecha y hora...</div>
         <h1>Aspirantes de Malvinas Argentinas</h1>
         <p>INOVB 166</p>
         <button id="enter-app-button">Ingresar al Módulo de Estudio</button>
-        <button id="enter-app-button">Ingresar al Módulo de Estudio</button>
-        <button id="enter-app-button">Roles de servicio</button>
+
+        <div class="tool-buttons-container" style="margin-top: 30px;">
+            <h4 style="color: white; margin-bottom:15px; font-size: 1.2em;">Herramientas Adicionales:</h4>
+            <div style="margin-bottom: 10px;">
+                <button id="toggleRolesServicioBtn" class="splash-tool-button" style="background-color: #28a745;">Ver Roles en un Servicio</button>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <button id="togglePracticaCodigosBtn" class="splash-tool-button" style="background-color: #007bff;">Practicar Códigos</button>
+            </div>
+            <div>
+                <button id="toggleClasificadorBtn" class="splash-tool-button" style="background-color: #ffc107; color: #212529;">Juego Clasificador</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="rolesServicioContainer" style="display: none; text-align: center; margin: 20px auto; padding:10px; max-width: 900px; width:95%;">
+        <iframe src="rolesenunservicio.html"
+                width="100%"
+                height="600px"
+                style="border:1px solid #ccc; border-radius: 8px;"
+                title="Roles en un Servicio Bomberil">
+            Tu navegador no soporta iframes. Puedes acceder al contenido directamente <a href="rolesenunservicio.html" target="_blank">aquí</a>.
+        </iframe>
+    </div>
+
+    <div id="practicaCodigosContainer" style="display: none; text-align: center; margin: 20px auto; padding:10px; max-width: 900px; width:95%;">
+        <h3 style="color: var(--text-color);">Practica tus Códigos de Comunicación</h3>
+        <iframe src="torreradial.html"
+                width="100%"
+                height="800px"
+                style="border:2px solid #00FF00; border-radius: 10px;"
+                title="Juego Torre de Control Radial">
+            Tu navegador no soporta iframes. Puedes acceder al juego directamente <a href="torreradial.html" target="_blank">aquí</a>.
+        </iframe>
+    </div>
+
+    <div id="clasificadorServiciosContainer" style="display: none; text-align: center; margin: 20px auto; padding:10px; max-width: 900px; width:95%;">
+        <h2 style="color: var(--text-color);">Pon a Prueba tus Conocimientos: Clasificador de Servicios</h2>
+        <iframe src="juegoservicios.html"
+                width="100%"
+                height="750px"
+                style="border:2px solid #FFDF00; border-radius: 10px;"
+                title="Juego Clasificador de Servicios de Emergencia">
+            Tu navegador no soporta iframes. Puedes acceder al juego directamente <a href="juegoservicios.html" target="_blank">aquí</a>.
+        </iframe>
     </div>
 
     <div class="main-container" style="display:none;">
@@ -88,7 +132,7 @@
                     <li><strong>Nombre del Destacamento:</strong> Dionicio García.</li>
                     <li><strong>Fecha de Inauguración:</strong> 23 de Febrero de 1993.</li>
                     <li><strong>Dirección:</strong> Paso de los Andes 951.</li>
-                    <li><strong>Teléfono:</strong> (02320) 48-1777.
+                    <li><strong>Teléfono:</strong> (02320) 48-1777.</li>
                     <li><strong>Actual Presidente H.C.D. (Asociación):</strong> Demilio Gabriel.</li>
                     <li><strong>Actual Jefe C.A. (Asociación):</strong> Oficial Herrera Andrés.</li>
                     <li><strong>Actual Encargado del Destacamento:</strong> Oficial Paz.</li>
@@ -773,32 +817,5 @@
             <button id="restart-button">Estudiar de Nuevo / Otra Evaluación</button>
         </div>
     </div>
-
-<div style="text-align: center; margin: 20px;">
-    <h3>Practica tus Códigos de Comunicación</h3>
-    <iframe src="torreradial.html"  рядом width="95%"
-            height="800px"
-            style="border:2px solid #00FF00; border-radius: 10px; max-width: 850px;"
-            title="Juego Torre de Control Radial">
-        Tu navegador no soporta iframes. Puedes acceder al juego directamente
-        <a href="ruta/correcta/a/tu/juego_codigos.html" target="_blank">aquí</a>. </iframe>
-</div>
-
-    <div style="text-align: center; margin: 20px;">
-    <h2>Pon a Prueba tus Conocimientos: Clasificador de Servicios</h2>
-    <iframe src="juegoservicios.html"
-            width="95%"
-            height="750px"
-            style="border:2px solid #FFDF00; border-radius: 10px; max-width: 750px;"
-            title="Juego Clasificador de Servicios de Emergencia">
-        Tu navegador no soporta iframes. Puedes acceder al juego directamente
-        <a href="ruta/a/tu/juego_clasificador_servicios.html" target="_blank">aquí</a>.
-    </iframe>
-</div>
-
-<iframe src="rolesenunservicio.html" width="100%" height="600px" style="border:1px solid #ccc;"></iframe>
-    <script>
-        
-    </script>
-</body>
+    </body>
 </html>
