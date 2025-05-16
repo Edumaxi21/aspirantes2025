@@ -997,6 +997,8 @@ const phrases = [
     "Cada día es una nueva oportunidad para mejorar.",
     "Nunca subestimes el poder de tus sueños.",
     "El esfuerzo de hoy será la recompensa de mañana."
+    "Ubi dolor ibi vigiles (allí donde hay dolor están los vigilantes)."
+     "Volere è Potere (Querer es Poder)."
 ];
 
 function showRandomPhrase() {
