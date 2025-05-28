@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego: Torre de Control Radial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos Generales */
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: #000033; /* Azul noche oscuro */
+            color: #00FF00; /* Verde fosforescente para texto */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        /* Contenedor Principal del Juego */
+        #game-container {
+            background-color: #001f3f; /* Azul marino más oscuro */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.6); /* Sombra verde brillante */
+            width: 90%;
+            max-width: 800px; /* Un poco más ancho para deletreo */
+            border: 3px solid #00FF00; /* Borde verde */
+        }
+
+        h1 {
+            color: #00FF00;
+            font-size: 1.6em; /* Ajustado para nombres más largos */
+            margin-bottom: 20px;
+            text-shadow: 2px 2px #008000; /* Sombra verde oscuro */
+        }
+
+        /* Área de Pregunta/Desafío */
+        #challenge-area {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #003366; /* Azul más oscuro para el fondo de la pregunta */
+            border-radius: 10px;
+            border: 2px dashed #00FF00;
+        }
+
+        #challenge-type {
+            font-size: 0.8em;
+            color: #7FFF00; /* Verde Chartreuse */
+            margin-bottom: 10px;
+        }
+
+        #challenge-text {
+            font-size: 1.1em;
+            line-height: 1.5;
+            color: #FFFFFF; /* Blanco para el texto principal del desafío */
+            min-height: 50px;
+        }
+        #challenge-text strong { /* Para resaltar el código o palabra a deletrear */
+            color: #FFFF00; /* Amarillo */
+            font-size: 1.2em;
+        }
+
+
+        /* Opciones de Respuesta / Botones de Deletreo */
+        #options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        /* Estilo específico para deletreo */
+        #spelling-options-container {
+            display: flex;
+            flex-wrap: wrap; /* Permite que los botones pasen a la siguiente línea */
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .spelling-btn, .option-btn {
+            background-color: #007bff; /* Azul brillante */
+            color: #ffffff;
+            border: 2px solid #0056b3;
+            padding: 12px 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8em;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 4px #004085;
+        }
+        .spelling-btn:hover, .option-btn:hover {
+            background-color: #0069d9;
+        }
+        .spelling-btn:active, .option-btn:active {
+            background-color: #005cbf;
+            transform: translateY(2px);
+            box-shadow: 0 2px #004085;
+        }
+        .option-btn.correct {
+            background-color: #28a745 !important; /* Verde éxito */
+            border-color: #1e7e34 !important;
+            box-shadow: 0 4px #155724 !important;
+        }
+        .option-btn.incorrect {
+            background-color: #dc3545 !important; /* Rojo peligro */
+            border-color: #bd2130 !important;
+            box-shadow: 0 4px #721c24 !important;
+        }
+        .option-btn:disabled, .spelling-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Área de Respuesta del Usuario (para deletreo) */
+        #user-spelling-area {
+            min-height: 30px;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #001122; /* Azul muy oscuro */
+            border: 1px solid #00FF00;
+            border-radius: 5px;
+            font-size: 1em;
+            color: #FFFF00; /* Amarillo para la respuesta */
+            letter-spacing: 2px;
+            word-break: break-all; /* Para que el texto largo se divida */
+        }
+        #user-spelling-area .placeholder {
+            color: #008000; /* Verde oscuro para el placeholder */
+        }
+
+
+        /* Área de Información */
+        #info-area {
+            display: flex;
+            justify-content: space-around; /* Distribuir mejor */
+            margin-bottom: 15px;
+            font-size: 0.9em;
+            color: #00FF00;
+        }
+
+        /* Área de Feedback */
+        #feedback-area {
+            font-size: 1em;
+            margin-bottom: 15px;
+            min-height: 30px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        #feedback-area.correct-feedback {
+            color: #28a745;
+            background-color: rgba(40, 167, 69, 0.1);
+            border: 1px solid #28a745;
+        }
+        #feedback-area.incorrect-feedback {
+            color: #dc3545;
+            background-color: rgba(220, 53, 69, 0.1);
+            border: 1px solid #dc3545;
+        }
+        #correct-answer-text {
+            font-size: 0.8em;
+            margin-top: 5px;
+            color: #FFFF00; /* Amarillo para la respuesta correcta */
+        }
+
+        /* Botones de Control */
+        .control-btn {
+            background-color: #FFC107; /* Amarillo advertencia */
+            color: #000033; /* Texto azul oscuro */
+            border: 2px solid #E0A800;
+            padding: 15px 25px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-top: 10px;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 4px #c69500;
+        }
+        .control-btn:hover {
+            background-color: #FFB300;
+        }
+        .control-btn:active {
+            background-color: #E0A800;
+            transform: translateY(2px);
+            box-shadow: 0 2px #c69500;
+        }
+        #submit-spelling-btn {
+            background-color: #28a745; /* Verde para enviar deletreo */
+            color: #fff;
+            border-color: #1e7e34;
+            box-shadow: 0 4px #155724;
+        }
+
+
+        /* Pantalla de Fin de Juego */
+        #game-over-screen {
+            display: none;
+        }
+        #game-over-screen h2 {
+            color: #00FF00;
+            font-size: 1.5em;
+        }
+        #game-over-screen p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        #loading-message {
+            font-size: 1.2em;
+            color: #00FF00;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 700px) {
+            h1 { font-size: 1.3em; }
+            #challenge-text { font-size: 1em; }
+            .option-btn, .spelling-btn { font-size: 0.7em; padding: 10px;}
+            #user-spelling-area { font-size: 0.9em; }
+        }
+         @media (max-width: 480px) {
+            h1 { font-size: 1.1em; }
+            #challenge-text { font-size: 0.9em; }
+            .option-btn, .spelling-btn { font-size: 0.65em; padding: 8px;}
+            #info-area, #feedback-area, .control-btn { font-size: 0.8em; }
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>Torre de Control Radial</h1>
+
+        <div id="loading-message">Preparando equipos...</div>
+
+        <div id="game-content" style="display:none;">
+            <div id="info-area">
+                <span id="score">Puntaje: 0</span>
+                <span id="question-counter">Desafío: 1 / X</span>
+            </div>
+
+            <div id="challenge-area">
+                <p id="challenge-type">Tipo de Desafío</p>
+                <p id="challenge-text">Texto del desafío aquí...</p>
+            </div>
+
+            <div id="user-spelling-area" style="display:none;">
+                <span class="placeholder">Tu deletreo aparecerá aquí...</span>
+            </div>
+
+            <div id="options-container">
+                </div>
+            <div id="spelling-options-container" style="display:none;">
+                </div>
+
+            <div id="feedback-area">
+                <span id="correct-answer-text"></span>
+            </div>
+
+            <button id="submit-spelling-btn" class="control-btn" style="display: none;">Enviar Deletreo</button>
+            <button id="next-challenge-btn" class="control-btn" style="display: none;">Siguiente Desafío</button>
+        </div>
+
+        <div id="game-over-screen" style="display:none;">
+            <h2>¡Comunicación Finalizada!</h2>
+            <p id="final-score">Tu puntaje final es: 0</p>
+            <button id="restart-btn" class="control-btn">Reintentar Conexión</button>
+        </div>
+
+        <button id="start-btn" class="control-btn">Iniciar Transmisión</button>
+    </div>
+
+    <script>
+        // Fuentes de datos para los desafíos
+        const sourceCodigoQ = [
+            { code: "QAB", meaning: "CUÁL ES SU DESTINO / UBICACIÓN DEL SINIESTRO" },
+            { code: "QAP", meaning: "QUEDO EN ESCUCHA / ATENTO" },
+            { code: "QAZ", meaning: "TIENE PROBLEMAS PARA COMUNICARSE / PROBLEMAS DE EQUIPO" },
+            { code: "QCB", meaning: "NO TENGO ENERGÍA PARA ALIMENTAR AL EQUIPO" },
+            { code: "QRA", meaning: "IDENTIFICARSE (NOMBRE, APELLIDO, GRADO)" },
+            { code: "QRJ", meaning: "NO PUEDO COPIARLO / NO RECIBO SUS SEÑALES" },
+            { code: "QRL", meaning: "ESTOY OCUPADO / NO PUEDO MANTENER TRÁFICO" },
+            { code: "QRM", meaning: "INTERFERENCIA / RUIDOS ATMOSFÉRICOS" },
+            { code: "QRN", meaning: "INTERFERENCIAS DE OTRAS ESTACIONES" },
+            { code: "QRS", meaning: "DEBE TRANSMITIR MÁS PAUSADO / MEJOR MODULACIÓN" },
+            { code: "QRU", meaning: "TIENE ALGO PARA MÍ / ALGÚN MENSAJE" },
+            { code: "QRV", meaning: "ESTOY ATENTO / PREPARADO PARA COPIARLO" },
+            { code: "QRX", meaning: "INTERRUMPA LA TRANSMISIÓN POR X MINUTOS" },
+            { code: "QRZ", meaning: "QUIÉN LLAMA" },
+            { code: "QSA", meaning: "CÓMO ES MI SEÑAL / CÓMO ME RECIBE" },
+            { code: "QSL", meaning: "COMPRENDIDO" },
+            { code: "QSO", meaning: "PUEDO COMUNICARME CON..." },
+            { code: "QSP", meaning: "FAVOR DE HACER PUENTE CON..." },
+            { code: "QTA", meaning: "FAVOR DE ANULAR EL MENSAJE ANTERIOR" },
+            { code: "QSY", meaning: "DESPLAZARSE A TAL FRECUENCIA" },
+            { code: "QTC", meaning: "MENSAJE / PARTE / NOVEDAD / INFORME" },
+            { code: "QTH", meaning: "UBICACIÓN DE LA ESTACIÓN AL TRANSMITIR" },
+            { code: "QTR", meaning: "LA HORA A QUE SE HACE REFERENCIA" },
+            { code: "QRQ", meaning: "VÍA LIBRE / PRIORIDAD (EMERGENCIA)" }
+        ];
+
+        const alfabetoFonetico = {
+            'A': "Alfa", 'B': "Bravo", 'C': "Charlie", 'D': "Delta", 'E': "Echo",
+            'F': "Foxtrot", 'G': "Golf", 'H': "Hotel", 'I': "India", 'J': "Juliet",
+            'K': "Kilo", 'L': "Lima", 'M': "Mike", 'N': "November", 'O': "Oscar",
+            'P': "Papa", 'Q': "Quebec", 'R': "Romeo", 'S': "Sierra", 'T': "Tango",
+            'U': "Uniform", 'V': "Victor", 'W': "Whiskey", 'X': "X-ray", 'Y': "Yankee",
+            'Z': "Zulu",
+            '0': "Cero de nada", '1': "Primero", '2': "Segundo", '3': "Tercero",
+            '4': "Cuarto", '5': "Quinto", '6': "Sexto", '7': "Séptimo",
+            '8': "Octavo", '9': "Noveno"
+        };
+
+        const sourceCodigoNumerico = [
+            { number: "1", word: "Primero" }, { number: "2", word: "Segundo" },
+            { number: "3", word: "Tercero" }, { number: "4", word: "Cuarto" },
+            { number: "5", word: "Quinto" }, { number: "6", word: "Sexto" },
+            { number: "7", word: "Séptimo" }, { number: "8", word: "Octavo" },
+            { number: "9", word: "Noveno" }, { number: "0", word: "Cero de nada" }
+        ];
+
+        const sourcePalabrasDeletreo = ["BOMBA", "FUEGO", "AGUA", "MANGUERA", "SIRENA", "UNIDAD", "MOVIL", "BASE", "ALERTA", "AX15B", "QRV2", "ZU3L", "QTH", "AYUDANTE", "JEFE", "RESCATE"];
+
+        // Elementos del DOM
+        const loadingMessageEl = document.getElementById('loading-message');
+        const gameContentEl = document.getElementById('game-content');
+        const scoreEl = document.getElementById('score');
+        const questionCounterEl = document.getElementById('question-counter');
+        const challengeTypeEl = document.getElementById('challenge-type');
+        const challengeTextEl = document.getElementById('challenge-text');
+        const userSpellingAreaEl = document.getElementById('user-spelling-area');
+        const optionsContainerEl = document.getElementById('options-container');
+        const spellingOptionsContainerEl = document.getElementById('spelling-options-container');
+        const feedbackAreaEl = document.getElementById('feedback-area');
+        const correctAnswerTextEl = document.getElementById('correct-answer-text');
+        const submitSpellingBtn = document.getElementById('submit-spelling-btn');
+        const nextChallengeBtn = document.getElementById('next-challenge-btn');
+        const gameOverScreenEl = document.getElementById('game-over-screen');
+        const finalScoreEl = document.getElementById('final-score');
+        const startBtn = document.getElementById('start-btn');
+        const restartBtn = document.getElementById('restart-btn');
+
+        // Variables del juego
+        let currentScore = 0;
+        let challengeCount = 0;
+        const TOTAL_CHALLENGES = 15;
+        let currentChallengeData = {};
+        let userSpelling = [];
+
+        // Mazos para los desafíos (se llenarán y barajarán al inicio del juego)
+        let codigoQDeck = [];
+        let numericDeck = [];
+        let spellingDeck = [];
+        // Índices para llevar la cuenta de los elementos usados en los mazos
+        let qDeckIndex = 0;
+        let numericDeckIndex = 0;
+        let spellingDeckIndex = 0;
+
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Prepara los mazos de desafíos
+        function prepareDecks() {
+            codigoQDeck = shuffleArray([...sourceCodigoQ]);
+            numericDeck = shuffleArray([...sourceCodigoNumerico]);
+            spellingDeck = shuffleArray([...sourcePalabrasDeletreo]);
+            qDeckIndex = 0;
+            numericDeckIndex = 0;
+            spellingDeckIndex = 0;
+        }
+
+        function startGame() {
+            prepareDecks(); // Prepara y baraja los mazos
+            currentScore = 0;
+            challengeCount = 0;
+            updateScoreDisplay();
+            gameOverScreenEl.style.display = 'none';
+            gameContentEl.style.display = 'block';
+            startBtn.style.display = 'none';
+            nextChallengeBtn.style.display = 'none';
+            submitSpellingBtn.style.display = 'none';
+            loadNextChallenge();
+        }
+
+        function loadNextChallenge() {
+            challengeCount++;
+            if (challengeCount > TOTAL_CHALLENGES) {
+                endGame();
+                return;
+            }
+            updateChallengeCounter();
+            feedbackAreaEl.textContent = '';
+            feedbackAreaEl.className = '';
+            correctAnswerTextEl.textContent = '';
+            optionsContainerEl.innerHTML = '';
+            spellingOptionsContainerEl.innerHTML = '';
+            userSpellingAreaEl.innerHTML = '<span class="placeholder">Tu deletreo aparecerá aquí...</span>';
+            userSpellingAreaEl.style.display = 'none';
+            spellingOptionsContainerEl.style.display = 'none';
+            optionsContainerEl.style.display = 'grid';
+            submitSpellingBtn.style.display = 'none';
+            submitSpellingBtn.disabled = false; // Habilitar botón de enviar deletreo
+            spellingOptionsContainerEl.querySelectorAll('.spelling-btn').forEach(btn => btn.disabled = false); // Habilitar botones de deletreo
+            nextChallengeBtn.style.display = 'none';
+            userSpelling = [];
+
+            const challengeTypeRoll = Math.random();
+            if (challengeTypeRoll < 0.35) {
+                generateCodigoQChallenge(true); // Código Q -> Significado
+            } else if (challengeTypeRoll < 0.70) {
+                generateCodigoQChallenge(false); // Significado -> Código Q
+            } else if (challengeTypeRoll < 0.85) {
+                generateSpellingChallenge(); // Deletreo Fonético
+            } else {
+                generateNumericChallenge(); // Código Numérico
+            }
+        }
+
+        function getNextFromDeck(deck, index, sourceArray) {
+            if (index >= deck.length) {
+                deck = shuffleArray([...sourceArray]); // Rehacer y barajar el mazo
+                index = 0; // Reiniciar índice
+            }
+            return { item: deck[index], newDeck: deck, newIndex: index + 1 };
+        }
+
+        function generateCodigoQChallenge(codeToMeaning) {
+            challengeTypeEl.textContent = codeToMeaning ? "Interpretar Código Q" : "Identificar Código Q";
+            
+            let deckResult = getNextFromDeck(codigoQDeck, qDeckIndex, sourceCodigoQ);
+            const qEntry = deckResult.item;
+            codigoQDeck = deckResult.newDeck;
+            qDeckIndex = deckResult.newIndex;
+
+            currentChallengeData = {
+                type: 'codigoQ',
+                correctAnswer: codeToMeaning ? qEntry.meaning : qEntry.code,
+                question: codeToMeaning ? qEntry.code : qEntry.meaning
+            };
+
+            challengeTextEl.innerHTML = `¿Qué significa <strong>${currentChallengeData.question}</strong>?`;
+            if (!codeToMeaning) {
+                challengeTextEl.innerHTML = `¿Qué código Q corresponde a: <strong>"${currentChallengeData.question}"</strong>?`;
+            }
+
+            let options = [currentChallengeData.correctAnswer];
+            // Para los distractores, tomamos otros elementos del mazo original para asegurar variedad
+            let distractorsSource = shuffleArray([...sourceCodigoQ]);
+            let distractors = distractorsSource.filter(item => (codeToMeaning ? item.meaning : item.code) !== currentChallengeData.correctAnswer);
+            
+            for (let i = 0; i < 3 && i < distractors.length; i++) {
+                options.push(codeToMeaning ? distractors[i].meaning : distractors[i].code);
+            }
+            shuffleArray(options);
+            displayOptions(options, currentChallengeData.correctAnswer, 'codigoQ');
+        }
+
+        function generateSpellingChallenge() {
+            challengeTypeEl.textContent = "Deletreo Fonético Internacional";
+
+            let deckResult = getNextFromDeck(spellingDeck, spellingDeckIndex, sourcePalabrasDeletreo);
+            const wordToSpell = deckResult.item;
+            spellingDeck = deckResult.newDeck;
+            spellingDeckIndex = deckResult.newIndex;
+
+            currentChallengeData = {
+                type: 'spelling',
+                word: wordToSpell,
+                correctAnswer: wordToSpell.toUpperCase().split('').map(char => alfabetoFonetico[char] || char).join(' ') // Manejar si un char no está en alfabetoFonetico
+            };
+            challengeTextEl.innerHTML = `Deletrea: <strong>${wordToSpell}</strong>`;
+            userSpellingAreaEl.style.display = 'block';
+            spellingOptionsContainerEl.style.display = 'flex';
+            optionsContainerEl.style.display = 'none';
+            submitSpellingBtn.style.display = 'inline-block';
+            submitSpellingBtn.disabled = false; // Asegurar que esté habilitado
+
+            let allPhoneticButtons = [];
+            for (const char in alfabetoFonetico) {
+                allPhoneticButtons.push({ char: char, phonetic: alfabetoFonetico[char] });
+            }
+            shuffleArray(allPhoneticButtons);
+
+            spellingOptionsContainerEl.innerHTML = ''; // Limpiar botones anteriores
+            allPhoneticButtons.forEach(item => {
+                const btn = document.createElement('button');
+                btn.classList.add('spelling-btn');
+                btn.textContent = item.phonetic;
+                btn.dataset.char = item.char;
+                btn.dataset.phonetic = item.phonetic;
+                btn.addEventListener('click', handleSpellingButtonClick);
+                spellingOptionsContainerEl.appendChild(btn);
+            });
+        }
+        
+        function handleSpellingButtonClick(event) {
+            const phoneticWord = event.target.dataset.phonetic;
+            userSpelling.push(phoneticWord);
+            if (userSpellingAreaEl.firstChild && userSpellingAreaEl.firstChild.classList && userSpellingAreaEl.firstChild.classList.contains('placeholder')) {
+                userSpellingAreaEl.innerHTML = ''; // Limpiar placeholder
+            }
+            userSpellingAreaEl.innerHTML = userSpelling.join(' - '); // Usar innerHTML para que se muestre el guion
+        }
+
+        function handleSubmitSpelling() {
+            const userAnswerString = userSpelling.join(' ');
+            submitSpellingBtn.disabled = true;
+            spellingOptionsContainerEl.querySelectorAll('.spelling-btn').forEach(btn => btn.disabled = true);
+
+            if (userAnswerString === currentChallengeData.correctAnswer) {
+                feedbackAreaEl.textContent = "¡DELETREO CORRECTO!";
+                feedbackAreaEl.className = 'correct-feedback';
+                currentScore += 15;
+            } else {
+                feedbackAreaEl.textContent = "DELETREO INCORRECTO";
+                feedbackAreaEl.className = 'incorrect-feedback';
+                correctAnswerTextEl.textContent = `Correcto: ${currentChallengeData.correctAnswer}`;
+            }
+            updateScoreDisplay();
+            nextChallengeBtn.style.display = 'inline-block';
+            submitSpellingBtn.style.display = 'none';
+        }
+
+        function generateNumericChallenge() {
+            challengeTypeEl.textContent = "Código Numérico";
+
+            let deckResult = getNextFromDeck(numericDeck, numericDeckIndex, sourceCodigoNumerico);
+            const numEntry = deckResult.item;
+            numericDeck = deckResult.newDeck;
+            numericDeckIndex = deckResult.newIndex;
+
+            currentChallengeData = {
+                type: 'numeric',
+                correctAnswer: numEntry.word,
+                question: numEntry.number
+            };
+            challengeTextEl.innerHTML = `¿Cómo se dice el número <strong>${numEntry.number}</strong> en código?`;
+
+            let options = [numEntry.word];
+            let distractorsSource = shuffleArray([...sourceCodigoNumerico]);
+            let distractors = distractorsSource.filter(item => item.word !== numEntry.word);
+
+            for (let i = 0; i < 3 && i < distractors.length; i++) {
+                options.push(distractors[i].word);
+            }
+            shuffleArray(options);
+            displayOptions(options, numEntry.word, 'numeric');
+        }
+
+        function displayOptions(optionsArray, correctAnswer, type) {
+            optionsContainerEl.innerHTML = ''; // Limpiar opciones anteriores
+            optionsArray.forEach(optText => {
+                const btn = document.createElement('button');
+                btn.classList.add('option-btn');
+                btn.textContent = optText;
+                btn.dataset.option = optText; // Para poder seleccionarlo si es incorrecto
+                btn.addEventListener('click', () => handleOptionClick(optText, correctAnswer, type));
+                optionsContainerEl.appendChild(btn);
+            });
+        }
+
+        function handleOptionClick(selectedOption, correctAnswer, type) {
+            const allOptionButtons = optionsContainerEl.querySelectorAll('.option-btn');
+            allOptionButtons.forEach(btn => {
+                btn.disabled = true;
+                if (btn.textContent === correctAnswer) {
+                     btn.classList.add('correct');
+                }
+            });
+
+            if (selectedOption === correctAnswer) {
+                feedbackAreaEl.textContent = "¡CORRECTO!";
+                feedbackAreaEl.className = 'correct-feedback';
+                currentScore += 10;
+            } else {
+                feedbackAreaEl.textContent = "INCORRECTO";
+                feedbackAreaEl.className = 'incorrect-feedback';
+                correctAnswerTextEl.textContent = `Correcto: ${correctAnswer}`;
+                // Encuentra el botón que el usuario seleccionó y márcalo como incorrecto
+                const selectedBtn = Array.from(allOptionButtons).find(b => b.textContent === selectedOption);
+                if (selectedBtn) {
+                    selectedBtn.classList.add('incorrect');
+                }
+            }
+            updateScoreDisplay();
+            nextChallengeBtn.style.display = 'inline-block';
+        }
+
+        function updateScoreDisplay() {
+            scoreEl.textContent = `Puntaje: ${currentScore}`;
+        }
+
+        function updateChallengeCounter() {
+            questionCounterEl.textContent = `Desafío: ${challengeCount} / ${TOTAL_CHALLENGES}`;
+        }
+
+        function endGame() {
+            gameContentEl.style.display = 'none';
+            gameOverScreenEl.style.display = 'block';
+            finalScoreEl.textContent = `Puntaje Final: ${currentScore}`;
+        }
+
+        startBtn.addEventListener('click', startGame);
+        restartBtn.addEventListener('click', startGame);
+        nextChallengeBtn.addEventListener('click', loadNextChallenge);
+        submitSpellingBtn.addEventListener('click', handleSubmitSpelling);
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                loadingMessageEl.style.display = 'none';
+                if (gameOverScreenEl.style.display === 'none' && gameContentEl.style.display === 'none') {
+                    startBtn.style.display = 'inline-block';
+                }
+            }, 500);
+        });
+    </script>
+</body>
+</html>

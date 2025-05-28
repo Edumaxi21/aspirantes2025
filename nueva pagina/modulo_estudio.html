@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo de Estudio y Evaluación - Bomberos Voluntarios</title>
+    <link rel="stylesheet" href="index.css"> <link rel="stylesheet" href="modulo_estudio.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="modern-dark-theme"> <header class="main-header-estudio">
+        <div class="logo-container-estudio">
+            <span>Módulo de Estudio</span>
+        </div>
+        <nav class="top-nav-estudio">
+            <a href="inicio.html" class="nav-link-estudio back-to-home-link-modern">
+                <i class="fas fa-home"></i> Volver a Inicio
+            </a>
+        </nav>
+    </header>
+
+    <div class="main-container-estudio">
+        <div class="theme-toggler-estudio">
+            <input type="checkbox" id="theme-switch">
+            <label for="theme-switch" class="theme-switch-label"></label>
+            <span id="theme-label">Modo Oscuro</span>
+        </div>
+        <h1>Evaluación y Contenido</h1>
+
+        <div class="module-selection-grid-container">
+            <h3 class="module-selection-title">Selecciona un Módulo para Estudiar:</h3>
+            <div id="class-buttons-grid" class="class-buttons-grid-estudio">
+                </div>
+        </div>
+        
+        <div class="stats-section-estudio">
+            <h4><i class="fas fa-chart-bar"></i> Estadísticas Generales</h4>
+            <p>Total Respuestas Correctas: <strong id="total-correct-answers-stat">0</strong></p>
+            <p>Módulos Completados: <strong id="modules-completed-stat">0</strong></p>
+        </div>
+
+        <div class="info-section-estudio">
+            <details id="info-clase-1" class="info-details-estudio"> 
+                <summary>Resumen y Datos Clave (Clase 1: Marco Histórico)</summary>
+                <h4>Marco Histórico Bomberil (Orígenes)</h4>
+                <p>Los primeros antecedentes de organizaciones de bomberos se remontan a la Antigua Roma (año 64 D.C.). Los "Triumviri Nocturni" y "Vigiles" (creados por el emperador Augusto) fueron los encargados de combatir incendios y mantener la seguridad.</p>
+                <ul>
+                    <li><strong>Vigiles se dividían en:</strong> Aquarii (agua), Siphonarii (mantas y bombas), Centones (iluminación), Bocinarii (alarma).</li>
+                    <li>El lema actual de los bomberos en Italia, "Ubi dolor ibi vigiles" ("allí donde hay dolor están los vigilantes"), rinde homenaje a estos pioneros.</li>
+                </ul>
+                <h4>Marco Histórico Nacional (Argentina)</h4>
+                <p>La historia de los Bomberos Voluntarios Argentinos comienza en <strong>1884</strong>, impulsada por la comunidad de inmigrantes italianos en el barrio de La Boca, Buenos Aires. Las viviendas de la época, llamadas "conventillos" (construidas con madera y chapa), eran altamente propensas a incendios.</p>
+                <ul>
+                    <li>Un gran incendio en diciembre de 1883 motivó a <strong>Don Tomás Liberti</strong> y sus hijos (Oreste y Atilio) junto a vecinos a organizarse.</li>
+                    <li>El <strong>2 de junio de 1884</strong> se formó el primer Cuerpo de Bomberos Voluntarios de la República Argentina: "Societa di Pompieri Italiani Volontari di La Boca". Su lema era "Volere è Potere" (Querer es Poder).</li>
+                </ul>
+                <h4>Marco Histórico Institucional (Bomberos Voluntarios Malvinas Argentinas)</h4>
+                <h5>ASOCIACIÓN BOMBEROS VOLUNTARIOS MALVINAS ARGENTINAS</h5>
+                    <img src="imagenes/cuartel central.png" alt="cuartel central" style="width:100%; max-width:300px; height:auto; margin-top:10px; margin-bottom:10px; border-radius:5px;">
+                <ul>
+                    <li><strong>Fundación:</strong> 03 de marzo de 1984.</li>
+                </ul>
+                <h5>CUARTEL CENTRAL "Juan Espina"</h5>
+                <ul>
+                    <li><strong>Nombre del Cuartel Central:</strong> Juan Espina.</li>
+                    <li><strong>Dirección:</strong> Dr. Baroni 2684.</li>
+                    <li><strong>Teléfono:</strong> 4660 - 2222.</li>
+                    <li><strong>Primer Presidente H.C.D.:</strong> Mendez Bernardo.</li>
+                    <li><strong>Primer Jefe C.A.:</strong> Garcia Jose (Legajo 166/001).</li>
+                    <li><strong>Actual Presidente H.C.D.:</strong> Demilio Gabriel.</li>
+                    <li><strong>Actual Jefe C.A.:</strong> Oficial Herrera Andrés.</li>
+                </ul>
+                <h5>DESTACAMENTO N° 1 GRAND BOURG "Dionicio García"</h5>
+                    <img src="imagenes/destacamento 1.png" alt="destacamento 1" style="width:100%; max-width:300px; height:auto; margin-top:10px; margin-bottom:10px; border-radius:5px;">
+                <ul>
+                    <li><strong>Nombre del Destacamento:</strong> Dionicio García.</li>
+                    <li><strong>Fecha de Inauguración:</strong> 23 de Febrero de 1993.</li>
+                    <li><strong>Dirección:</strong> Paso de los Andes 951.</li>
+                    <li><strong>Teléfono:</strong> (02320) 48-1777.</li>
+                    <li><strong>Actual Presidente H.C.D. (Asociación):</strong> Demilio Gabriel.</li>
+                    <li><strong>Actual Jefe C.A. (Asociación):</strong> Oficial Herrera Andrés.</li>
+                    <li><strong>Actual Encargado del Destacamento:</strong> Oficial Paz.</li>
+                </ul>
+                <p><em>Resumen basado en "CLASE 1 MARCO HISTORICO.pdf".</em></p>
+            </details>
+
+            <details id="info-clase-2" class="info-details-estudio">
+                <summary>Resumen y Datos Clave (Clase 2: Organización Bomberil)</summary>
+                <h5>La Institución</h5>
+                <p><strong>ASOCIACIÓN DE BOMBEROS VOLUNTARIOS DE MALVINAS ARGENTINAS:</strong></p>
+                <ul>
+                    <li>Fundada el <strong>3 de Marzo de 1984</strong> por un grupo de personas tras la separación del municipio de Gral. Sarmiento.</li>
+                    <li>Primer presidente: <strong>Mendez Bernardo</strong>.</li>
+                    <li>Primer Jefe del Cuerpo Activo: <strong>Garcia Jose</strong> (Legajo 166/001).</li>
+                    <li>Es una <strong>asociación civil, sin fines de lucro y de bien público</strong>.</li>
+                    <li>Cuenta con <strong>Personería Jurídica</strong> otorgada por la Dirección Provincial de Personas Jurídicas de Bs. As.</li>
+                    <li>Se rige por <strong>Estatutos Sociales</strong> (definen nombre, domicilio, misión, autoridades; máxima autoridad: Asamblea de socios) y la <strong>Ley Provincial N° 10.917</strong>.</li>
+                    <li>Reconocida por la <strong>Dirección Provincial de Defensa Civil</strong> de Bs. As.</li>
+                    <li><strong>INOBV (Identificación Numérica de Organismos de BV):</strong> Malvinas Argentinas es el N° <strong>166</strong>.</li>
+                </ul>
+
+                <h5>Socios</h5>
+                <ul>
+                    <li><strong>Activos:</strong> Solicitan ingreso, cumplen requisitos (antecedentes, físico, psíquico), aprueban Curso Obligatorio. Integran Cuerpo Activo, Reserva o Cuerpo Auxiliar. Tienen la obligación de prestar servicios.</li>
+                    <li><strong>Protectores:</strong> Solicitan ingreso, son aceptados, abonan cuota mensual. Pueden elegir y ser elegidos en asambleas, integrar el Consejo Directivo, y ejercer la representación, administración y gobierno de la asociación.</li>
+                </ul>
+
+                <h5>Autoridades de la Institución</h5>
+                <p>Dos autoridades principales: El Consejo Directivo y el Cuerpo Activo.</p>
+                <ul>
+                    <li><strong>Consejo Directivo:</strong>
+                        <ul>
+                            <li>Conducción y administración general, representación legal.</li>
+                            <li>Define política de servicios no regulados por ley.</li>
+                            <li>Ejerce contralor sobre el Jefe de Cuerpo y sus funciones.</li>
+                            <li>Puede imputar al Jefe, promover su relevo.</li>
+                            <li>Designa al Jefe de Cuerpo (seleccionado de una terna de los tres oficiales en actividad de mayor jerarquía y antigüedad).</li>
+                            <li>Gestiona altas y bajas de socios.</li>
+                            <li>Presta o no acuerdo a propuestas de ascensos de Jefatura y a fallos de Tribunales para sanciones.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Cuerpo Activo:</strong>
+                        <ul>
+                            <li>Integrado por socios activos.</li>
+                            <li>Organización bajo una estructura <strong>piramidal (Escalafón Jerárquico)</strong>, determinada por capacidad, antigüedad e idoneidad.</li>
+                            <li>Comandado por el <strong>Jefe de Cuerpo</strong> (máxima autoridad del Cuerpo, miembro permanente del Consejo Directivo, asesorado por el cuerpo de oficiales).</li>
+                            <li>Regulado por Ley 10.917 y Decreto 4.601. La Dirección General de Defensa Civil es el ente de regulación (Art. 24, Ley 10.917).</li>
+                            <li>Obligaciones principales: prestar servicios, mantener equipos y elementos, y prestar colaboración a emprendimientos sociales.</li>
+                            <li>La Jefatura se integra por: Jefe de Cuerpo, Segundo Jefe de Cuerpo, y Oficiales (como Jefes de Secciones, Destacamentos o Servicios).</li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <h5>Orden Interno y Jefatura</h5>
+                <p>Las actividades se dividen en <strong>Orden Interno</strong> (puerta para adentro) y <strong>Servicios</strong> (puerta para afuera).</p>
+                <ul>
+                    <li><strong>Jefe de Cuerpo:</strong>
+                        <ul>
+                            <li>Máxima autoridad del Cuerpo Activo, Cuerpo Auxiliar, Reserva y Escuela de Cadetes.</li>
+                            <li>Su autoridad proviene del grado y del cargo (designación por Consejo Directivo).</li>
+                            <li>Es el único que administra justicia por faltas y aplica castigos.</li>
+                            <li>En infracciones graves, ordena instrucción de sumario y designa Instructor y Tribunal (con apoyo de oficiales).</li>
+                            <li>Comanda servicios, material, personal; responsabilidad absoluta.</li>
+                        </ul>
+                    </li>
+                    <li><strong>2do Jefe del Cuerpo Activo:</strong> Sigue en jerarquía al Jefe, lo reemplaza en ausencias y cumple funciones de oficial.</li>
+                    <li><strong>Organización del Cuerpo Activo (divisiones del Jefe):</strong>
+                        <ul>
+                            <li>El Jefe divide el Cuerpo en Secciones y Departamentos.</li>
+                            <li>El <strong>Segundo Jefe de Cuerpo</strong> supervisa las tareas de las cuatro secciones ejecutivas principales:
+                                <ol>
+                                    <li><strong>Ayudantía:</strong> Incluye Depto. Personal (Legajos, Comunicaciones, Cómputos), Depto. Técnico (Proyectos, Asesoramiento, Prensa, Estadística, Prevención, Legal), Ropería, Finanzas, Sanidad.</li>
+                                    <li><strong>Materiales y Equipos:</strong> Equipos contra Incendio y Rescate, EPP, Elementos de Zapa y Auxiliares, Intendencia.</li>
+                                    <li><strong>Automotores:</strong> Autobombas, vehículos de rescate, transporte de personal, ambulancias, cisternas, motoristas.</li>
+                                    <li><strong>Capacitación:</strong> Capacitación Interna, a Terceros, Escuela Zonal.</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h5>Escalafón Jerárquico</h5>
+                <p>Estructura piramidal que determina grados jerárquicos.</p>
+                <ul>
+                    <li><strong>Jefe del Cuerpo Activo</strong></li>
+                    <li><strong>2do Jefe del Cuerpo Activo</strong></li>
+                    <li><strong>Oficiales:</strong> Imparten órdenes, asumen responsabilidades de jefe.
+                        <ul>
+                            <li><u>Oficial Superior:</u> Comandante General.</li>
+                            <li><u>Oficiales Jefes:</u> Comandante Mayor, Comandante, Sub-Comandante.</li>
+                            <li><u>Oficiales Subalternos:</u> Oficial Principal, Oficial Inspector, Oficial Ayudante.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Suboficiales:</strong> Secundan a jefes, transmiten órdenes, controlan cumplimiento.
+                        <ul>
+                            <li><u>Suboficiales Superiores:</u> Suboficial Mayor, Suboficial Principal, Sargento Primero.</li>
+                            <li><u>Suboficiales Subalternos:</u> Sargento, Cabo Primero, Cabo.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Bomberos (Tropa):</strong> Brazo ejecutor. Obligaciones: amor al servicio, capacitación permanente y obediencia.</li>
+                </ul>
+                <p><em>Resumen basado en "CLASE 2 ORGANIZACION BOMBERIL.pdf".</em></p>
+            </details>
+
+            <details id="info-clase-3" class="info-details-estudio">
+                <summary>Resumen y Datos Clave (Clase 3: Leyes y Decretos)</summary>
+                <h5>Ley Nacional 25.054 (Bomberos Voluntarios)</h5>
+                <p>Sancionada el 10 de diciembre de 1998. Regula la organización y misión de los bomberos voluntarios en Argentina.</p>
+                <ul>
+                    <li><strong>Objetivos:</strong>
+                        <ul>
+                            <li>Establecer un subsidio nacional.</li>
+                            <li>Reconocer el servicio público de los bomberos voluntarios.</li>
+                            <li>Brindar apoyo económico para capacitación y equipamiento.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Beneficios:</strong>
+                        <ul>
+                            <li>Puntaje especial en planes de viviendas del Estado.</li>
+                            <li>Atención prioritaria en salud pública por alteraciones de salud debido a la actividad bomberil.</li>
+                            <li>Considerados movilizados en emergencias (situación laboral es carga pública para empleadores).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Exenciones:</strong>
+                        <ul>
+                            <li>Exentos de impuestos nacionales, derechos y tasas aduaneras.</li>
+                            <li>Fondos y bienes inembargables e inejecutables.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Administración del Subsidio:</strong> Dirección Nacional de Defensa Civil (Secretaría de Seguridad Interior, Ministerio del Interior).</li>
+                </ul>
+
+                <h5>Ley Nacional 23.139</h5>
+                <p>Sancionada el 30 de septiembre de 1984. Otorga beneficios a Sociedades de Bomberos Voluntarios.</p>
+                <ul>
+                    <li><strong>Artículo 1°:</strong> Beneficiarias son todas las entidades sin fines de lucro dedicadas a la protección de la población en incendios y/o accidentes (Sociedades de Bomberos Voluntarios).</li>
+                    <li><strong>Artículo 2°:</strong> Exención del pago de impuestos nacionales.</li>
+                    <li><strong>Artículo 3°:</strong> Invita a provincias y municipalidades a extender este beneficio.</li>
+                </ul>
+
+                <h5>Ley Provincial 10.917 (Provincia de Buenos Aires)</h5>
+                <p>Sancionada el 31 de mayo de 1990. Regula organización y funcionamiento de asociaciones de bomberos voluntarios en la provincia.</p>
+                <ul>
+                    <li><strong>Aspectos Principales:</strong>
+                        <ul>
+                            <li>Deben constituirse como personas jurídicas de bien público sin fines de lucro.</li>
+                            <li>El Coordinador General de Defensa Civil de la Provincia autoriza su funcionamiento.</li>
+                            <li>Deben denominarse con el nombre del partido, ciudad o localidad de su cuartel central.</li>
+                            <li>Federaciones de asociaciones son entidades de segundo grado que representan a las asociaciones.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Funciones de los Bomberos Voluntarios (según esta ley):</strong>
+                        <ul>
+                            <li>Prevención, extinción e investigación de incendios.</li>
+                            <li>Rescate y salvamento de personas y bienes.</li>
+                            <li>Acción educativa de la comunidad para la prevención.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p><em>Resumen basado en "CLASE 3 ley 20.054 - Ley 10.917 y decretos dc.pdf". (Nota: La ley nacional es la 25.054, no 20.054 como se menciona en una parte del PDF).</em></p>
+            </details>
+            
+            <details id="info-clase-5" class="info-details-estudio">
+                <summary>Resumen y Datos Clave (Clase 5: Guardia, Instrucción, Servicios)</summary>
+                <h5>La Guardia</h5>
+                <ul>
+                    <li>Servicio organizado y pasivo para contar con personal en el Cuartel 24/7, los 365 días del año, para aprestamiento inmediato.</li>
+                    <li>Cada institución organiza su sistema, pero requiere afectación generalizada del personal.</li>
+                </ul>
+            
+                <h5>La Instrucción</h5>
+                <ul>
+                    <li>Día y hora preestablecida para que el Cuerpo Activo asista al Cuartel para prácticas, clases de capacitación y entrenamiento permanente.</li>
+                    <li>Objetivo: Mantener un perfecto estado profesional para prestar servicios.</li>
+                </ul>
+            
+                <h5>Los Servicios</h5>
+                <p>Ley Provincial 10.917 (Art. 3°) reconoce el carácter de <strong>servicio público</strong> a las actividades de los Cuerpos de Bomberos Voluntarios.</p>
+                <p>Misión del Cuerpo Activo (Art. 23° Ley 10.917):</p>
+                <ul>
+                    <li>Prevención y extinción de incendios.</li>
+                    <li>Rescate y salvamento de personas y bienes.</li>
+                    <li>Conservación de materiales y equipos.</li>
+                    <li>Información y educación de la comunidad sobre el servicio.</li>
+                    <li>Intervención general en toda acción de su misión.</li>
+                </ul>
+                <p>Clasificación de Servicios (según prontitud/urgencia):</p>
+                <ul>
+                    <li><strong>Servicios de Emergencia:</strong> No admiten dilación. Convocatoria inmediata. Sale a cargo el superior presente.
+                        <ul>
+                            <li>Incendios en General (01)</li>
+                            <li>Incendios Forestales (11)</li>
+                            <li>Auxilios (02)</li>
+                            <li>Desastres (04)</li>
+                            <li>Incidentes con Materiales Peligrosos (10)</li>
+                            <li>Colaboración (a otros Cuerpos en estos tipos de servicio) (05)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Servicios Autorizados:</strong> Se prestan con orden interno preestablecido, autorizaciones y personal idóneo.
+                        <ul>
+                            <li>Especiales (03)</li>
+                            <li>Guardias (06)</li>
+                            <li>Comando (07)</li>
+                            <li>Técnico (08)</li>
+                            <li>Ceremonial (09)</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p><strong>Jefe de Servicio:</strong> Es el de mayor jerarquía presente en el siniestro, ejerce el mando.</p>
+                <p><strong>Jefe de Dotación:</strong> Superior que viaja en una unidad.</p>
+                <p><strong>Jefe de Fuerzas:</strong> Mayor jerarquía presente cuando salen dos o más unidades o se encuentran en el siniestro.</p>
+            
+                <h5>Definición y Clasificación Detallada de Servicios:</h5>
+                <ul>
+                    <li><strong>01. INCENDIO:</strong> Fuego incontrolable (excluye forestales y MATPEL).</li>
+                    <li><strong>02. AUXILIO:</strong> Hecho (natural, accidental, intencional) que pone en riesgo vidas.</li>
+                    <li><strong>03. ESPECIALES:</strong> No encuadrados, no obligatorios (ej: drizas, desagotes, suministro agua/energía).</li>
+                    <li><strong>04. DESASTRE:</strong> Convocados por Defensa Civil Municipal o Provincial.</li>
+                    <li><strong>05. COLABORACION:</strong> Fuera de jurisdicción, a requerimiento de Cuerpo vecino sobrepasado.</li>
+                    <li><strong>06. GUARDIAS:</strong> Destacamento de personal ante riesgos conocidos o retención en Cuartel para actuación inmediata.</li>
+                    <li><strong>07. COMANDO:</strong> Actividad del Jefe (o designado) representando a la institución ante Poder Público, Federaciones, etc.</li>
+                    <li><strong>08. TECNICO:</strong> Difusión de seguridad, verificación de planos/equipos anti-incendio, informes técnicos.</li>
+                    <li><strong>09. CEREMONIAL:</strong> Participación en actos patrios, aniversarios, desfiles, honores fúnebres.</li>
+                    <li><strong>10. MATERIALES PELIGROSOS (MATPEL):</strong> Hecho con riesgo a vida/bienes/ambiente por materiales peligrosos (con o sin incendio).</li>
+                    <li><strong>11. INCENDIOS FORESTALES:</strong> Fuego descontrolado en vegetales (pastizales, montes, etc.).</li>
+                </ul>
+                <p><em>Resumen basado en "CLASE 5.pdf".</em></p>
+            </details>
+
+            <details id="info-clase-6" class="info-details-estudio">
+                <summary>Resumen y Datos Clave (Clase 6: Aptitud, Estados, Ética, Órdenes)</summary>
+                <h5>La Aptitud Bomberil</h5>
+                <ul>
+                    <li><strong>Definición:</strong> Calidad, idoneidad, capacidad y disposición para el buen desempeño de la profesión.</li>
+                    <li><strong>Cualidades Requeridas:</strong>
+                        <ul>
+                            <li><strong>Capaz:</strong> Actuar sin titubeos ante riesgo.</li>
+                            <li><strong>Idóneo:</strong> Conocimiento teórico-práctico para actuar con eficacia.</li>
+                            <li><strong>Hábil:</strong> Destreza profesional por idoneidad y estado psico-físico.</li>
+                            <li><strong>Dispuesto:</strong> Afrontar riesgo desde cualquier actividad pasiva, en cualquier momento.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Cómo se consigue:</strong> Estudiando, capacitándose, compañerismo, cumpliendo obligaciones, deseos de superación.</li>
+                </ul>
+
+                <h5>Estado Físico y Psíquico</h5>
+                <ul>
+                    <li><strong>Salud (OMS 1946):</strong> Completo bienestar físico, mental, espiritual, emocional y social; no solo ausencia de enfermedad. Cubrir necesidades afectivas, sanitarias, nutricionales, sociales y culturales.</li>
+                    <li><strong>Estado Físico:</strong> Plan de ejercitación permanente (maniobras, deportes, elongación, resistencia).</li>
+                    <li><strong>Estado Psíquico:</strong>
+                        <ul>
+                            <li>Un buen estado físico no es suficiente sin equilibrio psíquico.</li>
+                            <li>Problemas emocionales pueden impedir correcta aplicación de conocimientos y disminuir capacidad operativa.</li>
+                            <li>Obligación de estar apto mentalmente; responsabilidad personal de expresarlo.</li>
+                            <li>Importante reconocer desequilibrios y pedir ayuda (a pares bomberos o profesionales).</li>
+                            <li>Reconocer indisposición es mejor que actuar bajo presión o en condiciones psíquicas inconvenientes.</li>
+                            <li>Obligación primera: guardar por la propia vida y seguridad (por compañeros, familia, etc.).</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h5>La Ética Bomberil</h5>
+                <p>Normas y principios morales que guían el comportamiento. Incluye:</p>
+                <ul>
+                    <li>Ser buena persona antes que bombero.</li>
+                    <li>Ejemplo de altruismo y civilidad.</li>
+                    <li>Respetar verdad y honestidad.</li>
+                    <li>Conducta ética en vida personal y pública.</li>
+                    <li>Respetar estructura jerárquica y administrativa.</li>
+                    <li>Mantener pulcritud e higiene.</li>
+                    <li>Abstenerse de abuso de sustancias.</li>
+                    <li>Decir la verdad, incluso en situaciones difíciles.</li>
+                    <li>Limitarse a exponer hechos, no influirse por comentarios.</li>
+                </ul>
+
+                <h5>Las Órdenes</h5>
+                <ul>
+                    <li><strong>Definición:</strong> Modo de expresión (fonético o gráfico) con que un superior indica a un subalterno la ejecución de un mandato. Implica observación y afecta a quien la imparte y quien la obedece.</li>
+                    <li><strong>Tipos de Órdenes:</strong>
+                        <ul>
+                            <li><strong>Individuales:</strong> A un hombre particular.</li>
+                            <li><strong>Colectivas:</strong> A dos o más hombres.</li>
+                            <li><strong>Verbales:</strong> Expresadas fonéticamente.</li>
+                            <li><strong>Escritas:</strong> Documentadas o registradas.</li>
+                            <li><strong>Específicas:</strong> Determina tarea, modo y forma.</li>
+                            <li><strong>Global:</strong> Pone en marcha plan de trabajo o rol preestablecido.</li>
+                            <li><strong>Del Orden Interno:</strong> Tareas dentro de ese régimen.</li>
+                            <li><strong>De Servicio:</strong> Tareas relativas a servicios (emergencia o autorizados).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Cumplimiento:</strong> Puede ser cumplida, no observada (no cumplida tal cual) o no ejecutada (no obedecida, más grave).</li>
+                    <li><strong>Desobediencia/Incumplimiento:</strong> Implica falta de disciplina, debe ser sancionada. Para determinar gravedad y sanción, considerar: circunstancias, grado/cargo del infractor, impacto en servicio/disciplina, armonía del grupo.</li>
+                    <li><strong>Autoridad Sancionatoria:</strong>
+                        <ul>
+                            <li><strong>Faltas (Reglamento Régimen Disciplinario):</strong> Sanciona el Jefe de Cuerpo.</li>
+                            <li><strong>Infracciones (Faltas Graves):</strong> Sanciona el Código de Ética Bomberil mediante Tribunal, previa sustanciación de Sumario Disciplinario (con derecho a defensa).</li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <h5>El Mando</h5>
+                <ul>
+                    <li><strong>Definición:</strong> Ejercer autoridad para educar, instruir, gobernar y conducir al personal subordinado. Aúna esfuerzos y afianza disciplina.</li>
+                    <li><strong>Características del Ejercicio del Mando:</strong> Capacidad, integridad, valentía, transparencia de conocimiento, justicia, ecuanimidad, consideración.</li>
+                    <li>Mandar no es solo ordenar, sino asegurar fiel interpretación, impulsando con ejemplo.</li>
+                    <li>Exclusivamente personal, no transfiere responsabilidad. Quien manda es totalmente responsable.</li>
+                    <li>Superior no debe ser absorbente (anula iniciativa personal del subordinado).</li>
+                </ul>
+
+                <h5>La Dedicación</h5>
+                <ul>
+                    <li>Factor importante para ser buen bombero. Sin dedicación no hay éxito.</li>
+                    <li>Querer ser bombero no es suficiente; se requiere dedicación al aprendizaje y luego a tareas de mantenimiento, documentación, etc.</li>
+                </ul>
+
+                <h5>Las Guardias (Sistema de Grupos)</h5>
+                <ul>
+                    <li>Obligación mensual de 24 horas de guardia.</li>
+                    <li><strong>Método de Grupos de Guardia (ejemplo):</strong>
+                        <ul>
+                            <li>Excluir Jefe de Cuerpo y 4 Oficiales (designados Oficial de Servicio).</li>
+                            <li>Resto del cuerpo se divide en 4 grupos (A, B, C, D), cada uno con un Oficial de Servicio responsable.</li>
+                            <li>Calendario: Se destina una semana de guardia a cada grupo, rotando cada 4 semanas.</li>
+                            <li>Grupo de Guardia se ocupa de servicios programados, guardias nocturnas, asegurar personal para primera dotación.</li>
+                            <li>Método forma a Oficiales al delegarles funciones del Jefe (solucionar servicios autorizados, control de guardia, mantenimiento móviles).</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p><em>Resumen basado en "CLASE 6.pdf".</em></p>
+            </details>
+
+            <details id="info-clase-7" class="info-details-estudio">
+                <summary>Resumen y Datos Clave (Clase 7: Parte de Servicios)</summary>
+                <h5>Clasificación de Servicios (Recordatorio)</h5>
+                <p>Los servicios se clasifican en once grupos (01 a 11): Incendio, Auxilio, Especiales, Desastres, Colaboraciones, Guardia, Comando, Técnico, Ceremonial, Materiales Peligrosos, Forestales.</p>
+
+                <h5>El Parte de Servicio</h5>
+                <ul>
+                    <li><strong>Definición:</strong> Planilla (física o virtual) con campos a rellenar y listado del cuerpo activo.</li>
+                    <li><strong>Confección:</strong> Realizada por el personal a cargo de la dotación una vez finalizado el servicio.</li>
+                    <li><strong>Contenido:</strong> Vuelca datos suministrados por el furriel y el cuartelero. Incorpora cronológicamente lo acontecido en el servicio hasta el retorno de la unidad al cuartel.</li>
+                    <li><strong>Importancia:</strong> Documentación de servicios prestados es parte de la responsabilidad legal.</li>
+                </ul>
+
+                <h5>Información Incluida en el Parte de Servicio:</h5>
+                <ul>
+                    <li>Horarios (salida, llegada al lugar, regreso al cuartel, etc.).</li>
+                    <li>Personal interviniente (nombre, legajo).</li>
+                    <li>Personal a cargo (Jefe de Servicio, Jefe de Dotación).</li>
+                    <li>Cantidad y tipo de móviles utilizados.</li>
+                    <li>Víctimas / Ilesos (cantidad, datos si es posible).</li>
+                    <li>Autor de la llamada (nombre, teléfono, dirección si es posible).</li>
+                    <li>Estado de la situación al momento de la llegada de la primera dotación.</li>
+                    <li>Disposiciones tomadas por el responsable a cargo del servicio.</li>
+                    <li>Desarrollo cronológico del servicio (tareas realizadas, novedades).</li>
+                    <li>Materiales utilizados.</li>
+                    <li>Observaciones relevantes.</li>
+                </ul>
+
+                <h5>Fines del Parte de Servicio:</h5>
+                <ul>
+                    <li><strong>Legales:</strong> Como prueba o registro ante requerimientos judiciales.</li>
+                    <li><strong>Administrativos:</strong> Para la gestión interna del cuartel.</li>
+                    <li><strong>Seguros:</strong> Para trámites con compañías aseguradoras (de la institución o de terceros).</li>
+                    <li><strong>Estadísticas:</strong>
+                        <ul>
+                            <li>Ayudan a la gestión de recursos (personal, equipos).</li>
+                            <li>Requeridas por Federaciones y el Consejo Nacional de Bomberos.</li>
+                            <li>Necesarias para representar a los bomberos ante los poderes públicos.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p><strong>Obligatoriedad:</strong> La confección del Parte de Servicio es <strong>obligatoria</strong>.</p>
+                <p><strong>Parte Tipo:</strong> Se aprobó un Parte tipo para ser utilizado por todos los cuerpos de bomberos de la federación para facilitar la recopilación de datos, aunque cada institución puede tener documentos adicionales.</p>
+                <p><em>Resumen basado en "CLASE 7.pdf".</em></p>
+            </details>
+            
+            <details id="info-clase-9" class="info-details-estudio">
+                <summary>Resumen y Datos Clave (Clase 9: Comunicaciones)</summary>
+                <h5>Importancia y Tipos</h5>
+                <p>Las comunicaciones son vitales para el buen logro de los servicios de bomberos. Se clasifican en:</p>
+                <ul>
+                    <li><strong>Alámbricas:</strong> Usan medio sólido (cable, fibra óptica). Ej: teléfono.</li>
+                    <li><strong>Inalámbricas:</strong> Usan ondas radioeléctricas (hertzianas). Más utilizadas por bomberos.</li>
+                </ul>
+                <h5>Operación Telefónica (Habilidades del Aspirante)</h5>
+                <p>Un aspirante debe saber operar teléfonos, conocer números de emergencia, usar computadoras para comunicación, actuar con corrección, transmitir mensajes entre sistemas y solucionar problemas menores en equipos.</p>
+                <h5>Comunicaciones Inalámbricas</h5>
+                <ul>
+                    <li><strong>Espectro Radioeléctrico:</strong> Recurso natural para telecomunicaciones.</li>
+                    <li><strong>Administración:</strong> UIT (internacional), ENACOM (Argentina). Ley Nacional de Telecomunicaciones (N° 19.798).</li>
+                    <li><strong>Unidades y Gamas:</strong> 9 bandas (ELF a EHF), medidas en Hertz (Hz).</li>
+                    <li><strong>Red Radioeléctrica:</strong> Conjunto de estaciones habilitadas para comunicarse.</li>
+                    <li><strong>Estación Radioeléctrica:</strong> Equipos para transmitir/recibir. Componentes: Transceptor, Antena, Mástil/Torre, Fuente de energía.</li>
+                    <li><strong>Elementos de un Transceptor:</strong> Encendido, selector canal/frec., volumen, squelch, parlante, micrófono, pulsador, antena.</li>
+                    <li><strong>Frecuencias VHF (Bomberos Pcia. Bs. As.):</strong> 151.000-160.000 MHz. Escucha 24hs.</li>
+                </ul>
+                <h5>Normas para Comunicaciones Radiales</h5>
+                <ul class="code-list">
+                    <li>Hablar solo lo necesario.</li>
+                    <li>Esperar turno.</li>
+                    <li>Respetar prioridad de mandos.</li>
+                    <li>No acercar micrófono a la boca.</li>
+                    <li>Identificarse.</li>
+                    <li>Hablar despacio y vocalizando.</li>
+                    <li>Ser breve. Mensajes largos con interrupciones.</li>
+                    <li>Evitar indiscreciones.</li>
+                    <li>No cambiar de canal sin autorización (salvo interrupción).</li>
+                    <li>Verificar pulsador de micrófono al terminar.</li>
+                </ul>
+                <h5>Códigos de Comunicaciones</h5>
+                <p><strong>Código Q:</strong></p>
+                <ul class="code-list">
+                    <li>QAB: ¿Cuál es su destino? / Ubicación del siniestro.</li>
+                    <li>QAP: Quedo en escucha / Atento.</li>
+                    <li>QAZ: ¿Tiene problemas para comunicarse? / Problemas de equipo.</li>
+                    <li>QCB: No tengo energía para alimentar al equipo.</li>
+                    <li>QRA: Identificarse (nombre, apellido, grado).</li>
+                    <li>QRJ: No puedo copiarlo / No recibo sus señales.</li>
+                    <li>QRL: Estoy ocupado / No puedo mantener tráfico.</li>
+                    <li>QRM: Interferencia / Ruidos atmosféricos.</li>
+                    <li>QRN: Interferencias de otras estaciones.</li>
+                    <li>QRS: Transmitir más pausado / Melhor modulación.</li>
+                    <li>QRU: ¿Tiene algo para mí? / ¿Algún mensaje?</li>
+                    <li>QRV: Estoy atento / Preparado para copiarlo.</li>
+                    <li>QRX: Interrumpa transmisión por ... minutos.</li>
+                    <li>QRZ: ¿Quién llama?</li>
+                    <li>QSA: ¿Cómo es mi señal? / ¿Cómo me recibe?</li>
+                    <li>QSL: Comprendido.</li>
+                    <li>QSO: ¿Puedo comunicarme con...?</li>
+                    <li>QSP: Favor de hacer puente con...</li>
+                    <li>QTA: Anular mensaje anterior.</li>
+                    <li>QSY: Desplazarse a tal frecuencia.</li>
+                    <li>QTC: Mensaje / Parte / Novedad / Informe.</li>
+                    <li>QTH: Ubicación de la estación al transmitir.</li>
+                    <li>QTR: La hora a que se hace referencia.</li>
+                    <li>QRQ: Vía libre / Prioridad (emergencia).</li>
+                </ul>
+                <p><strong>Código Alfa Internacional (Fonético):</strong></p>
+                <ul class="code-list">
+                    <li>A: Alfa</li> <li>B: Bravo</li> <li>C: Charlie</li> <li>D: Delta</li> <li>E: Echo</li>
+                    <li>F: Foxtrot</li> <li>G: Golf</li> <li>H: Hotel</li> <li>I: India</li> <li>J: Juliet</li>
+                    <li>K: Kilo</li> <li>L: Lima</li> <li>M: Mike</li> <li>N: November</li> <li>O: Oscar</li>
+                    <li>P: Papa</li> <li>Q: Quebec</li> <li>R: Romeo</li> <li>S: Sierra</li> <li>T: Tango</li>
+                    <li>U: Uniform</li> <li>V: Victor</li> <li>W: Whiskey</li> <li>X: X-ray</li> <li>Y: Yankee</li>
+                    <li>Z: Zulu</li>
+                </ul>
+                <p><strong>Código Numérico:</strong></p>
+                <ul class="code-list">
+                    <li>1: Primero</li> <li>2: Segundo</li> <li>3: Tercero</li> <li>4: Cuarto</li> <li>5: Quinto</li>
+                    <li>6: Sexto</li> <li>7: Séptimo</li> <li>8: Octavo</li> <li>9: Noveno</li> <li>0: Cero de nada</li>
+                </ul>
+                <p><em>Resumen basado en "CLASE 9 COMUNICACIONES.pdf".</em></p>
+            </details>
+            
+            <details id="info-clase-10" class="info-details-estudio">
+                <summary>Resumen y Datos Clave (Clase 10: Seguridad del Bombero)</summary>
+                <img src="imagenes/bombero epp.png" alt="bombero parado" style="width:100%; max-width:300px; height:auto; margin-top:10px; margin-bottom:10px; border-radius:5px;">
+
+                <h5>Riesgos y Causas de Accidentes Bomberiles</h5>
+                <p>La profesión de bombero posee múltiples riesgos. Peligros potenciales incluyen:</p>
+                <ul>
+                    <li>Colapsos estructurales (traumatismos, atrapamientos).</li>
+                    <li>Elementos punzantes o cortantes.</li>
+                    <li>Altas temperaturas (stress térmico).</li>
+                    <li>Atmósferas peligrosas (asfixia, intoxicaciones agudas/crónicas, cáncer).</li>
+                    <li>Ataques cardiovasculares (sobreesfuerzos).</li>
+                    <li>Materiales peligrosos (vía respiratoria o dérmica).</li>
+                    <li>Elementos energizados (electrocuciones).</li>
+                    <li>Explosiones y Radiaciones.</li>
+                    <li>Quemaduras (térmicas, eléctricas, químicas).</li>
+                    <li>Caídas (alturas, profundidades).</li>
+                    <li>Contaminación biológica (agentes patógenos, fluidos corporales).</li>
+                    <li>Accidentes vehiculares.</li>
+                </ul>
+                <p><strong>Definiciones Clave:</strong></p>
+                <img src="imagenes/Ley de causalidad.png" alt="ley accidente" style="width:100%; max-width:300px; height:auto; margin-top:10px; margin-bottom:10px; border-radius:5px;">
+                <ul>
+                    <li><strong>Accidente:</strong> Acto no deseado que interrumpe tareas causando lesiones y/o daños.</li>
+                    <li><strong>Incidente (Casi-Accidente):</strong> Evento inesperado con potencial de daño, pero sin generación de lesiones/daños.</li>
+                    <li><strong>Peligro:</strong> Fuente, situación o acto con potencial para causar daño.</li>
+                    <li><strong>Riesgo:</strong> Probabilidad de suceso peligroso x Gravedad del daño.</li>
+                    <li><strong>Enfermedad Profesional:</strong> Contraída por exposición a factores de riesgo laborales (desarrollo paulatino). Ej: hipoacusia, cáncer.</li>
+                </ul>
+                <p><strong>Causas de los Accidentes:</strong> Conocerlas permite tomar medidas de control.</p>
+                <img src="imagenes/Causa de los accidentes.png" alt="imagen accidente" style="width:100%; max-width:300px; height:auto; margin-top:10px; margin-bottom:10px; border-radius:5px;">
+                <ul>
+                    <li><strong>Causas Básicas (Origen):</strong> Factores Personales (del hombre) y Factores Técnicos o del Trabajo (ambiente, equipo, métodos).</li>
+                    <li><strong>Causas Inmediatas:</strong> Acciones y/o condiciones subestándares (visibles). Se producen al no controlar causas básicas. Pueden ser Condiciones Inseguras o Actos Inseguros. Es crucial identificar la causa raíz (básica).</li>
+                </ul>
+                <h5>Lesiones y Enfermedades Profesionales</h5>
+                <ul>
+                    <li><strong>Lesiones Típicas:</strong> Traumatismos, esguinces, heridas, asfixia, intoxicación, ahogamiento, quemaduras, electrocución. (Muchas evitables con EPP).</li>
+                    <li><strong>Causas Principales de Lesiones:</strong> Calor excesivo, golpes, accidentes vehiculares, descargas eléctricas, caídas, atrapamientos, atmósferas tóxicas.</li>
+                    <li><strong>Enfermedades Profesionales Principales:</strong> Accidentes cardiovasculares, stress psicológico, afecciones músculo-esqueléticas, exposición a tóxicos (respiratorias, dermatológicas, cáncer), riesgos biológicos, golpes de calor.</li>
+                    <li><strong>Factores de Riesgo para la Salud:</strong> Enf. coronarias, hipertensión, fumar, diabetes, antecedentes cardíacos.</li>
+                    <li><strong>Prevención de la Salud:</strong> Exámenes médicos (ingreso, periódicos), dieta balanceada, ejercicio físico, tratamiento higiénico de heridas, protección biológica, inmunizaciones, no fumar.</li>
+                </ul>
+                <h5>Elementos de Protección Personal (EPP)</h5>
+
+                <p>El EPP no evita accidentes, pero reduce y protege de sus consecuencias. Específico según intervención.</p>
+                <p><strong>EPP para Incendios Estructurales:</strong></p>
+                <img src="imagenes/Bombero.png" alt="bombero" style="width:100%; max-width:300px; height:auto; margin-top:10px; margin-bottom:10px; border-radius:5px;">
+                <ul>
+                    
+                    <img src="imagenes/casco.png" alt="casco" style="width:100%; max-width:300px; height:auto; margin-top:10px; margin-bottom:10px; border-radius:5px;">
+                    <li><strong>Casco:</strong> Protege cabeza, cara, cuello posterior de impactos, calor, frío. Partes: cubierta externa (termoplástico), sistema absorción energía, sistema suspensión, ajuste/retención, visera, cubre orejas/cuello.</li>
+                    
+                    <img src="imagenes/monja.jpg" alt="monja" style="width:100%; max-width:300px; height:auto; margin-top:10px; margin-bottom:10px; border-radius:5px;">
+                    <li><strong>Monjita (Capucha):</strong> Protege orejas, cuello, cara de calor extremo. Material ignífugo. Usar con máscara de ERA.</li>
+                    
+                    <img src="imagenes/estructural.png" alt="estructural" style="width:100%; max-width:300px; height:auto; margin-top:10px; margin-bottom:10px; border-radius:5px;">
+                    <li><strong>Chaquetón y Pantalón:</strong> Tres capas:<ol>
+                            <img src="imagenes/Confeccion extructural bombero.png" alt="descripcion" style="width:100%; max-width:300px; height:auto; margin-top:10px; margin-bottom:10px; border-radius:5px;">
+                            <li><strong>Capa Exterior:</strong> (Nomex, Kevlar, PBI, etc.) Protege de abrasión, rasgaduras, quemaduras por contacto.</li>
+                            <li><strong>Barrera de Humedad/Vapor:</strong> Intermedia. Protege de agua hirviendo, vapor; limita humedad en barrera térmica. (ej. Gore-Tex).</li>
+                            <li><strong>Barrera Térmica/Calor:</strong> Interna. Limita paso de calor al cuerpo.</li>
+                        </ol>
+                        Características: Franjas reflectivas, puño con ojal pulgar, cierre cuello, tiradores, refuerzos. Normas: NFPA 1971 (USA), EN 469 (Europa), IRAM 3871 (Argentina).
+                    </li>
+                    <li><strong>Limpieza EPP Estructural (NFPA 1851:2020):</strong>
+                        <ol>
+                            <li><strong>Descontaminación Primaria (REP):</strong> En escena (seco/húmedo). Embolsar, etiquetar, transportar fuera de cabina.</li>
+                            <li><strong>Desinfección:</strong> Según fabricante. Luego limpieza avanzada.</li>
+                            <li><strong>Limpieza Avanzada:</strong> Máquinas industriales, agua <40°C, jabón pH 6.5-10.5, evitar fregado, no lavandina/clorados/abrasivos/hidrolavadoras. Enjuague adecuado. No lavar en hogar. Separar capas. Inspeccionar post-lavado.</li>
+                        </ol>
+                    
+                    </li>
+                    <img src="imagenes/guantes.png" alt="guantes" style="width:100%; max-width:300px; height:auto; margin-top:10px; margin-bottom:10px; border-radius:5px;">
+                    <li><strong>Guantes:</strong> Lavar con agua jabonosa, enjuagar. Inspeccionar. Desechar si dañados o con químicos no removibles.</li>
+                    
+                    <img src="imagenes/pass.png" alt="pass" style="width:100%; max-width:300px; height:auto; margin-top:10px; margin-bottom:10px; border-radius:5px;">
+                        <img src="imagenes/pass2.png" alt="pass2" style="width:100%; max-width:300px; height:auto; margin-top:10px; margin-bottom:10px; border-radius:5px;">
+                    <li><strong>PASS (Sistema de Seguridad de Alerta Personal):</strong> Alarma sonora si bombero inmóvil por tiempo determinado (NFPA 1982). Puede ser manual o integrado al ERA.</li>
+                    
+                    <img src="imagenes/botas.png" alt="botas" style="width:100%; max-width:300px; height:auto; margin-top:10px; margin-bottom:10px; border-radius:5px;">
+                    <li><strong>Botas:</strong> Resisten agua, golpes, cortes, resbalones, perforaciones, patógenos. Resistencia dieléctrica puede afectarse si dañadas. Limpiar, inspeccionar, desechar si no reparables, almacenar paradas y sin sol, ventilar.</li>
+                    
+                    <img src="imagenes/mascara.png" alt="mascara" style="width:100%; max-width:300px; height:auto; margin-top:10px; margin-bottom:10px; border-radius:5px;">
+                    <li><strong>Protección Ocular:</strong> Visor de máscara ERA es adecuada. Si no se usa ERA, emplear antiparras y protector facial (NFPA 1500). Peligros: polvo, partículas, escombros, humo, químicos, luz soldadura, temp. elevadas, patógenos.</li>
+                </ul>
+                <h5>Equipos de Protección Respiratoria (ERA)</h5>
+                <img src="imagenes/e.r.a.png" alt="era" style="width:100%; max-width:300px; height:auto; margin-top:10px; margin-bottom:10px; border-radius:5px;">
+                <p>Pulmones y vías respiratorias son muy vulnerables. Regla fundamental: no entrar a atmósferas con humo/gases sin ERA.</p>
+                <p><strong>Situaciones de Uso:</strong> Deficiencia de Oxígeno, Temperaturas elevadas, Humo, Gases tóxicos.</p>
+                <p><strong>Clasificación:</strong> Equipos Purificadores de Aire (EPA), Equipos de Respiración Semiautónoma (ERS), <strong>Equipos de Respiración Autónoma (ERA)</strong>.</p>
+                <p><strong>Tipos de ERA:</strong> Circuito Abierto (más usado por bomberos, exhala a la atmósfera) y Circuito Cerrado.</p>
+                <p><strong>ERA de Circuito Abierto - Partes Principales:</strong></p>
+                <ul>
+                    <li><strong>Máscara (Facial):</strong> Correas/araña de ajuste, cubre boca-nariz (evita empañamiento, reduce aire muerto), diafragma comunicación, válvula exhalación (presión positiva).</li>
+                    <li><strong>Arnés:</strong> Transporta cilindro invertido. Diseño ergonómico. Conector aire, reductor presión, mangueras.
+                        <ul>
+                            <li><strong>Manómetro:</strong> En hombro, marca presión tubo (fotosensible).</li>
+                            <li><strong>Válvula de Demanda:</strong> Suministra aire según necesidad, mantiene presión positiva en máscara. Activada al inhalar.</li>
+                            <li><strong>Válvula de Presión Positiva (By-pass):</strong> Flujo adicional/constante si se presiona/gira (desempañar, compartir aire, falla demanda, ruptura visor).</li>
+                            <li><strong>Correaje:</strong> Fijación al bombero (hombros, cintura), fijación cilindro.</li>
+                            <li><strong>Regulador de Presión:</strong> Reduce presión del cilindro. Válvula de alivio para exceso.</li>
+                        </ul>
+                    </li>
+                    <img src="imagenes/Era.png" alt="era" style="width:100%; max-width:300px; height:auto; margin-top:10px; margin-bottom:10px; border-radius:5px;">
+                    <li><strong>Cilindro de Aire Comprimido:</strong> Comunes 8.5 lts, cargados a 2216 psi (aprox. 1278 lts aire). Duración depende de respiración y actividad (ref: 32 min a 40 lpm). Tipos: fibra de vidrio, Kevlar, aluminio, acero.</li>
+                </ul>
+                <p><strong>Inspección y Ensamble Previo (Norma):</strong> Correas estiradas, presión manómetro (>2000psi), válvula demanda activada, válvula presión positiva desactivada, abrir cilindro (cerrar media vuelta), verificar manómetros (regulador y cilindro iguales), escuchar alarma audible, colocarse equipo.</p>
+                <p><strong>Mantenimiento ERA:</strong> Testeo por personal especializado (presión, hermeticidad, válvulas, regulador, transductor, hidrostático, flujo). Certificación ISO 9001-2015.</p>
+                <p><strong>Normas Internacionales ERA:</strong> NFPA 1981 (ERA Circuito Abierto), NFPA 1404 (Programa Sistemas Respiración).</p>
+                <p><em>Resumen basado en "CLASE 10 SEGURIDAD DEL BOMBERO.pdf".</em></p>
+            </details>
+            
+            <details id="info-clase-99" class="info-details-estudio">
+                 <summary>Evaluación de Códigos de Comunicación (Opción Múltiple)</summary>
+                <p>Esta evaluación pondrá a prueba tu conocimiento sobre los Códigos de Comunicación (Q, Alfa y Numérico) mediante preguntas de opción múltiple.</p>
+                <p>Selecciona la respuesta que consideres correcta para cada pregunta. ¡Mucha suerte!</p>
+            </details>
+
+            <details id="info-clase-11" class="info-details-estudio">
+                <summary>Resumen y Datos Clave (Clase 11: Psicología de la Emergencia - Unidades 1-4)</summary>
+                <h4>Unidad 1: Introducción a la Psicología de la Emergencia</h4>
+                <p>La psicología es la disciplina que analiza los procesos mentales y del comportamiento humano en interacción con su ambiente. Surge de la filosofía y evoluciona con aportes de corrientes como la Gestalt (percepción), Psicoanálisis (inconsciente), Conductismo (conducta) y Cognitivismo (procesos de adquisición de conocimiento).</p>
+                <p><strong>Psicología de la Emergencia:</strong> Rama que estudia cambios y reacciones de individuos/grupos antes, durante y después de una emergencia, y las estrategias para mitigar consecuencias. Sus inicios se remontan a principios del siglo XX, con estudios sobre el comportamiento en desastres y guerras (Ej: "neurosis de guerra"). Figuras como Stierlin, Lindermann, Tyhurst y Lifton contribuyeron a entender las fases del impacto psicológico (impacto, recuperación, postraumático) y los efectos a largo plazo. En 1970, la Asoc. de Psiquiatría Americana publica el primer manual de Primeros Auxilios Psicológicos. En los 90, se incluye a los equipos de primera respuesta como víctimas de tercer grado.</p>
+                <p><strong>En Argentina:</strong> En 2008 se conforma el Departamento de Psicología de la Emergencia de la Academia Nacional de Bomberos Voluntarios, con el objetivo de cuidar la salud del bombero y crear una red de profesionales.</p>
+                <p><strong>Emergencia:</strong> Evento que requiere actuación inmediata para salvar vidas y bienes. La psicología de la emergencia actúa antes, durante y después, reconociendo que todos son afectados y enfatizando la preparación mental.</p>
+                
+                <h4>Unidad 2: Estrés y Estresores</h4>
+                <p><strong>Estrés (Hans Selye):</strong> Reacción física, mental y emocional ante circunstancias que perturban el equilibrio normal. El impacto de un suceso activa recursos de afrontamiento. Genera desgaste físico y emocional.</p>
+                <p><strong>Fase de adaptación al estrés (síntomas esperables y transitorios):</strong> Elevación presión arterial, aumento frec. cardíaca/respiratoria, producción adrenalina/endorfinas (aumento fuerza, disminución sensibilidad), aceleración coagulación, contracción vasos sanguíneos (órganos) / expansión (músculos), aumento función muscular, mayor liberación glóbulos, agudización sentidos, atención ultra focalizada, ausencia apetito, dificultad percepción tiempo.</p>
+                <p><strong>Estresores Ocupacionales (inherentes al hecho):</strong> Muerte/heridas de compañeros/conocidos/familiares, muerte de niños, muerte de implicados durante intervención, identificación con implicados, incidentes con bajas masivas.</p>
+                <p><strong>Estresores Ocupacionales (inherentes a la profesión):</strong> Sobrecarga responsabilidades, duración intervención, presiones de tiempo, gran demanda física/mental/emocional, recursos limitados, imprevisibilidad, altas expectativas, conflictos institucionales.</p>
+                <p><strong>Estresores Personales:</strong> Situaciones de salud, laborales, familiares.</p>
+                <p><strong>Estresores Comunitarios:</strong> Presencia medios masivos, curiosos, familiares de implicados.</p>
+                <p><strong>Estrés Operativo (durante la intervención):</strong> Respuesta adaptativa y automática. Aumento activación fisiológica/cognitiva. Favorable para la intervención eficaz (aumento fuerza, temblores por adrenalina). Disminuye hambre, sed, cansancio (riesgo agotamiento/deshidratación -> relevos necesarios). Disminuye sensibilidad emocional ("anestesia emocional" por endorfinas, protectora).</p>
+                <p><strong>Reacciones Post-Intervención (esperables hasta 1 mes):</strong></p>
+                <ul>
+                    <li><strong>Específicas:</strong>
+                        <ul>
+                            <li>Hiperexitación: Cuerpo sigue en alerta (impaciencia, agitación, problemas sueño).</li>
+                            <li>Recuerdos Intrusivos: Flashbacks, pesadillas.</li>
+                            <li>Evitación: Evitar lugares, personas, hablar del suceso.</li>
+                        </ul>
+                    </li>
+                    <li><strong>No Específicas:</strong>
+                        <ul>
+                            <li>Impotencia: Enojo, rabia, culpa, frustración.</li>
+                            <li>Pérdidas: Tristeza, inicio duelo.</li>
+                            <li>Confusión: Dificultad para procesar información, atención, memoria.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>Si las reacciones persisten más de 1 mes o se agravan, consultar profesional.</p>
+
+                <h4>Unidad 3: Herramientas Psicológicas para Primeros Respondientes</h4>
+                <p><strong>1. Respiración Consciente:</strong></p>
+                <ul>
+                    <li><strong>Objetivo:</strong> Lograr control voluntario de la respiración para calmar agitación, recuperar ritmo cardíaco/respiratorio/circulatorio, reducir ansiedad, favorecer autocontrol.</li>
+                    <li><strong>Ejercicio:</strong> Sentado, espalda recta, pies en suelo, vista al frente. Inspirar por la boca (como sorbete) contando hasta 5, retener 1 seg, exhalar por la boca contando hasta 5. Realizar 10 min, 2 veces/día. Disminuye hiperexcitación y predisposición al pánico.</li>
+                </ul>
+                <p><strong>2. Plan de Manejo del Estrés (rutina por 2 meses post-incidente):</strong></p>
+                <ul>
+                    <li><strong>A. Respiración:</strong> Ejercicio anterior 2 veces/día.</li>
+                    <li><strong>B. Descanso:</strong> 8 horas de sueño. Fundamental para bienestar físico y psíquico.</li>
+                    <li><strong>C. Dieta Saludable:</strong> 4 comidas, frutas, verduras, proteínas. Evitar grasas, gaseosas, alcohol, tabaco. Beber 2 litros agua/día.</li>
+                    <li><strong>D. Ejercicio Físico:</strong> Mínimo 2 veces/semana.</li>
+                    <li><strong>E. Tiempo Libre:</strong> Espacio para actividad diferente, crecimiento personal. Mínimo 45 min/semana de descanso sin actividad específica.</li>
+                    <li><strong>F. Actividad Placentera:</strong> Mínimo 1 vez/semana. Genera emociones agradables.</li>
+                    <li><strong>G. Activación de Recursos:</strong> Técnica para mejorar resultados emocionales. Usar anclajes naturales (canción, olor, persona) para generar bienestar. Cada noche, revivir el mejor momento del día sensorialmente.</li>
+                </ul>
+                <p><strong>3. Defusing (Descarga Emocional):</strong></p>
+                <ul>
+                    <li><strong>Definición:</strong> Técnica psicológica de desmovilización y descompresión emocional para primeros respondientes tras situaciones traumáticas. Busca reconciliar lo emocional y racional.</li>
+                    <li><strong>Importancia:</strong> Bomberos usan disociación instrumental (racional sobre emocional). Defusing permite descargar contenido emocional post-trabajo.</li>
+                    <li><strong>Características:</strong> Sesión semi-estructurada, lo antes posible (primeras 24h). NO es terapia. Dirigida por el responsable de intervención o alguien con experiencia. Postura positiva, respetuosa.</li>
+                    <li><strong>Lugar:</strong> Cómodo, sin distracciones/interrupciones.</li>
+                    <li><strong>Protocolo (todos hablan):</strong>
+                        <ol>
+                            <li>¿Qué pasó?</li>
+                            <li>¿Qué hicimos bien? ¿Por qué?</li>
+                            <li>¿Qué podríamos mejorar? ¿Por qué?</li>
+                            <li>¿Qué necesitamos como equipo? ¿Qué necesito para mí?</li>
+                            <li>Agradecimientos.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Objetivo Final:</strong> Organizar e integrar experiencias, similar a limpiar materiais.</li>
+                </ul>
+
+                <h4>Unidad 4: Trabalho em Equipe</h4>
+                <p>A dinâmica entre indivíduos marca a diferença no rendimento ao trabalhar em conjunto.</p>
+                <p><strong>Diferenças entre Grupo e Equipe:</strong></p>
+                <ul>
+                    <li><strong>Visão:</strong> Grupo (individualista, acordos para metas prévias individuais) vs. Equipe (coletivista, metas e experiências compartilhadas).</li>
+                    <li><strong>Atitude:</strong> Grupo (passividade, renegociar ante mudanças) vs. Equipe (proatividade, adaptação em tempo real).</li>
+                    <li><strong>Comunicação:</strong> Grupo (vertical, hierárquica, formal) vs. Equipe (flexível, informal também, ágil).</li>
+                    <li><strong>Flexibilidade:</strong> Grupo (rigidez normativa, desculpa para não se adaptar) vs. Equipe (flexibilidade, o formal supeditado ao útil para adaptar-se e lograr metas).</li>
+                    <li><strong>Oportunidades:</strong> Grupo (rejeição a novas ideias, não se valorizam oportunidades) vs. Equipe (habilidade para detectar oportunidades, se propõem ideias).</li>
+                </ul>
+                <p><strong>5 Características do Trabalho em Equipe (as "5 C"):</strong></p>
+                <ul>
+                    <li><strong>Complementaridade:</strong> Cada membro domina una parte, se especializa, mas o trabalho não é a soma das partes. Possibilidade de rotacionar e colaborar.</li>
+                    <li><strong>Coordenação:</strong> Atuação organizada e sincronizada.</li>
+                    <li><strong>Comunicação:</strong> Aberta, clara, precisa. Respeito, saber escutar, crítica construtiva.</li>
+                    <li><strong>Confiança:</strong> Confiar no bom fazer dos demais. Aportar o melhor de si para o objetivo grupal.</li>
+                    <li><strong>Compromisso:</strong> Dar o melhor de si, responsabilidade por resultados totais e parciais (lealdade).</li>
+                </ul>
+                <p>Trabalhar em equipe implica um espaço de encontro que permite resultados superiores ao trabalho individual. Requer: motivação, agradecimento, humildade, tolerância à frustração e opiniões dissidentes, expressar emoções, fomentar empatia.</p>
+                <p><strong>Papéis em uma Equipe (dinâmicos):</strong></p>
+                <ul>
+                    <li><strong>Papel Percebido:</strong> Condutas que o ocupante crê que deve levar a cabo.</li>
+                    <li><strong>Papel Designado:</strong> O grupo pode "designar" um papel e esperar seu cumprimento.</li>
+                    <li><strong>Prototipos de Papéis:</strong>
+                        <ul>
+                            <li><strong>Porta-voz:</strong> Denuncia o acontecer grupal, fala por todos.</li>
+                            <li><strong>Bode Expiatório:</strong> Se depositam aspectos negativos, mecanismos de segregação.</li>
+                            <li><strong>Líder:</strong> Se depositam aspectos positivos, tendência à idealização.</li>
+                            <li><strong>Sabotador:</strong> Dificulta a mudança, identifica obstáculos, pode atentar contra a tarefa.</li>
+                            <li><strong>Narcisista:</strong> Busca crédito individual, simula trabalhar em equipe, se percebe más habilidoso, invalida outros.</li>
+                            <li><strong>Referência:</strong> Reconhecido como especialista, acessível, compartilha conhecimento, ajuda. Lógica: CONHECER-COMPARTILHAR-FAZER-SE CONHECIDO.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>A forma de coordenação depende do estilo do coordenador, da atividade e dos objetivos institucionais.</p>
+            </details>
+
+            <details id="info-clase-12" class="info-details-estudio">
+                <summary>Resumen y Datos Clave (Clase 12: Escalafón, Protocolo, Ceremonial y Desfiles)</summary>
+                <h4>Escalafón Jerárquico (Ley Nacional 25.054, Art. 5º)</h4>
+                <img src="imagenes/escalafon gerarjico.png" alt="Escalafon-Jerarquico" style="width:100%; max-width:300px; height:auto; margin-top:10px; margin-bottom:10px; border-radius:5px;">
+                <p>El Sistema Nacional de Bomberos Voluntarios establece una estructura jerárquica clara para la organización y el mando.</p>
+                <ul>
+                    <li><strong>Oficial Superior:</strong> Comandante General.</li>
+                    <li><strong>Oficiales Jefes:</strong> Comandante Mayor, Comandante, Sub-Comandante.</li>
+                    <li><strong>Oficiales Subalternos:</strong> Oficial Principal, Oficial Inspector, Oficial Ayudante.</li>
+                    <li><strong>Suboficiales Superiores:</strong> Suboficial Mayor, Suboficial Principal, Sargento Primero.</li>
+                    <li><strong>Suboficiales Subalternos:</strong> Sargento, Cabo Primero, Cabo.</li>
+                </ul>
+
+                <h4>Protocolo y Ceremonial</h4>
+                <p><strong>Ceremonial:</strong> Es el conjunto de formalidades y acciones para actos públicos y solemnes. Se basa en el protocolo para su organización. El Día Nacional del Ceremonial en Argentina es el 28 de mayo, conmemorando el primer reglamento protocolar de 1810.</p>
+                <p><strong>Protocolo:</strong> Establece las normas, decretos y reglamentaciones para el ceremonial, definiendo el desarrollo del acto ("la forma de hacer"). Puede ser dinámico o estático, pero debe ser flexible.</p>
+                <p><strong>Precedencia:</strong> Se refiere a la ubicación de una autoridad en una ceremonia según su cargo. El ceremonial reconoce jerarquías, no las crea. Se establece por normas estrictas y prima la jerarquía mayor sobre la menor.</p>
+                <p><strong>Actos:</strong> Transmiten un mensaje y conforman la imagen institucional. Su solemnidad depende del motivo y la jerarquía de los asistentes. Quien convoca es responsable de la organización.</p>
+                <p><strong>Disciplina:</strong> Es un código de conducta y orden que se debe respetar dentro y fuera de la institución.</p>
+                <p><strong>Subordinación:</strong> Es la sujeción al mando o la orden de alguien, generalmente basada en una relación jerárquica.</p>
+
+                <h4>Orden Cerrado</h4>
+                <p><strong>Objeto:</strong> Establecer prescripciones para la instrucción de orden cerrado, proporcionando bases para la instrucción colectiva e individual en desfiles y actos.</p>
+                <p><strong>Beneficios de la Instrucción de Orden Cerrado:</strong></p>
+                <ul>
+                    <li>Correcta presentación de la fracción.</li>
+                    <li>Ejercitar y afianzar la disciplina y subordinación.</li>
+                    <li>Desarrollar el espíritu de camaradería.</li>
+                </ul>
+                <p>La instrucción debe ser <strong>Racional</strong> (basada en exigencias fisiológicas), <strong>Consciente</strong> (comprensión de la finalidad) y <strong>Natural</strong> (movimientos según mecánica y fisiología humana).</p>
+                <p><strong>Voces de Mando:</strong> Impulsan la ejecución de movimientos y constan de dos partes:</p>
+                <ul>
+                    <li><strong>Preventiva:</strong> Indica el movimiento a ejecutar (ej. "¡Firrr...!").</li>
+                    <li><strong>Ejecutiva:</strong> Indica el inicio del movimiento (ej. "...mes!").</li>
+                </ul>
+                <p>Una voz de mando correcta debe ser: Audible, Inteligible, con Inflexión adecuada, Cadencia uniforme y Tajante.</p>
+                <p><strong>Posiciones Fundamentales:</strong></p>
+                <ul>
+                    <li><strong>Posición de Firme:</strong> Cuerpo erguido, talones unidos, puntas de los pies ligeramente hacia afuera, brazos caídos, manos pegadas al muslo.</li>
+                    <li><strong>Posición de Descanso:</strong> Pie izquierdo al costado, peso repartido, brazos a los costados.</li>
+                    <li><strong>Romper Filas:</strong> Desde descanso, adopta firme, ruptura de marcha y se retira.</li>
+                </ul>
+                <p><strong>Giros a Pie Firme:</strong> A la derecha, a la izquierda, media vuelta izquierda. Se realizan sobre el talón del pie de giro y la punta del otro.</p>
+                <p><strong>Saludos a Pie Firme:</strong> Con cubrecabeza puesto. "Saludo Uno" (mano a la sien) y "Saludo Dos" (bajar la mano).</p>
+                <p><strong>Manejo de la Bandera y Estandartes:</strong></p>
+                <ul>
+                    <li>Posiciones: En descanso, Al hombro, Saludo Uno, Presenten Armas.</li>
+                    <li><strong>"Saludo Uno" se ordena:</strong> Izamiento/arrío de bandera, Himno Nacional, Himno de otro país, desfile ante bandera nacional, paso de banderas invitadas, actos de bendición, paso del Presidente/Gobernador, promesa de lealtad a la bandera por alumnos, misas (elevación), sepelios (paso del féretro).</li>
+                    <li><strong>"Presenten Armas" se ordena:</strong> Minuto de silencio in-memoria, juramento de Bomberos Voluntarios.</li>
+                    <li>La bandera no se dobla (significa "bandera rendida"), se encanasta.</li>
+                </ul>
+
+                <h4>Reglamento de Desfile (Federación Bonaerense)</h4>
+                <p>Reglamenta los desfiles organizados por la Federación Bonaerense y aquellos en los que participa.</p>
+                <p><strong>Orden del Desfile:</strong></p>
+                <ol>
+                    <li>Organismos invitados fuera del sistema bomberil (FFAA, FFSS, Oficiales).</li>
+                    <li>Consejo Nacional de Federaciones de Bomberos Voluntarios.</li>
+                    <li>Federación Bonaerense.</li>
+                    <li>Círculo de Retirados.</li>
+                    <li>Cuerpos Centenarios (por fecha de fundación).</li>
+                    <li>Cuerpos participantes (por orden de llegada).</li>
+                    <li>Cuerpo organizador (anfitrión).</li>
+                </ol>
+                <p><strong>Personal y Uniformidad:</strong></p>
+                <ul>
+                    <li>Máximo 12 efectivos por cuerpo (excepto anfitrión), incluye chofer y Jefe de Sección. Jefes de Cuerpos en palco oficial.</li>
+                    <li>Uniforme de gala o fajina, higienizados y prolijos.</li>
+                    <li>Personal masculino: cabello corto, orejas descubiertas, sin aros, afeitado (bigote moderado permitido). Joyas: reloj y anillo de matrimonio.</li>
+                    <li>Personal femenino: cabello recogido, maquillaje tenue.</li>
+                    <li>Solo anteojos recetados.</li>
+                </ul>
+                <p><strong>Unidades Móviles:</strong></p>
+                <ul>
+                    <li>Máximo 2 unidades por cuerpo (excepto anfitrión).</li>
+                    <li>Compartimientos cerrados, luces y balizas encendidas.</li>
+                    <li>Prohibido sonar sirenas/bocinas o exponer banderas sobre los móviles.</li>
+                </ul>
+                <p><strong>Actos y Discursos:</strong> Se establece un orden para ofrendas florales y discursos (Presidente Institución Anfitriona, Presidente Federación Bonaerense, Presidente Consejo de Federaciones, Intendente, Autoridades Provinciales y Nacionales).</p>
+                <p><strong>Desplazamientos y Saludos:</strong></p>
+                <ul>
+                    <li>Bandera y estandartes se desplazan a paso marcial "Al Hombro".</li>
+                    <li>Jefe de sección, abanderado y escoltas realizan "Saludo Uno" al pasar por el palco oficial (15m antes hasta 15m después). El resto de la sección solo "Vista Derecha". Chóferes no saludan.</li>
+                </ul>
+                <p><strong>Prohibiciones en Desfiles:</strong> Desfilar de civil, realizar saludos no reglamentarios desde móviles, sonar sirenas, entonar cánticos groseros.</p>
+                <p><strong>Día del Bombero Voluntario (2 de junio):</strong> Izamiento de bandera a las 08:00 hs con toque de alarma externa, ofrenda floral si hay monumento.</p>
+                <p><strong>Bandera Nacional Argentina (Características):</strong></p>
+                <ul>
+                    <li>Colores celeste y blanco. Material: gros de seda. Sin flecos. Sol bordado en una faz y adherido en la otra.</li>
+                    <li>Dimensiones: 1m de largo x 75cm de ancho.</li>
+                    <li>Asta: Madera, 2m de largo, 3.5cm diámetro.</li>
+                    <li>Corbata: Gros de seda, colores patrios, 50cm x 10cm, con nombre de la institución.</li>
+                    <li>Moharra: Acero, 20cm alto, media luna de 12cm. Regatón: Acero, 10cm.</li>
+                </ul>
+                <p><strong>Bandera de la Provincia de Buenos Aires (Ley 11.997):</strong></p>
+                <ul>
+                    <li>Debe flamear junto a la Nacional. Características de tamaño y material idénticas a la Nacional.</li>
+                    <li>Uso obligatorio en actos oficiales, acompañando a la Bandera Nacional.</li>
+                    <li>Se iza después de la Nacional y se arría antes. Permanece a la izquierda de la Bandera Nacional (vista desde atrás).</li>
+                </ul>
+                <p><strong>Marcha Nacional del Bombero Voluntario Argentino:</strong> Letra y música por Aurelio Genovese. Lema: "SACRIFICIO, VALOR Y ABNEGACION".</p>
+                <p><em>Resumen basado en los documentos "Clase 12- Escalafon-Jerarquico.pdf", "Clase 12-Material.pdf", "Clase 12-protocolo y ceremonial.pdf" y "Clase12-REGLAMENTO DESFILE 2014.pdf".</em></p>
+            </details>
+            </div>
+
+
+        <button id="start-evaluation-button" class="evaluation-button-estudio">
+            <i class="fas fa-play-circle"></i> Comenzar Evaluación
+        </button>
+        
+        <div id="game-area" class="game-area-estudio" style="display:none;">
+            <button id="back-to-menu-button" class="back-to-menu-button-estudio">
+                <i class="fas fa-arrow-left"></i> Volver al Menú
+            </button>
+            <div id="question-container">
+                <p id="question-number"></p>
+                <h2 id="question-text"></h2>
+            </div>
+            <input type="text" id="answer-input" placeholder="Escribe tu respuesta aquí..." style="display:none;">
+            <div id="multiple-choice-options">
+                </div>
+            <button id="submit-button" class="submit-button-estudio" style="display:none;">
+                <i class="fas fa-check-circle"></i> Enviar Respuesta
+            </button>
+            <div id="feedback-area" class="feedback-area-estudio"><p id="feedback-text"></p><p id="correct-answer-text"></p></div>
+            <button id="next-button" class="next-button-estudio" style="display:none;">
+                Siguiente Pregunta <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <div id="score-area" class="score-area-estudio" style="display:none;"><p>Puntaje: <span id="score">0</span></p></div>
+
+        <div id="results-area" class="results-area-estudio" style="display:none;">
+            <h2><i class="fas fa-clipboard-check"></i> Evaluación Terminada</h2>
+            <p>Tu puntaje final es: <span id="final-score"></span> de <span id="total-questions-played"></span></p>
+            <button id="restart-button" class="restart-button-estudio">
+                <i class="fas fa-redo-alt"></i> Otra Evaluación / Menú
+            </button>
+        </div>
+    </div>
+
+    <script src="modulo_estudio.js"></script>
+</body>
+</html>

@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Repaso Experto: Seguridad del Bombero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Dark blue-gray background */
+            color: #e5e7eb; /* Light gray text */
+        }
+        .card {
+            background-color: #1f2937; /* Slightly lighter card background */
+            border: 1px solid #374151; /* Border for cards */
+        }
+        .btn-primary {
+            background-color: #ef4444; /* Red for primary actions */
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #dc2626; /* Darker red on hover */
+        }
+        .btn-secondary {
+            background-color: #4b5563;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #6b7280;
+        }
+        .btn-option {
+            background-color: #374151; /* Gray for option buttons */
+            border: 1px solid #4b5563;
+            color: #d1d5db;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .btn-option:hover:not(:disabled) {
+            background-color: #4b5563;
+            border-color: #6b7280;
+        }
+        .btn-option.correct {
+            background-color: #10b981 !important; 
+            border-color: #059669 !important;
+            color: white !important;
+        }
+        .btn-option.incorrect {
+            background-color: #f87171 !important; 
+            border-color: #ef4444 !important;
+            color: white !important;
+        }
+        .btn-option:disabled:not(.correct):not(.incorrect) {
+            background-color: #2d3748;
+            border-color: #374151;
+            color: #6b7280;
+            cursor: not-allowed;
+        }
+        .progress-bar-container {
+            background-color: #374151;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            position: relative;
+        }
+        .progress-bar {
+            background-color: #ef4444;
+            height: 100%;
+            transition: width 0.5s ease-in-out;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1f2937; }
+        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+
+        /* Modal for Review */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            padding-top: 30px; 
+        }
+        .modal-content {
+            background-color: #1f2937;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #374151;
+            width: 90%;
+            max-width: 700px;
+            border-radius: 8px;
+            max-height: 80vh; 
+            overflow-y: auto; 
+        }
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #e5e7eb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .review-question-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #374151;
+        }
+        .review-question-item:last-child {
+            border-bottom: none;
+        }
+        .sound-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background-color: #374151;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            z-index: 101; 
+            font-size: 0.9rem;
+        }
+         .high-score-table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+        .high-score-table th, .high-score-table td {
+            border: 1px solid #4b5563;
+            padding: 6px; 
+            text-align: left;
+            font-size: 0.8rem; 
+        }
+        .high-score-table th {
+            background-color: #374151;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <button id="sound-toggle-btn" class="sound-toggle">🔊 Sonido ON</button>
+
+    <div id="game-container" class="w-full max-w-2xl mx-auto">
+        <div id="start-screen" class="card p-6 md:p-8 rounded-lg shadow-xl text-center">
+            <img src="https://placehold.co/150x150/ef4444/ffffff?text=SDB" alt="Logo Seguridad del Bombero" class="mx-auto mb-6 rounded-full w-24 h-24 md:w-32 md:h-32 object-cover border-4 border-red-500">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4 text-red-400">Juego de Repaso Experto</h1>
+            <p class="text-lg md:text-xl mb-2">Seguridad del Bombero Aspirante 2021</p>
+            
+            <div class="my-6">
+                <label for="lesson-select" class="block mb-2 text-sm font-medium text-gray-300">Elige una lección para practicar:</label>
+                <select id="lesson-select" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5">
+                    <option value="all">Todas las Lecciones (Mezcla)</option>
+                    <option value="1">Lección 1: Riesgos y Causas</option>
+                    <option value="2">Lección 2: Costo de Accidentes</option>
+                    <option value="3">Lección 3: EPP y Mantenimiento</option>
+                    <option value="4">Lección 4: E.R.A.</option>
+                </select>
+            </div>
+            
+            <button id="start-game-btn" class="btn-primary font-semibold py-3 px-8 rounded-lg text-lg w-full sm:w-auto mb-4">
+                Comenzar Juego (10 Preguntas)
+            </button>
+            <div id="high-scores-display" class="mt-4 text-sm">
+                <h3 class="font-semibold text-gray-300 mb-2">Mejores Puntajes:</h3>
+                <table class="high-score-table">
+                    <thead>
+                        <tr><th>Categoría</th><th>Puntaje</th></tr>
+                    </thead>
+                    <tbody id="high-scores-tbody">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="quiz-screen" class="hidden card p-6 md:p-8 rounded-lg shadow-xl">
+            <div class="flex justify-between items-center mb-2">
+                <p class="text-sm font-semibold">Pregunta <span id="question-number"></span> de <span id="total-questions"></span></p>
+                <p class="text-sm font-semibold">Puntaje: <span id="score">0</span></p>
+            </div>
+            <div class="flex justify-between items-center mb-4">
+                 <button id="hint-btn" class="btn-secondary text-xs py-1 px-3 rounded-md">Pista (<span id="hints-left">3</span>)</button>
+                 <div id="timer-display" class="text-sm font-bold text-yellow-400">Tiempo: <span id="time-left">30</span>s</div>
+            </div>
+            <div class="progress-bar-container w-full h-2.5 mb-6">
+                <div id="progress-bar" class="progress-bar h-2.5 rounded-lg" style="width: 0%;"></div>
+            </div>
+            <h2 id="question-text" class="text-xl md:text-2xl font-semibold mb-6 min-h-[80px] md:min-h-[60px]"></h2>
+            <div id="options-container" class="space-y-3 mb-6"></div>
+            <div id="feedback-text" class="min-h-[24px] mb-2 text-center font-semibold flex items-center justify-center">
+                <span id="feedback-icon" class="mr-2"></span><span id="feedback-message"></span>
+            </div>
+            <div id="explanation-text" class="text-sm text-gray-400 mt-2 p-3 bg-gray-800 rounded-md min-h-[50px] hidden"></div>
+            <button id="next-question-btn" class="btn-primary font-semibold py-3 px-6 rounded-lg w-full text-lg hidden mt-4">
+                Siguiente Pregunta
+            </button>
+        </div>
+
+        <div id="end-screen" class="hidden card p-6 md:p-8 rounded-lg shadow-xl text-center">
+            <img src="https://placehold.co/150x150/10b981/ffffff?text=FIN" alt="Juego Terminado" class="mx-auto mb-6 rounded-full w-24 h-24 md:w-32 md:h-32 object-cover border-4 border-green-500">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4 text-green-400">¡Juego Terminado!</h1>
+            <p class="text-xl md:text-2xl mb-2">Tu puntaje final es:</p>
+            <p id="final-score" class="text-5xl font-bold mb-6 text-yellow-400"></p>
+            <p id="final-message" class="mb-6 text-gray-300"></p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+                <button id="restart-game-btn" class="btn-primary font-semibold py-3 px-6 rounded-lg text-lg w-full sm:w-auto">
+                    Jugar de Nuevo
+                </button>
+                <button id="review-answers-btn" class="btn-secondary font-semibold py-3 px-6 rounded-lg text-lg w-full sm:w-auto">
+                    Revisar Respuestas
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="review-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-review-modal">&times;</span>
+            <h2 class="text-2xl font-bold mb-6 text-center text-red-400">Revisión de Respuestas</h2>
+            <div id="review-content" class="text-sm"></div>
+            <button id="back-to-start-from-review-btn" class="btn-primary font-semibold py-2 px-4 rounded-lg text-sm w-full mt-6">
+                Volver al Inicio
+            </button>
+        </div>
+    </div>
+
+    <audio id="correct-sound" src="https://cdn.jsdelivr.net/gh/kristopolous/BOOTSTRA.386/sound/type.wav" preload="auto"></audio>
+    <audio id="incorrect-sound" src="https://cdn.jsdelivr.net/gh/kristopolous/BOOTSTRA.386/sound/error.wav" preload="auto"></audio>
+    <audio id="hint-sound" src="https://cdn.jsdelivr.net/gh/kristopolous/BOOTSTRA.386/sound/click.wav" preload="auto"></audio>
+
+    <script>
+        // --- DATOS DEL JUEGO ---
+        const allQuestions = [
+            // Lección 1: Riesgos y causas de los accidentes profesionales (20 preguntas)
+            { lesson: 1, text: "¿Definición de 'Riesgo' según el manual?", options: [ { text: "Evento inesperado sin daño.", correct: false }, { text: "Probabilidad de suceso peligroso por gravedad del daño.", correct: true }, { text: "Acto no deseado que interrumpe tareas.", correct: false }, { text: "Enfermedad laboral.", correct: false } ], explanation: "Riesgo es la probabilidad de que ocurra un suceso peligroso multiplicada por la gravedad del daño que podría causar para la salud (Manual, Lección 1)." },
+            { lesson: 1, text: "¿Categorías principales de causas de accidentes?", options: [ { text: "Humanas y Ambientales.", correct: false }, { text: "Primarias y Secundarias.", correct: false }, { text: "Básicas y Inmediatas.", correct: true }, { text: "Seguras e Inseguras.", correct: false } ], explanation: "Las causas se dividen en Causas Básicas (origen) y Causas Inmediatas (visibles, acciones/condiciones subestándares) (Manual, Lección 1)." },
+            { lesson: 1, text: "¿Qué es un 'Incidente o Casi-accidente'?", options: [ { text: "Accidente con daños menores.", correct: false }, { text: "Evento con potencial de daño, sin lesiones/daños.", correct: true }, { text: "Evento que requiere informe.", correct: false }, { text: "Sinónimo de peligro.", correct: false } ], explanation: "Un Incidente o Casi-accidente es un evento inesperado con potencial de daño, pero sin generar lesiones o daños materiales; es un accidente potencial (Manual, Lección 1)." },
+            { lesson: 1, text: "Los 'Factores Personales' como causa básica incluyen:", options: [ { text: "Diseño inadecuado del equipo.", correct: false }, { text: "Falta de conocimiento y/o habilidad.", correct: true }, { text: "Falta de normas de trabajo.", correct: false }, { text: "Ruido excesivo.", correct: false } ], explanation: "La falta de conocimiento, habilidad, estrés, falta de motivación o incapacidad física/mental son Factores Personales (Manual, Lección 1)." },
+            { lesson: 1, text: "Una 'Condición Insegura' podría ser:", options: [ { text: "No usar los EPP.", correct: false }, { text: "Herramientas o equipos defectuosos.", correct: true }, { text: "Conducir rápido.", correct: false }, { text: "Falta de motivación.", correct: false } ], explanation: "Herramientas defectuosas, EPP defectuosos, desorden, son ejemplos de Condiciones Inseguras (Manual, Lección 1)." },
+            { lesson: 1, text: "¿Qué es una 'Enfermedad profesional'?", options: [ { text: "Lesión súbita en trabajo.", correct: false }, { text: "Enfermedad por exposición a factores de riesgo laboral.", correct: true }, { text: "Cualquier enfermedad de un bombero.", correct: false }, { text: "Enfermedad común.", correct: false } ], explanation: "Es toda enfermedad contraída por la exposición a factores de riesgo que resulten de la actividad laboral (Manual, Lección 1)." },
+            { lesson: 1, text: "Lesiones típicas padecidas por Bomberos:", options: [ { text: "Solo quemaduras.", correct: false }, { text: "Traumatismos, esguinces, heridas cortantes.", correct: true }, { text: "Solo problemas respiratorios.", correct: false }, { text: "Problemas de visión por humo.", correct: false } ], explanation: "Incluyen traumatismos, esguinces, luxaciones, heridas, asfixia, intoxicación, quemaduras, etc. (Manual, Lección 1)." },
+            { lesson: 1, text: "Para prevención de salud del bombero, se recomienda:", options: [ { text: "Evitar ejercicio físico.", correct: false }, { text: "Exámenes médicos solo al ingresar.", correct: false }, { text: "Dieta balanceada y ejercicio dirigido.", correct: true }, { text: "Fumar moderadamente.", correct: false } ], explanation: "Realizar exámenes periódicos, dieta balanceada, ejercicio físico dirigido, no fumar son claves (Manual, Lección 1)." },
+            { lesson: 1, text: "El estrés psicológico en bomberos es un:", options: [ { text: "Factor de motivación.", correct: false }, { text: "Riesgo profesional específico.", correct: true }, { text: "Signo de debilidad.", correct: false }, { text: "Problema inexistente.", correct: false } ], explanation: "El estrés psicológico es un riesgo específico de la profesión bomberil debido a los factores de presión (Manual, Lección 1)." },
+            { lesson: 1, text: "La 'Ley de Causalidad' en accidentes implica que:", options: [ { text: "Son siempre casuales.", correct: false }, { text: "No hay accidente sin causa.", correct: true }, { text: "Causas indeterminables.", correct: false }, { text: "Una causa por accidente.", correct: false } ], explanation: "La Ley de Causalidad establece que 'No hay accidente sin causa'; los accidentes son causales, no casuales (Manual, Lección 1)." },
+            { lesson: 1, text: "Un ejemplo de 'Acto Inseguro' es:", options: [ { text: "EPP defectuoso.", correct: false }, { text: "Anular dispositivos de seguridad.", correct: true }, { text: "Iluminación inadecuada.", correct: false }, { text: "Falta de supervisión.", correct: false } ], explanation: "Poner fuera de servicio los dispositivos de seguridad es un Acto Inseguro (Manual, Lección 1)." },
+            { lesson: 1, text: "La 'cultura de seguridad débil' es un ejemplo de:", options: [ { text: "Factor Personal.", correct: false }, { text: "Factor del Trabajo.", correct: true }, { text: "Acción Insegura.", correct: false }, { text: "Condición Insegura.", correct: false } ], explanation: "Una 'cultura de seguridad débil' es un Factor del Trabajo (Condiciones del Ambiente) que puede ser causa básica de accidentes (Manual, Lección 1)." },
+            { lesson: 1, text: "Colapsos de estructuras pueden causar:", options: [ { text: "Solo estrés térmico.", correct: false }, { text: "Traumatismos y atrapamientos.", correct: true }, { text: "Únicamente asfixia.", correct: false }, { text: "Quemaduras químicas.", correct: false } ], explanation: "Los colapsos de estructuras producen serios traumatismos y hasta atrapamientos (Manual, Lección 1)." },
+            { lesson: 1, text: "El término 'Peligro' se define como:", options: [ { text: "La probabilidad de un evento.", correct: false }, { text: "Fuente, situación o acto con potencial de daño.", correct: true }, { text: "Un accidente ya ocurrido.", correct: false }, { text: "El costo de un accidente.", correct: false } ], explanation: "Un peligro es una fuente, situación o acto con potencial para causar daño humano, deterioro de la salud, daños físicos o una combinación de estos (Manual, Lección 1)." },
+            { lesson: 1, text: "Los accidentes bomberiles suceden:", options: [ { text: "Solo durante los servicios.", correct: false }, { text: "También en trayectos, cuartel o entrenamientos.", correct: true }, { text: "Únicamente en incendios estructurales.", correct: false }, { text: "Raramente, gracias al EPP.", correct: false } ], explanation: "Los accidentes no solo suceden durante los servicios, sino también en instancias previas, en el cuartel o durante entrenamientos (Manual, Lección 1)." },
+            { lesson: 1, text: "Identificar las 'causas básicas' de un accidente es fundamental para:", options: [ { text: "Determinar culpables.", correct: false }, { text: "Comprender qué lo desencadenó y evitar reincidencia.", correct: true }, { text: "Calcular los costos primarios.", correct: false }, { text: "Redactar el informe policial.", correct: false } ], explanation: "Si conocemos las causas básicas con precisión, lograremos tomar medidas de control objetivas para evitar que vuelvan a suceder accidentes similares (Manual, Lección 1)." },
+            { lesson: 1, text: "Un ejemplo de 'Factor del Trabajo' como causa básica es:", options: [ { text: "Falta de motivación del bombero.", correct: false }, { text: "Diseño inadecuado de herramientas o falta de normas.", correct: true }, { text: "Incapacidad física del bombero.", correct: false }, { text: "Hacer bromas durante el servicio.", correct: false } ], explanation: "Factores del Trabajo incluyen hábitos incorrectos/falta de normas, cultura de seguridad débil, diseño inadecuado, falta de supervisión (Manual, Lección 1)." },
+            { lesson: 1, text: "La exposición a agentes bacteriológicos es un riesgo de tipo:", options: [ { text: "Térmico.", correct: false }, { text: "Biológico.", correct: true }, { text: "Químico.", correct: false }, { text: "Eléctrico.", correct: false } ], explanation: "La contaminación con agentes bacteriológicos o fluidos corporales puede desencadenar graves enfermedades contagiosas (Manual, Lección 1)." },
+            { lesson: 1, text: "El estrés térmico es causado principalmente por:", options: [ { text: "Sobreesfuerzo físico.", correct: false }, { text: "Exposición a altas temperaturas.", correct: true }, { text: "Atmósferas con poco oxígeno.", correct: false }, { text: "Ruido excesivo.", correct: false } ], explanation: "Las altas temperaturas pueden conducir a sufrir estrés térmico (Manual, Lección 1)." },
+            { lesson: 1, text: "Una de las principales causas de lesiones por accidentes es:", options: [ { text: "Falta de EPP.", correct: false }, { text: "Golpes por o contra objetos / aplastamientos.", correct: true }, { text: "Mala alimentación.", correct: false }, { text: "Falta de sueño.", correct: false } ], explanation: "Golpes por o contra objetos / aplastamientos es una de las principales causas que provocan lesiones (Manual, Lección 1)." },
+
+            // Lección 2: El Costo de los accidentes bomberiles (15 preguntas)
+            { lesson: 2, text: "¿Cómo se dividen los costos de los accidentes para su análisis?", options: [ { text: "Directos e Indirectos.", correct: false }, { text: "Asegurados y No Asegurados.", correct: false }, { text: "Primarios y Secundarios u Ocultos.", correct: true }, { text: "Económicos y Morales.", correct: false } ], explanation: "El manual los divide en Costos Primarios (tangibles, primera etapa) y Costos Secundarios u Ocultos (segunda etapa, cualitativos) (Manual, Lección 2)." },
+            { lesson: 2, text: "Ejemplo de 'Costo Secundario u Oculto' para el bombero:", options: [ { text: "Medicamentos primarios.", correct: false }, { text: "Sufrimiento físico y moral.", correct: true }, { text: "Estudios médicos por accidente.", correct: false }, { text: "Internación.", correct: false } ], explanation: "El sufrimiento físico y moral, disminución de calidad de vida, son Costos Secundarios u Ocultos para el bombero (Manual, Lección 2)." },
+            { lesson: 2, text: "La 'baja de la moral del equipo conductor' impacta a:", options: [ { text: "Familia del bombero.", correct: false }, { text: "Ingresos del bombero.", correct: false }, { text: "Jefatura y Oficiales.", correct: true }, { text: "El Estado.", correct: false } ], explanation: "La baja de moral del equipo conductor es un costo que afecta a la Jefatura y Oficiales (Manual, Lección 2)." },
+            { lesson: 2, text: "Si un bombero accidentado estaba a cargo de una sección, una consecuencia operativa es:", options: [ { text: "Tarea se suspende.", correct: false }, { text: "Buscar reemplazo, generando sobrecarga.", correct: true }, { text: "Bombero sigue trabajando desde casa.", correct: false }, { text: "Contratar personal externo.", correct: false } ], explanation: "Se debería buscar un reemplazo hasta su alta médica, lo cual generaría una sobrecarga de funciones en otro/s integrante/s (Manual, Lección 2)." },
+            { lesson: 2, text: "La 'conmoción en el ánimo del grupo familiar' afecta a:", options: [ { text: "La institución.", correct: false }, { text: "La familia del bombero.", correct: true }, { text: "Imagen pública.", correct: false }, { text: "Funcionamiento operativo.", correct: false } ], explanation: "Este es un costo secundario que impacta directamente a la familia del bombero (Manual, Lección 2)." },
+            { lesson: 2, text: "Los 'Costos Primarios' de un accidente suelen ser:", options: [ { text: "Intangibles.", correct: false }, { text: "Tangibles y calculables monetariamente.", correct: true }, { text: "Exclusivamente morales.", correct: false }, { text: "A largo plazo.", correct: false } ], explanation: "Los Costos Primarios son aquellos que se suelen evidenciar en la primera etapa del accidente, normalmente de carácter tangible y calculables monetariamente (Manual, Lección 2)." },
+            { lesson: 2, text: "Un fallo judicial desfavorable para la institución es un costo relacionado con:", options: [ { text: "Costos primarios.", correct: false }, { text: "Posibles demandas.", correct: true }, { text: "Imagen pública.", correct: false }, { text: "Costos para el Estado.", correct: false } ], explanation: "Esto se enmarca en los costos derivados de posibles demandas del bombero accidentado o sus familiares (Manual, Lección 2)." },
+            { lesson: 2, text: "La pérdida de premios por asistencia u horas extras para un bombero asalariado es un costo que afecta a:", options: [ { text: "La Jefatura.", correct: false }, { text: "Los ingresos del bombero.", correct: true }, { text: "La moral del equipo.", correct: false }, { text: "La institución legalmente.", correct: false } ], explanation: "Si el accidentado trabaja en relación de dependencia conservará su salario, pero probablemente perderá el beneficio de premios por asistencia, horas extras, u otros (Manual, Lección 2)." },
+            { lesson: 2, text: "El tiempo insumido en investigar e informar un accidente es un costo para:", options: [ { text: "El bombero únicamente.", correct: false }, { text: "La Jefatura y Oficiales.", correct: true }, { text: "La familia.", correct: false }, { text: "El Estado.", correct: false } ], explanation: "Considerar el tiempo insumido en investigar e informar el accidente es un costo para la Jefatura y Oficiales (Manual, Lección 2)." },
+            { lesson: 2, text: "El impacto de la imagen de los bomberos ante la población tras un accidente puede ser:", options: [ { text: "Siempre positivo.", correct: false }, { text: "Variado, desde pena hasta cuestionamientos.", correct: true }, { text: "Siempre negativo.", correct: false }, { text: "Irrelevante.", correct: false } ], explanation: "La población puede tener diferentes puntos de vista, desde pena y valoración hasta cuestionamientos sobre la preparación (Manual, Lección 2)." },
+            { lesson: 2, text: "La 'disminución de la esperanza de vida' del bombero es un costo:", options: [ { text: "Primario y económico.", correct: false }, { text: "Secundario u oculto, con impacto cualitativo.", correct: true }, { text: "Que afecta solo a la institución.", correct: false }, { text: "Cubierto por el seguro.", correct: false } ], explanation: "La disminución de la esperanza de vida (mortalidad prematura) es un costo secundario u oculto para el bombero (Manual, Lección 2)." },
+            { lesson: 2, text: "Los costos de atención en Hospitales Públicos por un accidente de bombero suelen trasladarse a:", options: [ { text: "La familia exclusivamente.", correct: false }, { text: "El Estado.", correct: true }, { text: "La institución bomberil únicamente.", correct: false }, { text: "Organizaciones benéficas.", correct: false } ], explanation: "Normalmente una buena parte de los costos de los accidentes se trasladan al estado (atención en Hospitales Públicos, uso de obras sociales estatales, otros) (Manual, Lección 2)." },
+            { lesson: 2, text: "Si un bombero que trabaja por cuenta propia se accidenta, sus ingresos durante la convalecencia probablemente serán:", options: [ { text: "Mayores por compensación.", correct: false }, { text: "Nulos.", correct: true }, { text: "Iguales, cubiertos por un fondo especial.", correct: false }, { text: "Reducidos a la mitad.", correct: false } ], explanation: "Si el accidentado trabaja por cuenta propia, y las consecuencias del accidente le impiden desarrollar su labor, su ingreso económico durante su período de convalecencia será nulo (Manual, Lección 2)." },
+            { lesson: 2, text: "La necesidad de que la institución brinde movilidad para controles médicos del accidentado es un costo para:", options: [ { text: "El bombero.", correct: false }, { text: "La Institución.", correct: true }, { text: "La familia.", correct: false }, { text: "El seguro.", correct: false } ], explanation: "Brindar movilidad y al menos un bombero a disposición para realizar diligencias es un costo para la Institución (Manual, Lección 2)." },
+            { lesson: 2, text: "El objetivo de analizar los costos de los accidentes es principalmente:", options: [ { text: "Buscar responsables económicos.", correct: false }, { text: "Demostrar el 'abanico' de impactos que van más allá de lo económico.", correct: true }, { text: "Justificar aumentos de presupuesto.", correct: false }, { text: "Comparar con otras profesiones.", correct: false } ], explanation: "El objetivo del análisis en el manual es demostrar el 'abanico' de costos que tienen los accidentes, dándole a la palabra 'costos' un espectro que va mucho más allá de lo meramente económico (Manual, Lección 2)." },
+
+            // Lección 3: EPP y Mantenimiento (25 preguntas)
+            { lesson: 3, text: "¿Cuántas capas componen el EPP estructural (saco/pantalón) según NFPA 1971?", options: [ { text: "Una.", correct: false }, { text: "Dos.", correct: false }, { text: "Tres (exterior, humedad, térmica).", correct: true }, { text: "Cuatro.", correct: false } ], explanation: "NFPA 1971 exige tres capas: exterior (protección física), barrera de humedad (contra líquidos/vapor) y barrera térmica (contra calor) (Manual, Lección 3)." },
+            { lesson: 3, text: "¿Función principal de un dispositivo PASS?", options: [ { text: "Medir temperatura.", correct: false }, { text: "Alertar si bombero está inmóvil.", correct: true }, { text: "Comunicación por radio.", correct: false }, { text: "Iluminar.", correct: false } ], explanation: "El PASS (Personal Alert Safety System) dispara una alarma si el bombero permanece inmóvil por un tiempo determinado (Manual, Lección 3)." },
+            { lesson: 3, text: "Etapas de limpieza de EPP estructural según NFPA 1851 (2020):", options: [ { text: "Lavado, Secado, Almacenamiento.", correct: false }, { text: "Inspección, Limpieza, Reparación.", correct: false }, { text: "Descontaminación Primaria (R.E.P.), Desinfección, Limpieza Avanzada.", correct: true }, { text: "Seco, Húmedo, Desinfección.", correct: false } ], explanation: "Las tres etapas son: 1) Descontaminación Primaria (R.E.P.), 2) Desinfección, 3) Limpieza Avanzada (Manual, Lección 3)." },
+            { lesson: 3, text: "La 'monjita' o capucha protege:", options: [ { text: "Solo el cabello.", correct: false }, { text: "Orejas, cuello y cara del calor extremo.", correct: true }, { text: "Hombros y pecho.", correct: false }, { text: "Manos.", correct: false } ], explanation: "La monjita está diseñada para proteger las orejas, el cuello y la cara del bombero de la exposición al calor extremo (Manual, Lección 3)." },
+            { lesson: 3, text: "¿Qué función cumple la barrera de humedad en un traje estructural?", options: [ { text: "Proteger contra impactos.", correct: false }, { text: "Proteger contra agua en ebullición, vapor y limitar que barrera térmica se humedezca.", correct: true }, { text: "Ser la capa más resistente a abrasión.", correct: false }, { text: "Aislar del frío.", correct: false } ], explanation: "La barrera de humedad protege contra el agua en ebullición, vapor de agua, y limita que la barrera térmica se humedezca (Manual, Lección 3)." },
+            { lesson: 3, text: "El control de solapado saco/pantalón (NFPA 1500) exige que el saco solape sobre pantalón al menos:", options: [ { text: "1 pulgada.", correct: false }, { text: "2 pulgadas.", correct: true }, { text: "5 pulgadas.", correct: false }, { text: "No hay requisito.", correct: false } ], explanation: "Según la norma NFPA 1500 el saco debe solapar 2 pulgadas sobre el pantalón (Manual, Lección 3)." },
+            { lesson: 3, text: "Para limpieza avanzada de EPP, la temperatura del agua no debería exceder:", options: [ { text: "20°C.", correct: false }, { text: "40°C.", correct: true }, { text: "60°C.", correct: false }, { text: "80°C.", correct: false } ], explanation: "La temperatura del agua no debería exceder los 40°C para la limpieza avanzada (Manual, Lección 3)." },
+            { lesson: 3, text: "¿Qué protección ocular se recomienda si no se usa máscara de ERA (NFPA 1500)?", options: [ { text: "Solo anteojos de sol.", correct: false }, { text: "Antiparras y protector facial.", correct: true }, { text: "Visor del casco es suficiente.", correct: false }, { text: "No se requiere adicional.", correct: false } ], explanation: "En caso de no emplear la máscara del ERA, se debe emplear antiparras y protector facial (Manual, Lección 3)." },
+            { lesson: 3, text: "La norma NFPA 1971 se refiere a:", options: [ { text: "Limpieza de EPP.", correct: false }, { text: "Confección de Equipos Estructurales.", correct: true }, { text: "Equipos de respiración.", correct: false }, { text: "Seguridad ocupacional.", correct: false } ], explanation: "NFPA 1971 es la Norma Estadounidense que especifica la confección de los Equipos Estructurales para bomberos (Manual, Lección 3)." },
+            { lesson: 3, text: "Al limpiar EPP, ¿se debe usar lavandina (cloro)?", options: [ { text: "Sí, para desinfección.", correct: false }, { text: "No, nunca usar lavandina/clorados.", correct: true }, { text: "Solo si muy sucio.", correct: false }, { text: "Diluida en agua.", correct: false } ], explanation: "Nunca utilizar lavandina u otros productos clorados para la limpieza de EPP (Manual, Lección 3)." },
+            { lesson: 3, text: "El sistema de cierre frontal del saco estructural evita que:", options: [ { text: "Se abra con el viento.", correct: false }, { text: "Agua o productos del fuego entren por aberturas.", correct: true }, { text: "El bombero sienta frío.", correct: false }, { text: "El radio se caiga.", correct: false } ], explanation: "El sistema de cierre en la parte delantera de la capa evita que el agua o los productos del fuego entren en los agujeros que quedan entre los cierres (Manual, Lección 3)." },
+            { lesson: 3, text: "Las botas de bombero deben resistir a:", options: [ { text: "Solo agua.", correct: false }, { text: "Golpes, cortes, perforaciones, patógenos.", correct: true }, { text: "Más de 500°C.", correct: false }, { text: "Químicos corrosivos.", correct: false } ], explanation: "Las botas deben resistir al agua, golpe en dedos, cortes, resbalones, perforaciones, agentes patógenos (Manual, Lección 3)." },
+            { lesson: 3, text: "El sensor térmico en algunos PASS sirve para:", options: [ { text: "Medir temp. corporal.", correct: false }, { text: "Alarma por temp. ambiente riesgosa.", correct: true }, { text: "Enfriar al bombero.", correct: false }, { text: "Registrar temp. para informes.", correct: false } ], explanation: "El sensor térmico integra valores de temperatura en función del tiempo, y cuando estas condiciones ponen en riesgo la salud del bombero, una alarma se activa (Manual, Lección 3)." },
+            { lesson: 3, text: "La Reducción de Exposición Preliminar (R.E.P.) se realiza:", options: [ { text: "En el cuartel, después del servicio.", correct: false }, { text: "En la escena del incidente.", correct: true }, { text: "Solo si el equipo está muy contaminado.", correct: false }, { text: "Una vez por semana.", correct: false } ], explanation: "La R.E.P. se realiza en la escena del incidente para reducir los niveles de suciedad y contaminación (Manual, Lección 3)." },
+            { lesson: 3, text: "Para la R.E.P. en húmedo, se puede usar:", options: [ { text: "Solo un cepillo seco.", correct: false }, { text: "Cepillado con agua y detergente, seguido de enjuague.", correct: true }, { text: "Hidrolavadora a alta presión.", correct: false }, { text: "Productos clorados.", correct: false } ], explanation: "La R.E.P. húmeda se realiza mediante un cepillado con agua y detergente, seguido de un enjuague (Manual, Lección 3)." },
+            { lesson: 3, text: "Después de la R.E.P., el equipo estructural debería ser:", options: [ { text: "Guardado directamente en la cabina.", correct: false }, { text: "Embolsado, etiquetado y transportado fuera de la cabina.", correct: true }, { text: "Lavado inmediatamente en el hogar.", correct: false }, { text: "Secado al sol directo.", correct: false } ], explanation: "Posteriormente a la R.E.P., todo el equipo estructural se debería embolsar, etiquetar y transportar fuera de la cabina del vehículo (Manual, Lección 3)." },
+            { lesson: 3, text: "Para la desinfección del EPP, es crucial:", options: [ { text: "Usar siempre lavandina.", correct: false }, { text: "Consultar al fabricante del equipo y respetar sus indicaciones.", correct: true }, { text: "Aplicar calor extremo.", correct: false }, { text: "Fregar vigorosamente.", correct: false } ], explanation: "Se debe consultar al fabricante del equipo de protección personal la metodología y productos aprobados para la desinfección (Manual, Lección 3)." },
+            { lesson: 3, text: "El pH del jabón o detergente para limpieza avanzada de EPP debe ser:", options: [ { text: "Muy ácido (pH < 3).", correct: false }, { text: "Entre >6.5 y <10.5.", correct: true }, { text: "Muy alcalino (pH > 12).", correct: false }, { text: "No importa el pH.", correct: false } ], explanation: "El jabón o detergente a emplear para el lavado debe tener un PH: >6.5 y <10.5 (Manual, Lección 3)." },
+            { lesson: 3, text: "¿Es recomendable lavar los equipos estructurales en el hogar?", options: [ { text: "Sí, es más conveniente.", correct: false }, { text: "Nunca se deben lavar equipos en el hogar.", correct: true }, { text: "Solo si no están muy sucios.", correct: false }, { text: "Si se usa un ciclo suave, sí.", correct: false } ], explanation: "Nunca lavar equipos en el hogar, debido a la contaminación cruzada y falta de control (Manual, Lección 3)." },
+            { lesson: 3, text: "Al lavar el EPP, ¿se deben separar las capas externa e internas?", options: [ { text: "No, se lavan juntas.", correct: false }, { text: "Sí, para lavarlas por separado.", correct: true }, { text: "Solo si están muy sucias.", correct: false }, { text: "Depende del tipo de lavadora.", correct: false } ], explanation: "Se debe separar la capa externa de las barreras internas, para lavarlas por separado (Manual, Lección 3)." },
+            { lesson: 3, text: "Para el cuidado del casco, se debe evitar que la suciedad se acumule porque:", options: [ { text: "Afecta el color.", correct: false }, { text: "La suciedad absorbe el calor más rápidamente.", correct: true }, { text: "Reduce la aislación eléctrica.", correct: false }, { text: "Lo hace más pesado.", correct: false } ], explanation: "La suciedad absorbe el calor más rápidamente por lo que el bombero se expone a condiciones severas (Manual, Lección 3)." },
+            { lesson: 3, text: "Los guantes de bombero deben desecharse si:", options: [ { text: "Están ligeramente sucios.", correct: false }, { text: "Han sido dañados o los químicos no se pueden quitar completamente.", correct: true }, { text: "Tienen más de un año de uso.", correct: false }, { text: "Se mojan.", correct: false } ], explanation: "Si los guantes han sido dañados o los productos químicos no se pueden quitar completamente deben desecharse (Manual, Lección 3)." },
+            { lesson: 3, text: "Para el mantenimiento de las botas, se recomienda almacenarlas:", options: [ { text: "Acostadas y al sol.", correct: false }, { text: "Paradas y fuera del alcance del sol.", correct: true }, { text: "En bolsas plásticas cerradas.", correct: false }, { text: "Colgadas por los cordones.", correct: false } ], explanation: "Almacenar las botas paradas y fuera del alcance del sol para evitar su deterioro (Manual, Lección 3)." },
+            { lesson: 3, text: "La norma europea sobre ropa de protección para incendios estructurales es:", options: [ { text: "NFPA 1971.", correct: false }, { text: "EN 469:2005.", correct: true }, { text: "IRAM 3871.", correct: false }, { text: "ANSI Z87.1.", correct: false } ], explanation: "EN 469:2005 es la norma Europea que trata sobre la ropa de protección para incendios estructurales (Manual, Lección 3)." },
+            { lesson: 3, text: "El uso de hidrolavadoras para limpiar EPP estructural es:", options: [ { text: "Recomendado para suciedad difícil.", correct: false }, { text: "No recomendado, ya que pueden dañar las fibras.", correct: true }, { text: "Aceptable a baja presión.", correct: false }, { text: "La mejor opción de limpieza.", correct: false } ], explanation: "Nunca usar chorros de agua de alta velocidad tales como hidrolavadoras, ya que pueden dañar las capas protectoras (Manual, Lección 3)." },
+
+            // Lección 4: E.R.A. (20 preguntas)
+            { lesson: 4, text: "¿Propósito principal de un Equipo de Respiración Autónoma (ERA)?", options: [ { text: "Purificar aire contaminado.", correct: false }, { text: "Proveer oxígeno medicinal.", correct: false }, { text: "Trabajar en atmósferas anormales con suministro propio de aire.", correct: true }, { text: "Aumentar resistencia física.", correct: false } ], explanation: "El ERA permite a los bomberos trabajar en atmósferas con niveles anormales de oxígeno o tóxicas, llevando su propio suministro de aire (Manual, Lección 4)." },
+            { lesson: 4, text: "¿Cuándo suena la alarma de baja presión en un ERA?", options: [ { text: "Indica falla, suena inmediatamente.", correct: false }, { text: "Queda 10% de aire.", correct: false }, { text: "Se ha consumido ~67% del aire (queda ~33%).", correct: true }, { text: "Presión del cilindro muy alta.", correct: false } ], explanation: "La alarma de baja presión suena cuando se ha consumido aproximadamente el 67% del suministro de aire, alertando que queda un 33% disponible (Manual, Lección 4)." },
+            { lesson: 4, text: "Concentración de O2 por debajo de __% se considera crítica.", options: [ { text: "21%", correct: false }, { text: "19.5%", correct: false }, { text: "17%", correct: true }, { text: "15%", correct: false } ], explanation: "Una concentración de oxígeno en el entorno por debajo del 17% se considera situación crítica (Manual, Lección 4)." },
+            { lesson: 4, text: "Inhalar aire con temperaturas superiores a __ puede causar quemaduras vías respiratorias.", options: [ { text: "30°C-35°C", correct: false }, { text: "40°C-45°C", correct: false }, { text: "55°C-60°C", correct: true }, { text: "70°C-75°C", correct: false } ], explanation: "Temperaturas superiores a 55°C-60°C pueden causar quemaduras en las vías respiratorias (Manual, Lección 4)." },
+            { lesson: 4, text: "El Monóxido de Carbono (CO) es un gas:", options: [ { text: "Irritante.", correct: false }, { text: "Asfixiante.", correct: true }, { text: "Inerte.", correct: false }, { text: "Beneficioso.", correct: false } ], explanation: "El CO es un gas asfixiante, desplaza el oxígeno y es peligroso en lugares cerrados (Manual, Lección 4)." },
+            { lesson: 4, text: "Diferencia fundamental entre ERA de circuito abierto y cerrado:", options: [ { text: "Tipo de máscara.", correct: false }, { text: "Abierto recicla, cerrado no.", correct: false }, { text: "Cerrado recicla aire exhalado, abierto lo expulsa.", correct: true }, { text: "Material del cilindro.", correct: false } ], explanation: "El ERA de circuito cerrado recicla el aire exhalado, mientras que el de circuito abierto lo expulsa a la atmósfera (Manual, Lección 4)." },
+            { lesson: 4, text: "La norma NFPA 1981 se aplica a:", options: [ { text: "Entrenamiento ERA.", correct: false }, { text: "Aparatos de Respiración Autónomos de Circuito Abierto.", correct: true }, { text: "Limpieza máscaras ERA.", correct: false }, { text: "Cilindros de aire.", correct: false } ], explanation: "NFPA 1981 es la norma para Aparatos de Respiración Autónomos de Circuito Abierto (Manual, Lección 4)." },
+            { lesson: 4, text: "Función del cubre boca-nariz en máscara ERA:", options: [ { text: "Filtrar partículas.", correct: false }, { text: "Evitar empañamiento visor y reducir aire muerto.", correct: true }, { text: "Sello adicional.", correct: false }, { text: "Mejorar comunicación.", correct: false } ], explanation: "Su función es evitar el empañamiento del visor y reducir la cantidad de aire muerto o estático en el interior de la máscara (Manual, Lección 4)." },
+            { lesson: 4, text: "Antes de usar ERA, presión del tubo no debe ser menor de:", options: [ { text: "1500 psi.", correct: false }, { text: "1800 psi.", correct: false }, { text: "2000 psi.", correct: true }, { text: "2500 psi.", correct: false } ], explanation: "Se debe verificar que la presión en el manómetro del tubo no sea menor de 2000 psi (Manual, Lección 4)." },
+            { lesson: 4, text: "Al abrir válvula del cilindro ERA, se recomienda:", options: [ { text: "Abrir solo 1/4 vuelta.", correct: false }, { text: "Abrir al tope y cerrar 1/2 vuelta.", correct: true }, { text: "Abrir lentamente a la mitad.", correct: false }, { text: "Abrir rápido al tope.", correct: false } ], explanation: "Abrir la válvula del cilindro hasta el tope y luego cerrarla media vuelta para que en caso que esta se golpee no se trabe (Manual, Lección 4)." },
+            { lesson: 4, text: "Si se usa capucha antiflama (esclavina) con ERA, se coloca:", options: [ { text: "Antes de la máscara.", correct: false }, { text: "Después de máscara, antes de conectar válvula de demanda.", correct: true }, { text: "Después de conectar válvula.", correct: false }, { text: "No usar con ERA.", correct: false } ], explanation: "La esclavina siempre se coloca después de la máscara y antes de conectar la válvula de demanda a la máscara (Manual, Lección 4)." },
+            { lesson: 4, text: "¿Cada cuánto se realiza prueba hidráulica a cilindros ERA?", options: [ { text: "Cada año.", correct: false }, { text: "Cada 3 años.", correct: false }, { text: "Cada 5 años.", correct: true }, { text: "Cada 10 años.", correct: false } ], explanation: "La prueba hidráulica debe realizarse cada 5 años obligatoriamente (Manual, Lección 4)." },
+            { lesson: 4, text: "El almacenamiento del ERA debe ser en lugar:", options: [ { text: "Cálido y húmedo.", correct: false }, { text: "Plano, frío, seco, no expuesto a altas temp/humedad.", correct: true }, { text: "Expuesto al sol.", correct: false }, { text: "Cerca de químicos.", correct: false } ], explanation: "Debe ser almacenado en un lugar plano, frío, seco, no expuesto a altas temperaturas o condiciones de humedad (Manual, Lección 4)." },
+            { lesson: 4, text: "El tipo de ERA aceptado por NFPA 1981 para bomberos es el de:", options: [ { text: "Circuito cerrado a demanda.", correct: false }, { text: "Presión positiva (circuito abierto).", correct: true }, { text: "Presión negativa.", correct: false }, { text: "Circuito cerrado O2 puro.", correct: false } ], explanation: "De estos dos tipos (presión positiva y a demanda), sólo él ERA de presión positiva está aceptado por la Norma NFPA 1981 para su uso por los bomberos (Manual, Lección 4)." },
+            { lesson: 4, text: "La 'válvula de demanda' en un ERA funciona para:", options: [ { text: "Regular presión cilindro.", correct: false }, { text: "Suministrar aire según necesidad respiratoria.", correct: true }, { text: "Activar alarma baja presión.", correct: false }, { text: "Escape aire exhalado.", correct: false } ], explanation: "La función de la válvula de demanda es suministrar aire al Bombero de acuerdo a sus necesidades respiratorias (Manual, Lección 4)." },
+            { lesson: 4, text: "Al limpiar la máscara del ERA, se recomienda:", options: [ { text: "Usar solventes fuertes.", correct: false }, { text: "Sumergir en desinfectante según fabricante y enjuagar.", correct: true }, { text: "Solo paño seco.", correct: false }, { text: "Lavar en lavadora industrial.", correct: false } ], explanation: "Se debe emplear el líquido desinfectante y la concentración que indica el fabricante, sumergir las partes y luego enjuagar con agua natural (Manual, Lección 4)." },
+            { lesson: 4, text: "Los Equipos Purificadores de Aire (EPA) se usan si el O2 es > al:", options: [ { text: "15%", correct: false }, { text: "17.5%", correct: false }, { text: "19.5%", correct: true }, { text: "21%", correct: false } ], explanation: "Los EPA solo se utilizan si la concentración de oxígeno es mayor al 19,5% y se conocen los contaminantes (Manual, Lección 4)." },
+            { lesson: 4, text: "El regulador de presión en un ERA cumple la función de:", options: [ { text: "Aumentar la presión del aire.", correct: false }, { text: "Reducir la presión del aire del cilindro a un nivel respirable.", correct: true }, { text: "Medir la cantidad de aire restante.", correct: false }, { text: "Filtrar el aire.", correct: false } ], explanation: "Este regulador cumple la función de reducir la presión del aire que se encuentra dentro del cilindro (Manual, Lección 4)." },
+            { lesson: 4, text: "El manómetro ubicado en la correa del hombro del ERA indica:", options: [ { text: "La temperatura ambiente.", correct: false }, { text: "La presión del tubo (cilindro).", correct: true }, { text: "El tiempo de uso restante.", correct: false }, { text: "La concentración de oxígeno.", correct: false } ], explanation: "El manómetro está ubicado sobre la correa del hombro y marca la presión del tubo (Manual, Lección 4)." },
+            { lesson: 4, text: "¿Es recomendable vaciar completamente el cilindro del ERA antes de rellenarlo?", options: [ { text: "No, siempre debe quedar algo de presión.", correct: false }, { text: "Sí, es recomendable.", correct: true }, { text: "Solo si se sospecha contaminación.", correct: false }, { text: "No importa, se puede rellenar sobre el aire existente.", correct: false } ], explanation: "Es recomendable vaciar completamente el cilindro antes de rellenarlo con aire (Manual, Lección 4)." }
+        ].map((q, index) => ({ ...q, id: index }));
+
+
+        const QUESTIONS_PER_GAME = 10;
+        const TIME_PER_QUESTION = 30; 
+        const MAX_HINTS = 3;
+
+        let currentQuestionIndexInGame = 0;
+        let score = 0;
+        let currentGameQuestionsInfo = []; 
+        let hintsLeft = MAX_HINTS;
+        let timerInterval;
+        let timeLeft = TIME_PER_QUESTION;
+        let selectedLesson = 'all';
+        let soundEnabled = true;
+        let highScores = {};
+
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const endScreen = document.getElementById('end-screen');
+        const startGameBtn = document.getElementById('start-game-btn');
+        const nextQuestionBtn = document.getElementById('next-question-btn');
+        const restartGameBtn = document.getElementById('restart-game-btn');
+        const reviewAnswersBtn = document.getElementById('review-answers-btn');
+        
+        const questionNumberEl = document.getElementById('question-number');
+        const totalQuestionsEl = document.getElementById('total-questions');
+        const scoreEl = document.getElementById('score');
+        const progressBarEl = document.getElementById('progress-bar');
+        const questionTextEl = document.getElementById('question-text');
+        const optionsContainerEl = document.getElementById('options-container');
+        const feedbackTextEl = document.getElementById('feedback-text');
+        const feedbackIconEl = document.getElementById('feedback-icon');
+        const feedbackMessageEl = document.getElementById('feedback-message');
+        const explanationTextEl = document.getElementById('explanation-text');
+        const finalScoreEl = document.getElementById('final-score');
+        const finalMessageEl = document.getElementById('final-message');
+
+        const hintBtn = document.getElementById('hint-btn');
+        const hintsLeftEl = document.getElementById('hints-left');
+        const timerDisplayEl = document.getElementById('timer-display');
+        const timeLeftEl = document.getElementById('time-left');
+        const lessonSelectEl = document.getElementById('lesson-select');
+
+        const reviewModal = document.getElementById('review-modal');
+        const reviewContentEl = document.getElementById('review-content');
+        const closeReviewModalBtn = document.getElementById('close-review-modal');
+        const backToStartFromReviewBtn = document.getElementById('back-to-start-from-review-btn');
+
+
+        const soundToggleBtn = document.getElementById('sound-toggle-btn');
+        const correctSound = document.getElementById('correct-sound');
+        const incorrectSound = document.getElementById('incorrect-sound');
+        const hintSound = document.getElementById('hint-sound');
+        const highScoresTbody = document.getElementById('high-scores-tbody');
+
+
+        function playSound(soundElement) {
+            if (soundEnabled && soundElement) {
+                soundElement.currentTime = 0;
+                soundElement.play().catch(e => console.warn("Error playing sound:", e));
+            }
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            soundToggleBtn.textContent = soundEnabled ? '🔊 Sonido ON' : '🔇 Sonido OFF';
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function loadHighScores() {
+            const storedScores = localStorage.getItem('bomberoQuizHighScores');
+            if (storedScores) {
+                highScores = JSON.parse(storedScores);
+            } else {
+                highScores = { 'all': 0, '1': 0, '2': 0, '3': 0, '4': 0 };
+            }
+            displayHighScores();
+        }
+
+        function saveHighScore() {
+            const currentCategoryHighScore = highScores[selectedLesson] || 0;
+            if (score > currentCategoryHighScore) {
+                highScores[selectedLesson] = score;
+                localStorage.setItem('bomberoQuizHighScores', JSON.stringify(highScores));
+                displayHighScores();
+            }
+        }
+        
+        function getLessonName(lessonKey) {
+            const lessonOption = lessonSelectEl.querySelector(`option[value="${lessonKey}"]`);
+            return lessonOption ? lessonOption.textContent.split(':')[0].split('(')[0].trim() : 'Desconocida';
+        }
+
+        function displayHighScores() {
+            highScoresTbody.innerHTML = ''; 
+            const lessonOrder = ['all', '1', '2', '3', '4']; 
+            lessonOrder.forEach(lessonKey => {
+                 if (highScores.hasOwnProperty(lessonKey)) {
+                    const row = highScoresTbody.insertRow();
+                    const cellCategory = row.insertCell();
+                    const cellScore = row.insertCell();
+                    cellCategory.textContent = getLessonName(lessonKey);
+                    cellScore.textContent = `${highScores[lessonKey] || 0} / ${QUESTIONS_PER_GAME}`;
+                 }
+            });
+        }
+
+
+        function startGame() {
+            selectedLesson = lessonSelectEl.value;
+            currentQuestionIndexInGame = 0;
+            score = 0;
+            hintsLeft = MAX_HINTS;
+            currentGameQuestionsInfo = [];
+
+            scoreEl.textContent = score;
+            hintsLeftEl.textContent = hintsLeft;
+            hintBtn.disabled = false;
+            
+            let questionsForThisGamePool = allQuestions;
+            if (selectedLesson !== 'all') {
+                questionsForThisGamePool = allQuestions.filter(q => q.lesson == selectedLesson);
+            }
+            
+            shuffleArray(questionsForThisGamePool);
+            const numQuestionsToTake = Math.min(QUESTIONS_PER_GAME, questionsForThisGamePool.length);
+            
+            if (numQuestionsToTake === 0) {
+                alert("No hay preguntas disponibles para esta lección. Por favor, selecciona otra.");
+                startScreen.classList.remove('hidden');
+                quizScreen.classList.add('hidden');
+                return;
+            }
+
+            currentGameQuestionsInfo = questionsForThisGamePool.slice(0, numQuestionsToTake).map(q => ({ 
+                question: q, 
+                userAnswer: null, 
+                isCorrect: null, 
+                originalOptions: q.options 
+            }));
+
+
+            totalQuestionsEl.textContent = numQuestionsToTake; 
+
+            startScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            endScreen.classList.add('hidden');
+            nextQuestionBtn.classList.add('hidden');
+            feedbackTextEl.textContent = '';
+            explanationTextEl.classList.add('hidden');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            clearInterval(timerInterval);
+            timeLeft = TIME_PER_QUESTION;
+            timeLeftEl.textContent = timeLeft;
+
+            if (currentQuestionIndexInGame < currentGameQuestionsInfo.length) {
+                const currentQuestionData = currentGameQuestionsInfo[currentQuestionIndexInGame];
+                const question = currentQuestionData.question;
+                
+                questionNumberEl.textContent = currentQuestionIndexInGame + 1;
+                questionTextEl.textContent = question.text;
+                
+                optionsContainerEl.innerHTML = '';
+                explanationTextEl.classList.add('hidden');
+                feedbackIconEl.textContent = '';
+                feedbackMessageEl.textContent = '';
+                
+                const shuffledOptions = [...question.options]; 
+                shuffleArray(shuffledOptions);
+
+                shuffledOptions.forEach(option => {
+                    const button = document.createElement('button');
+                    button.textContent = option.text;
+                    button.classList.add('btn-option', 'w-full', 'text-left', 'p-3', 'rounded-lg', 'text-sm', 'md:text-base');
+                    button.dataset.originalText = option.text; 
+                    button.onclick = () => selectAnswer(button, option.correct, question.options);
+                    optionsContainerEl.appendChild(button);
+                });
+
+                nextQuestionBtn.classList.add('hidden');
+                updateProgressBar();
+
+                const optionButtons = optionsContainerEl.querySelectorAll('button');
+                optionButtons.forEach(btn => btn.disabled = false);
+                hintBtn.disabled = hintsLeft <= 0;
+
+                timerInterval = setInterval(updateTimer, 1000);
+            } else {
+                endGame();
+            }
+        }
+        
+        function updateTimer() {
+            timeLeft--;
+            timeLeftEl.textContent = timeLeft;
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                feedbackIconEl.textContent = '⏱️';
+                feedbackMessageEl.textContent = '¡Tiempo agotado!';
+                feedbackTextEl.classList.remove('text-green-400');
+                feedbackTextEl.classList.add('text-red-400');
+                playSound(incorrectSound);
+                
+                const currentQuestionData = currentGameQuestionsInfo[currentQuestionIndexInGame];
+                currentQuestionData.userAnswer = "Tiempo agotado";
+                currentQuestionData.isCorrect = false;
+                explanationTextEl.textContent = `Explicación: ${currentQuestionData.question.explanation || 'No disponible.'}`;
+                explanationTextEl.classList.remove('hidden');
+                
+                const optionButtons = optionsContainerEl.querySelectorAll('button');
+                optionButtons.forEach(btn => {
+                    btn.disabled = true;
+                    const originalOption = currentQuestionData.question.options.find(opt => opt.text === btn.dataset.originalText);
+                    if (originalOption && originalOption.correct) {
+                        btn.classList.add('correct');
+                    }
+                });
+                nextQuestionBtn.classList.remove('hidden');
+            }
+        }
+
+        function updateProgressBar() {
+            const progressPercentage = ((currentQuestionIndexInGame) / currentGameQuestionsInfo.length) * 100;
+            progressBarEl.style.width = `${progressPercentage}%`;
+        }
+
+        function selectAnswer(selectedButton, isCorrect, allOriginalOptions) {
+            clearInterval(timerInterval);
+            const currentQuestionData = currentGameQuestionsInfo[currentQuestionIndexInGame];
+            currentQuestionData.userAnswer = selectedButton.textContent; 
+            currentQuestionData.isCorrect = isCorrect;
+
+            const optionButtons = optionsContainerEl.querySelectorAll('button');
+            optionButtons.forEach(btn => {
+                btn.disabled = true;
+                const originalOption = allOriginalOptions.find(opt => opt.text === btn.dataset.originalText);
+                if (originalOption) {
+                    if (originalOption.correct) {
+                        btn.classList.add('correct');
+                    } else if (btn === selectedButton && !originalOption.correct) { 
+                         btn.classList.add('incorrect');
+                    }
+                }
+            });
+
+            if (isCorrect) {
+                score++;
+                scoreEl.textContent = score;
+                feedbackIconEl.textContent = '✔️';
+                feedbackMessageEl.textContent = '¡Correcto!';
+                feedbackTextEl.classList.remove('text-red-400');
+                feedbackTextEl.classList.add('text-green-400');
+                playSound(correctSound);
+            } else {
+                feedbackIconEl.textContent = '❌';
+                feedbackMessageEl.textContent = 'Incorrecto.';
+                feedbackTextEl.classList.remove('text-green-400');
+                feedbackTextEl.classList.add('text-red-400');
+                playSound(incorrectSound);
+            }
+            
+            explanationTextEl.textContent = `Explicación: ${currentQuestionData.question.explanation || 'No disponible.'}`;
+            explanationTextEl.classList.remove('hidden');
+            nextQuestionBtn.classList.remove('hidden');
+        }
+
+        function useHint() {
+            if (hintsLeft > 0 && !hintBtn.disabled) { 
+                playSound(hintSound);
+                hintsLeft--;
+                hintsLeftEl.textContent = hintsLeft;
+                
+                const currentQuestionData = currentGameQuestionsInfo[currentQuestionIndexInGame];
+                const optionButtons = Array.from(optionsContainerEl.children);
+                
+                const incorrectOptionsToDisable = optionButtons.filter(btn => {
+                    if (btn.disabled) return false; 
+                    const originalOption = currentQuestionData.question.options.find(opt => opt.text === btn.dataset.originalText);
+                    return originalOption && !originalOption.correct;
+                });
+
+                shuffleArray(incorrectOptionsToDisable); 
+
+                let removedCount = 0;
+                for (let i = 0; i < incorrectOptionsToDisable.length && removedCount < 2; i++) {
+                    incorrectOptionsToDisable[i].disabled = true;
+                    incorrectOptionsToDisable[i].style.opacity = '0.5'; 
+                    removedCount++;
+                }
+                if (hintsLeft <= 0) {
+                    hintBtn.disabled = true;
+                }
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndexInGame++;
+            loadQuestion();
+        }
+
+        function endGame() {
+            clearInterval(timerInterval); 
+            quizScreen.classList.add('hidden');
+            endScreen.classList.remove('hidden');
+            progressBarEl.style.width = '100%';
+            finalScoreEl.textContent = `${score} / ${currentGameQuestionsInfo.length}`;
+            saveHighScore();
+
+            let message = "";
+            const percentage = currentGameQuestionsInfo.length > 0 ? (score / currentGameQuestionsInfo.length) * 100 : 0;
+            if (percentage === 100) message = "¡Excelente! ¡Conocimiento perfecto!";
+            else if (percentage >= 80) message = "¡Muy bien! Estás muy preparado.";
+            else if (percentage >= 60) message = "¡Buen trabajo! Sigue repasando.";
+            else if (percentage >= 40) message = "Necesitas repasar más. ¡No te rindas!";
+            else message = "¡Ánimo! Un repaso completo te ayudará.";
+            finalMessageEl.textContent = message;
+        }
+
+        function showReviewModal() {
+            reviewContentEl.innerHTML = ''; 
+            currentGameQuestionsInfo.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.classList.add('review-question-item');
+                let userAnswerHtml = item.userAnswer ? `Tu respuesta: <span class="${item.isCorrect ? 'text-green-400' : 'text-red-400'}">${item.userAnswer}</span>` : '<span class="text-yellow-400">No respondida</span>';
+                if (item.userAnswer === "Tiempo agotado") userAnswerHtml = `Tu respuesta: <span class="text-red-400">Tiempo agotado</span>`;
+                
+                const correctOption = item.question.options.find(opt => opt.correct);
+
+                div.innerHTML = `
+                    <p class="font-semibold mb-1">${index + 1}. ${item.question.text}</p>
+                    <p class="mb-1">${userAnswerHtml}</p>
+                    ${!item.isCorrect && correctOption ? `<p class="mb-1">Respuesta correcta: <span class="text-green-400">${correctOption.text}</span></p>` : ''}
+                    <p class="text-xs text-gray-400 bg-gray-800 p-2 rounded-md">Explicación: ${item.question.explanation || 'No disponible.'}</p>
+                `;
+                reviewContentEl.appendChild(div);
+            });
+            reviewModal.style.display = 'block';
+        }
+
+        startGameBtn.addEventListener('click', startGame);
+        nextQuestionBtn.addEventListener('click', nextQuestion);
+        restartGameBtn.addEventListener('click', () => {
+            endScreen.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+            loadHighScores(); 
+        });
+        hintBtn.addEventListener('click', useHint);
+        reviewAnswersBtn.addEventListener('click', showReviewModal);
+        closeReviewModalBtn.addEventListener('click', () => reviewModal.style.display = 'none');
+        
+        backToStartFromReviewBtn.addEventListener('click', () => {
+            reviewModal.style.display = 'none'; 
+            endScreen.classList.add('hidden'); 
+            startScreen.classList.remove('hidden'); 
+            loadHighScores(); 
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target == reviewModal) {
+                reviewModal.style.display = 'none';
+            }
+        });
+        soundToggleBtn.addEventListener('click', toggleSound);
+
+        loadHighScores();
+    </script>
+</body>
+</html>

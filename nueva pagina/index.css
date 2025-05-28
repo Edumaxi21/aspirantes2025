@@ -1,0 +1,395 @@
+/* index.css - ESTILOS GLOBALES Y PARA INICIO.HTML */
+
+/* Fuentes de Google Fonts (asegúrate que esté enlazado en tus HTMLs) */
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap'); */
+
+:root {
+    /* Paleta Oscura Moderna Base */
+    --dark-bg: #121212; /* Fondo principal muy oscuro */
+    --dark-surface: #1e1e1e; /* Superficies como cards, modales, contenedores secundarios */
+    --dark-primary-text: #e0e0e0; /* Texto principal claro */
+    --dark-secondary-text: #b0b0b0; /* Texto secundario menos brillante */
+    --dark-border: #333333; /* Bordes sutiles */
+    --dark-button-hover-bg: #2a2a2a; /* Hover para botones sobre --dark-surface o --dark-bg */
+
+    /* Acentos de Color */
+    --accent-color-1: #00e676; /* Verde Neón/Brillante */
+    --accent-color-2: #7c4dff; /* Púrpura/Azul Vibrante */
+    --accent-color-institutional: #c82333; /* Rojo Institucional */
+    --accent-color-warning: #ffc107; /* Amarillo para advertencias o botones específicos */
+    --accent-color-orange: #fd7e14; /* Naranja para otro botón específico */
+    --accent-color-success: #28a745; /* Verde Bootstrap (para roles) */
+    --accent-color-primary-bs: #007bff; /* Azul Bootstrap (para códigos) */
+
+    /* Tipografías */
+    --font-primary: 'Montserrat', sans-serif; /* Para títulos principales */
+    --font-secondary: 'Roboto', sans-serif;   /* Para cuerpo de texto y UI */
+
+    /* Sombras */
+    --shadow-sm: rgba(0, 0, 0, 0.15);
+    --shadow-md: rgba(0, 0, 0, 0.25);
+    --shadow-lg: rgba(0, 0, 0, 0.35);
+
+    /* Variables del tema claro (si se implementa el switch para inicio.html) */
+    --light-bg: #eef2f7;
+    --light-surface: #ffffff;
+    --light-primary-text: #2c3e50;
+    --light-secondary-text: #7f8c9a;
+    --light-border: #dee2e6;
+    --light-button-hover-bg: #f0f0f0;
+}
+
+/* Reseteo básico y estilos generales del body */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body { /* Estilos base, se sobrescriben con .modern-dark-theme */
+    font-family: var(--font-secondary);
+    background-color: var(--light-bg); /* Default a claro si no hay clase de tema */
+    color: var(--light-primary-text);
+    line-height: 1.7;
+    transition: background-color 0.3s, color 0.3s;
+    display: flex; /* Para permitir que el footer se pegue abajo */
+    flex-direction: column; /* Para permitir que el footer se pegue abajo */
+    min-height: 100vh; /* Para permitir que el footer se pegue abajo */
+}
+
+body.modern-dark-theme {
+    background-color: var(--dark-bg);
+    color: var(--dark-primary-text);
+    padding-top: 60px; /* Espacio para el header fijo en ambas páginas */
+}
+
+
+/* === ESTILOS PARA INICIO.HTML === */
+
+.main-header-inicio {
+    background-color: rgba(30, 30, 30, 0.85); /* Negro semi-transparente */
+    backdrop-filter: blur(10px); /* Efecto "vidrio esmerilado" */
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed; /* Header fijo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Por encima del contenido */
+    border-bottom: 1px solid var(--dark-border);
+}
+
+.logo-container span { /* Para "B.V. Malvinas Argentinas" en inicio.html */
+    font-family: var(--font-primary);
+    font-size: 1.3em;
+    font-weight: 700;
+    color: var(--dark-primary-text);
+}
+
+.top-nav .nav-link {
+    font-family: var(--font-secondary);
+    color: var(--dark-secondary-text);
+    text-decoration: none;
+    margin-left: 20px;
+    padding: 8px 12px;
+    border-radius: 20px; /* Estilo píldora */
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+.top-nav .nav-link i { margin-right: 6px; }
+.top-nav .nav-link:hover {
+    background-color: var(--accent-color-1);
+    color: var(--dark-bg);
+}
+.top-nav .drive-link-modern { /* Estilo específico para el enlace de Drive */
+    border: 1px solid var(--accent-color-2);
+    color: var(--accent-color-2);
+}
+.top-nav .drive-link-modern:hover {
+    background-color: var(--accent-color-2);
+    color: var(--dark-primary-text);
+}
+
+.inicio-main-content { /* Contenedor para las secciones de inicio.html */
+    width: 100%;
+    flex-grow: 1; /* Para que el main ocupe el espacio y empuje el footer */
+}
+
+.hero-section {
+    text-align: center;
+    padding: 60px 20px;
+    min-height: calc(80vh - 60px); /* (vh deseada - altura header) */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Opcional: un gradiente o imagen de fondo sutil para la sección hero */
+    /* background: linear-gradient(to bottom, rgba(18,18,18,0.5), var(--dark-bg)); */
+}
+
+.hero-date-time {
+    font-size: 0.85em;
+    color: var(--dark-secondary-text);
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+}
+.hero-title {
+    font-family: var(--font-primary);
+    font-size: 3.5em;
+    font-weight: 700;
+    color: var(--dark-primary-text);
+    margin-bottom: 5px;
+    letter-spacing: -1px;
+}
+.hero-subtitle {
+    font-family: var(--font-primary);
+    font-size: 1.8em;
+    font-weight: 400;
+    color: var(--dark-secondary-text);
+    margin-bottom: 25px;
+}
+.hero-subtitle .inovb-tag {
+    font-size: 0.7em;
+    padding: 3px 8px;
+    background-color: var(--dark-surface);
+    color: var(--accent-color-2);
+    border-radius: 5px;
+    margin-left: 10px;
+    font-weight: 500;
+    border: 1px solid var(--dark-border);
+}
+.hero-description {
+    font-size: 1.1em;
+    color: var(--dark-secondary-text);
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+    line-height: 1.8;
+}
+.hero-motivational-phrase {
+    font-size: 1em;
+    color: var(--dark-secondary-text);
+    font-style: italic;
+    margin-bottom: 30px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.hero-cta-button { /* Botón "Ingresar al Módulo de Estudio" */
+    font-family: var(--font-secondary);
+    background-color: var(--accent-color-1);
+    color: var(--dark-bg); /* Texto oscuro para contraste con acento brillante */
+    padding: 15px 35px;
+    font-size: 1.1em;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 30px; /* Muy redondeado */
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 230, 118, 0.3); /* Sombra del color de acento */
+}
+.hero-cta-button i { margin-right: 10px; }
+.hero-cta-button:hover {
+    background-color: #00cf6a; /* Un poco más oscuro al pasar el mouse */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 230, 118, 0.4);
+}
+
+.tools-section {
+    padding: 50px 20px;
+    background-color: var(--dark-surface); /* Un fondo ligeramente diferente para esta sección */
+    text-align: center;
+}
+.tools-section h3 {
+    font-family: var(--font-primary);
+    font-size: 2em;
+    margin-bottom: 40px;
+    color: var(--dark-primary-text);
+    display: inline-flex;
+    align-items: center;
+}
+.tools-section h3 i { margin-right: 12px; color: var(--accent-color-2); }
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.tool-button { /* Botones de Herramientas Adicionales */
+    background-color: var(--dark-bg); /* Fondo más oscuro que la sección de herramientas */
+    color: var(--dark-secondary-text);
+    border: 1px solid var(--dark-border);
+    padding: 20px;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: var(--font-secondary);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 120px;
+}
+.tool-button i { font-size: 1.8em; margin-bottom: 12px; color: var(--accent-color-1); }
+.tool-button:hover {
+    background-color: var(--dark-button-hover-bg);
+    border-color: var(--accent-color-2);
+    color: var(--dark-primary-text);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+.tool-button:hover i { color: var(--accent-color-2); }
+/* Colores específicos para los botones de herramientas (se pueden definir aquí en lugar de inline) */
+#toggleSeguridadBomberoBtn { /* background-color: var(--accent-color-orange); */ /* Ejemplo si quieres un color específico */ }
+
+
+/* Modal para Iframes en inicio.html */
+#iframe-modal-container {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 2000; opacity: 0; visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s 0.3s linear;
+}
+#iframe-modal-container.visible {
+    opacity: 1; visibility: visible;
+    transition: opacity 0.3s ease, visibility 0s 0s linear;
+}
+.iframe-modal-content {
+    background-color: var(--dark-surface);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    width: 95%;
+    max-width: 1000px;
+    height: 90vh;
+    display: flex; flex-direction: column; position: relative;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+#iframe-modal-container.visible .iframe-modal-content {
+    transform: scale(1);
+}
+#closeIframeModalBtn {
+    position: absolute; top: 10px; right: 10px;
+    background: none; border: none;
+    color: var(--dark-secondary-text); font-size: 2em;
+    cursor: pointer; line-height: 1; padding: 5px;
+    z-index: 10;
+}
+#closeIframeModalBtn:hover { color: var(--dark-primary-text); }
+#iframe-modal-title {
+    font-family: var(--font-primary); font-size: 1.4em;
+    margin-bottom: 15px; color: var(--dark-primary-text);
+    text-align: center; padding-right: 30px; /* Espacio para el botón de cerrar */
+}
+#iframe-wrapper { flex-grow: 1; overflow: hidden; border-radius: 6px; }
+#iframe-wrapper iframe { width: 100%; height: 100%; border: none; }
+
+/* Pie de Página para inicio.html */
+.main-footer-inicio {
+    background-color: var(--dark-surface);
+    color: var(--dark-secondary-text);
+    padding: 40px 20px 20px 20px;
+    text-align: center;
+    border-top: 1px solid var(--dark-border);
+    width: 100%;
+    margin-top: auto; /* Esto es clave para que se pegue abajo si body tiene display:flex y flex-direction:column y main tiene flex-grow:1 */
+}
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    max-width: 900px;
+    margin: 0 auto 30px auto;
+    gap: 30px;
+}
+.creator-info {
+    flex-basis: 280px;
+    text-align: left;
+}
+.creator-info h4 {
+    font-family: var(--font-primary);
+    color: var(--dark-primary-text);
+    font-size: 1.1em;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--dark-border);
+    padding-bottom: 8px;
+}
+.creator-info p {
+    font-size: 0.9em;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+.creator-info p i {
+    margin-right: 10px;
+    color: var(--accent-color-1);
+    width: 20px;
+    text-align: center;
+}
+.creator-info a {
+    color: var(--dark-secondary-text);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+.creator-info a:hover {
+    color: var(--accent-color-1);
+    text-decoration: underline;
+}
+.footer-bottom {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--dark-border);
+    font-size: 0.8em;
+    color: var(--dark-secondary-text);
+}
+
+
+/* === MEDIA QUERIES GENERALES Y PARA INICIO.HTML === */
+@media (max-width: 768px) {
+    body.modern-dark-theme { padding-top: 50px; } /* Header más pequeño */
+    .main-header-inicio { padding: 8px 15px; }
+    .logo-container span { font-size: 1.1em; }
+    .top-nav .nav-link { margin-left: 10px; padding: 6px 10px; font-size: 0.85em; }
+
+    .hero-title { font-size: 2.5em; }
+    .hero-subtitle { font-size: 1.4em; }
+    .hero-description { font-size: 1em; }
+    .hero-cta-button { font-size: 1em; padding: 12px 28px; }
+
+    .tools-section h3 { font-size: 1.6em; }
+    .tools-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;}
+    .tool-button { padding: 15px; min-height: 100px; }
+    .tool-button i { font-size: 1.5em; margin-bottom: 8px; }
+    .tool-button span { font-size: 0.9em; }
+
+    .iframe-modal-content { width: 95%; padding: 20px; height: 90vh; }
+    #iframe-modal-title { font-size: 1.3em; margin-bottom: 15px;}
+
+    .footer-content { gap: 20px; }
+    .creator-info { flex-basis: 100%; text-align: center; } /* Apilar y centrar info del footer */
+    .creator-info p { justify-content: center; }
+}
+
+@media (max-width: 480px) {
+    .main-header-inicio { flex-direction: column; gap: 8px; padding-bottom: 10px;}
+    .top-nav { margin-top: 8px; }
+    .top-nav .nav-link { margin-left: 5px; margin-right: 5px; }
+
+    .hero-title { font-size: 2em; }
+    .hero-subtitle { font-size: 1.1em; }
+    .hero-description { font-size: 0.9em; }
+
+    .tools-grid { grid-template-columns: 1fr; } /* Una columna en móviles muy pequeños */
+    .tool-button { max-width: none; }
+}
