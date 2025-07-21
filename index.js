@@ -426,6 +426,29 @@ document.addEventListener('DOMContentLoaded', () => {
         { classId: 12, question: "Según el reglamento, ¿cómo debe ser el corte de cabello para el personal masculino en un desfile?", answer: { keywords: ["sobrio", "corto", "orejas", "descubiertas"], match: "any" }, displayAnswer: "Corto, sobrio, orejas descubiertas.", type: "input" },
         { classId: 12, question: "¿Qué se debe hacer con la bandera nacional de ceremonia después de arriarla, según la costumbre apropiada?", answer: { keywords: ["encanastarse", "sol", "visible"], match: "any" }, displayAnswer: "Deberá encanastarse procurando dejar el sol en la parte visible (no doblarla).", type: "input" }
         // NO HAY COMA DESPUÉS DE LA ÚLTIMA PREGUNTA SI ES EL FINAL DEL ARRAY
+
+        // Dentro del array 'const allQuestions = [...]', agregar una coma después de la última pregunta existente y pegar esto:
+        // Clase 13: Materiales y Equipos
+        { classId: 13, question: "¿Cómo se denominan los hilos transversales de una manga, que le otorgan resistencia a la presión?", answer: { keywords: ["trama"], match: "all" }, displayAnswer: "Trama", type: "input" },
+        { classId: 13, question: "¿Cuál es el ángulo de inclinación de seguridad recomendado para emplazar una escalera?", answer: { keywords: ["75"], match: "all" }, displayAnswer: "75 grados", type: "input" },
+        { classId: 13, type: 'multiple-choice', question: "¿Qué tipo de unión es hermafrodita y se conecta con 1/4 de giro?", options: ["Whitworth", "A rosca", "Storz", "Inglesa"], answer: "Storz" },
+        { classId: 13, question: "Para aspirar agua de una fuente abierta, ¿qué accesorio se coloca en la punta del chupón para evitar el ingreso de sólidos a la bomba?", answer: { keywords: ["colador"], match: "all" }, displayAnswer: "Colador (o filtro)", type: "input" },
+        { classId: 13, question: "Una línea tendida desde un hidrante hasta la autobomba se clasifica como línea de...", answer: { keywords: ["alimentacion"], match: "all" }, displayAnswer: "Alimentación", type: "input" },
+        { classId: 13, question: "¿Cuántos milímetros de diámetro tiene una manga de 2 ½ pulgadas?", answer: { keywords: ["63.5", "63,5"], match: "any" }, displayAnswer: "63,5 mm", type: "input" },
+        { classId: 13, type: 'multiple-choice', question: "La herramienta multipropósito de acero para entrada forzada, usada para palanquear, torcer o cortar, se llama:", options: ["Ariete", "Hacha Pico", "Bichero", "Hooligan"], answer: "Hooligan" },
+        { classId: 13, question: "Para realizar un rescate por una ventana, la punta de la escalera debe colocarse...", answer: { keywords: ["debajo", "alfeizar"], match: "all" }, displayAnswer: "Por debajo del alféizar", type: "input" },
+        { classId: 13, question: "¿Qué elemento de una manga son los hilos longitudinales que le proporcionan flexibilidad?", answer: { keywords: ["urdimbre"], match: "all" }, displayAnswer: "Urdimbre", type: "input" },
+        { classId: 13, question: "¿Cómo se llama la manguera semirrígida de bajo diámetro usada para ataques rápidos?", answer: { keywords: ["devanadera"], match: "all" }, displayAnswer: "Devanadera o Carretel", type: "input" },
+        { classId: 13, type: 'multiple-choice', question: "¿Qué accesorio permite dividir una línea de ataque en dos?", options: ["Reducción", "Colector", "Gemelo Divergente", "Adaptador"], answer: "Gemelo Divergente" },
+        { classId: 13, question: "Para acceder a un techo, ¿cuántos peldaños debe sobrepasar la escalera como mínimo?", answer: { keywords: ["3", "tres", "5", "cinco"], match: "any" }, displayAnswer: "Entre 3 y 5 peldaños", type: "input" },
+        { classId: 13, question: "Las uniones a rosca tipo Whitworth tienen ¿cuántos hilos por pulgada?", answer: { keywords: ["5", "cinco"], match: "any" }, displayAnswer: "5 hilos por pulgada", type: "input" },
+        { classId: 13, question: "¿Qué herramienta de zapa se usa para demoler cielorrasos y buscar focos ocultos?", answer: { keywords: ["bichero"], match: "all" }, displayAnswer: "Bichero (Pike Pole)", type: "input" },
+        { classId: 13, type: 'multiple-choice', question: "El refuerzo interno en espiral de un conducto de aspiración se denomina:", options: ["Trama", "Urdimbre", "Alma", "Forro"], answer: "Alma" },
+        { classId: 13, question: "¿Qué son los 'trinquetes' en una escalera extensible?", answer: { keywords: ["ganchos", "traba", "peldaño"], match: "all" }, displayAnswer: "Ganchos o trabas que fijan la extensión de la escalera", type: "input" },
+        { classId: 13, question: "Unir dos líneas de abastecimiento en una sola se logra con un gemelo de tipo...", answer: { keywords: ["convergente"], match: "all" }, displayAnswer: "Convergente", type: "input" },
+        { classId: 13, type: 'multiple-choice', question: "En una lanza moderna, ¿qué se ajusta para pasar de chorro pleno a niebla?", options: ["El caudal", "La palanca de cierre", "El patrón de chorro", "La presión"], answer: "El patrón de chorro" },
+        { classId: 13, question: "Además de en rollo, ¿cuál es la otra forma principal de acondicionar las mangas en una autobomba para un despliegue rápido?", answer: { keywords: ["estiba"], match: "all" }, displayAnswer: "En estiba (zig-zag o Cleveland)", type: "input" },
+        { classId: 13, question: "¿Qué elemento de goma asegura la hermeticidad entre dos uniones a rosca?", answer: { keywords: ["junta", "rodete"], match: "any" }, displayAnswer: "Junta o Rodete", type: "input" }
     ];
 
     let currentPlayQuestions = [];
