@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 10, name: "Clase 10 (Seguridad del Bombero)", infoElementId: "info-clase-10" },
         { id: 11, name: "Clase 11 (Psicología de la Emergencia)", infoElementId: "info-clase-11" },
         { id: 12, name: "Clase 12 (Escalafón, Protocolo, Ceremonial y Desfiles)", infoElementId: "info-clase-12" },
-        { id: 13, name: "Clase 13 (Materiales y Equipos)", infoElementId: "info-clase-13" },
+        { id: 13, name: "Clase 13 (Materiales y Equipos)", infoElementId: "info-clase-13" }
     ];
 
     const allQuestions = [
